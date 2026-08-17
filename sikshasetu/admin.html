@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Panel — SikshaSetu</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode:"class", theme:{ extend:{
+      colors:{"secondary":"#5c5f61","on-secondary":"#ffffff","on-error":"#ffffff","surface-container-high":"#dce9ff","on-surface":"#0b1c30","on-tertiary-container":"#98805d","tertiary":"#000000","on-tertiary-fixed-variant":"#574425","surface-container":"#e5eeff","primary-fixed":"#dae2fd","error":"#ba1a1a","error-container":"#ffdad6","inverse-on-surface":"#eaf1ff","on-background":"#0b1c30","inverse-primary":"#bec6e0","on-tertiary":"#ffffff","on-error-container":"#93000a","tertiary-container":"#271901","surface-bright":"#f8f9ff","surface-tint":"#565e74","surface-container-highest":"#d3e4fe","primary":"#000000","surface-container-low":"#eff4ff","background":"#f8f9ff","outline":"#76777d","inverse-surface":"#213145","on-primary-fixed":"#131b2e","surface-container-lowest":"#ffffff","on-primary-fixed-variant":"#3f465c","on-secondary-fixed":"#191c1e","secondary-fixed-dim":"#c4c7c9","outline-variant":"#c6c6cd","on-secondary-fixed-variant":"#444749","primary-fixed-dim":"#bec6e0","on-secondary-container":"#626567","on-surface-variant":"#45464d","primary-container":"#131b2e","surface-variant":"#d3e4fe","surface-dim":"#cbdbf5","surface":"#f8f9ff","on-primary-container":"#7c839b","secondary-container":"#e0e3e5","tertiary-fixed":"#fcdeb5","on-primary":"#ffffff","tertiary-fixed-dim":"#dec29a","secondary-fixed":"#e0e3e5","on-tertiary-fixed":"#271901"},
+      borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},
+      spacing:{"margin-desktop":"48px","stack-sm":"8px","stack-lg":"32px","margin-mobile":"20px","container-max":"1280px","stack-md":"16px","gutter":"24px","section-padding":"96px"},
+      fontFamily:{"button":["Inter"],"headline-md":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-lg":["Inter"],"label-md":["Inter"],"body-md":["Inter"],"headline-xl":["Plus Jakarta Sans"]},
+      fontSize:{"button":["16px",{"lineHeight":"24px","fontWeight":"600"}],"headline-md":["32px",{"lineHeight":"40px","fontWeight":"700"}],"display-lg-mobile":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-sm":["24px",{"lineHeight":"32px","fontWeight":"600"}],"display-lg":["64px",{"lineHeight":"72px","letterSpacing":"-0.02em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-md":["14px",{"lineHeight":"20px","fontWeight":"600"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-xl":["48px",{"lineHeight":"56px","fontWeight":"700"}]}
+    }}
+  }
+</script>
+<style>
+  .detail-modal { display:none; }
+  .detail-modal.open { display:flex; }
+  table { border-collapse: collapse; }
+  th, td { vertical-align: middle; }
+</style>
+</head>
+<body class="bg-surface-bright min-h-screen font-body-md text-body-md text-on-surface antialiased">
+
+<!-- ══ LOGIN SCREEN ══ -->
+<div id="login-screen" class="min-h-screen flex items-center justify-center px-4">
+  <div class="w-full max-w-md bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-outline-variant/40 p-10">
+    <div class="text-center mb-8">
+      <span class="material-symbols-outlined text-5xl text-primary mb-3 block" style="font-variation-settings:'FILL' 1;">admin_panel_settings</span>
+      <h1 class="font-headline-md text-headline-md text-primary">Admin Access</h1>
+      <p class="font-body-md text-body-md text-on-surface-variant mt-2">SikshaSetu Academy — Internal Panel</p>
+    </div>
+    <!-- ⚠️ Dev warning -->
+    <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-6 flex gap-2">
+      <span class="material-symbols-outlined text-amber-600 text-[18px] shrink-0">warning</span>
+      <p class="text-[13px] text-amber-700">This is a development admin panel. Replace with proper server-side authentication before deploying to production.</p>
+    </div>
+    <form id="login-form" onsubmit="handleLogin(event)" class="space-y-5">
+      <div class="flex flex-col space-y-2">
+        <label class="font-label-md text-label-md text-on-surface" for="admin-password">Admin Password</label>
+        <input class="w-full bg-surface-container-lowest border border-[#CBD5E1] rounded-DEFAULT px-4 py-3 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+          id="admin-password" type="password" placeholder="Enter admin password" autocomplete="current-password"/>
+        <p id="login-error" class="hidden text-red-600 text-[13px] flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">error</span> Incorrect password.
+        </p>
+      </div>
+      <button class="w-full bg-primary text-on-primary font-button text-button px-6 py-3 rounded-lg hover:bg-on-surface transition-colors" type="submit">
+        Sign In
+      </button>
+    </form>
+    <div class="mt-6 text-center">
+      <a href="index.html" class="text-on-surface-variant hover:text-primary text-[14px] transition-colors">← Back to Website</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADMIN PANEL ══ -->
+<div id="admin-panel" class="hidden min-h-screen flex flex-col">
+
+  <!-- Top Bar -->
+  <header class="bg-primary-container sticky top-0 z-40 shadow-md">
+    <div class="flex justify-between items-center h-16 px-6 max-w-[1400px] mx-auto">
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-on-primary" style="font-variation-settings:'FILL' 1;">admin_panel_settings</span>
+        <span class="font-headline-sm text-headline-sm text-on-primary">SikshaSetu Admin</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="text-on-primary-container hover:text-tertiary-fixed text-[14px] transition-colors flex items-center gap-1">
+          <span class="material-symbols-outlined text-[16px]">open_in_new</span> View Website
+        </a>
+        <button onclick="logout()" class="bg-surface/20 text-on-primary font-button text-[14px] px-4 py-2 rounded-lg hover:bg-surface/30 transition-colors flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">logout</span> Sign Out
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="flex-grow px-4 md:px-8 py-8 max-w-[1400px] mx-auto w-full">
+
+    <!-- ⚠️ Production Warning -->
+    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 flex gap-3">
+      <span class="material-symbols-outlined text-amber-600 shrink-0" style="font-variation-settings:'FILL' 1;">warning</span>
+      <p class="font-body-md text-body-md text-amber-800 text-[14px]">
+        <strong>Development Mode:</strong> This panel reads/writes localStorage data. In production, connect to a real database (see <code>storage.js</code>). Payment screenshots are stored as base64 in localStorage for demo purposes only — use server-side file storage in production.
+      </p>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-5">
+        <p class="font-label-md text-label-md text-on-surface-variant mb-1">Total Enrollments</p>
+        <p id="stat-total" class="font-headline-md text-headline-md text-primary">0</p>
+      </div>
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-5">
+        <p class="font-label-md text-label-md text-on-surface-variant mb-1">Pending Verification</p>
+        <p id="stat-pending" class="font-headline-md text-headline-md text-amber-600">0</p>
+      </div>
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-5">
+        <p class="font-label-md text-label-md text-on-surface-variant mb-1">Verified</p>
+        <p id="stat-verified" class="font-headline-md text-headline-md text-green-600">0</p>
+      </div>
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-5">
+        <p class="font-label-md text-label-md text-on-surface-variant mb-1">Rejected</p>
+        <p id="stat-rejected" class="font-headline-md text-headline-md text-red-600">0</p>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="flex flex-wrap gap-4 items-center justify-between mb-6">
+      <h2 class="font-headline-sm text-headline-sm text-primary">Enrollments</h2>
+      <div class="flex flex-wrap gap-3">
+        <!-- Search -->
+        <input id="search-input" type="text" placeholder="Search by name, email, course…"
+          class="border border-outline-variant rounded-lg px-4 py-2 text-[14px] focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-lowest min-w-[220px]"
+          oninput="renderTable()"/>
+        <!-- Status Filter -->
+        <select id="status-filter" onchange="renderTable()"
+          class="border border-outline-variant rounded-lg px-4 py-2 text-[14px] focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-lowest">
+          <option value="all">All Statuses</option>
+          <option value="awaiting_payment">Awaiting Payment</option>
+          <option value="verification_pending">Pending Verification</option>
+          <option value="verified">Verified</option>
+          <option value="rejected">Rejected</option>
+        </select>
+        <!-- Export -->
+        <button onclick="exportCSV()" class="flex items-center gap-2 bg-primary text-on-primary font-button text-[14px] px-4 py-2 rounded-lg hover:bg-on-surface transition-colors">
+          <span class="material-symbols-outlined text-[18px]">download</span> Export CSV
+        </button>
+        <!-- Refresh -->
+        <button onclick="loadData()" class="flex items-center gap-2 border border-outline-variant text-on-surface font-button text-[14px] px-4 py-2 rounded-lg hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[18px]">refresh</span> Refresh
+        </button>
+      </div>
+    </div>
+
+    <!-- Enrollments Table -->
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/40 overflow-hidden shadow-sm">
+      <div class="overflow-x-auto">
+        <table class="w-full text-[14px]">
+          <thead>
+            <tr class="bg-surface-container border-b border-outline-variant/30">
+              <th class="text-left px-5 py-3 font-label-md text-label-md text-on-surface-variant">ID</th>
+              <th class="text-left px-5 py-3 font-label-md text-label-md text-on-surface-variant">Student</th>
+              <th class="text-left px-5 py-3 font-label-md text-label-md text-on-surface-variant">Mobile</th>
+              <th class="text-left px-5 py-3 font-label-md text-label-md text-on-surface-variant hidden md:table-cell">Email</th>
+              <th class="text-left px-5 py-3 font-label-md text-label-md text-on-surface-variant">Course</th>
+              <th class="text-left px-5 py-3 font-label-md text-label-md text-on-surface-variant hidden lg:table-cell">Amount</th>
+              <th class="text-left px-5 py-3 font-label-md text-label-md text-on-surface-variant hidden lg:table-cell">Date</th>
+              <th class="text-left px-5 py-3 font-label-md text-label-md text-on-surface-variant">Status</th>
+              <th class="text-left px-5 py-3 font-label-md text-label-md text-on-surface-variant">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="enrollments-tbody"></tbody>
+        </table>
+      </div>
+      <div id="empty-state" class="hidden py-16 text-center">
+        <span class="material-symbols-outlined text-5xl text-on-surface-variant mb-3 block">inbox</span>
+        <p class="font-body-lg text-body-lg text-on-surface-variant">No enrollments found.</p>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1">Enrollments will appear here after students enroll on the website.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ══ DETAIL MODAL ══ -->
+<div id="detail-modal" class="detail-modal fixed inset-0 bg-black/50 z-50 items-center justify-center p-4" onclick="if(event.target===this)closeModal()">
+  <div class="bg-surface-container-lowest rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/30 sticky top-0 bg-surface-container-lowest z-10">
+      <h3 class="font-headline-sm text-headline-sm text-primary">Enrollment Details</h3>
+      <button onclick="closeModal()" class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-lg hover:bg-surface-container">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div id="modal-content" class="p-6"></div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/courses.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/notifications.js"></script>
+<script>
+  let allEnrollments = [];
+
+  // ── Auth ─────────────────────────────────────────────────────────────────
+  function handleLogin(e) {
+    e.preventDefault();
+    const pwd = document.getElementById('admin-password').value;
+    if (pwd === CONFIG.adminPassword) {
+      sessionStorage.setItem('sikshasetu_admin_auth', '1');
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('admin-panel').classList.remove('hidden');
+      loadData();
+    } else {
+      document.getElementById('login-error').classList.remove('hidden');
+    }
+  }
+
+  function logout() {
+    sessionStorage.removeItem('sikshasetu_admin_auth');
+    document.getElementById('admin-panel').classList.add('hidden');
+    document.getElementById('login-screen').classList.remove('hidden');
+    document.getElementById('admin-password').value = '';
+  }
+
+  // ── Data ─────────────────────────────────────────────────────────────────
+  function loadData() {
+    allEnrollments = Storage.getAllEnrollments();
+    updateStats();
+    renderTable();
+  }
+
+  function updateStats() {
+    document.getElementById('stat-total').textContent    = allEnrollments.length;
+    document.getElementById('stat-pending').textContent  = allEnrollments.filter(e => e.paymentStatus === 'verification_pending').length;
+    document.getElementById('stat-verified').textContent = allEnrollments.filter(e => e.paymentStatus === 'verified').length;
+    document.getElementById('stat-rejected').textContent = allEnrollments.filter(e => e.paymentStatus === 'rejected').length;
+  }
+
+  function renderTable() {
+    const search  = document.getElementById('search-input').value.toLowerCase();
+    const status  = document.getElementById('status-filter').value;
+    const tbody   = document.getElementById('enrollments-tbody');
+    const empty   = document.getElementById('empty-state');
+
+    let rows = allEnrollments.filter(e => {
+      const matchSearch = !search ||
+        e.fullName?.toLowerCase().includes(search) ||
+        e.email?.toLowerCase().includes(search) ||
+        e.courseName?.toLowerCase().includes(search) ||
+        e.enrollmentId?.toLowerCase().includes(search) ||
+        e.mobile?.includes(search);
+      const matchStatus = status === 'all' || e.paymentStatus === status;
+      return matchSearch && matchStatus;
+    });
+
+    if (rows.length === 0) {
+      tbody.innerHTML = '';
+      empty.classList.remove('hidden');
+      return;
+    }
+    empty.classList.add('hidden');
+
+    tbody.innerHTML = rows.map(e => {
+      const badge = getStatusBadge(e.paymentStatus);
+      const course = getCourseBySlug(e.courseSlug);
+      const amount = course ? Utils.formatCurrency(course.price) : Utils.formatCurrency(e.coursePrice || 0);
+      return `
+        <tr class="border-b border-outline-variant/20 hover:bg-surface-container-low transition-colors">
+          <td class="px-5 py-4">
+            <span class="font-mono text-[12px] bg-surface-container px-2 py-1 rounded text-on-surface-variant">${e.enrollmentId}</span>
+          </td>
+          <td class="px-5 py-4 font-semibold text-on-surface">${Utils.escapeHtml(e.fullName)}</td>
+          <td class="px-5 py-4 text-on-surface-variant">${Utils.escapeHtml(e.mobile)}</td>
+          <td class="px-5 py-4 text-on-surface-variant hidden md:table-cell">${Utils.escapeHtml(e.email)}</td>
+          <td class="px-5 py-4 text-on-surface max-w-[160px] truncate">${Utils.escapeHtml(e.courseName)}</td>
+          <td class="px-5 py-4 text-on-surface font-semibold hidden lg:table-cell">${amount}</td>
+          <td class="px-5 py-4 text-on-surface-variant text-[13px] hidden lg:table-cell">${Utils.formatDate(e.createdAt)}</td>
+          <td class="px-5 py-4">${badge}</td>
+          <td class="px-5 py-4">
+            <div class="flex gap-2 flex-wrap">
+              <button onclick="viewDetails('${e.enrollmentId}')" class="text-primary hover:underline text-[13px] font-semibold flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px]">visibility</span> View
+              </button>
+              ${e.paymentStatus === 'verification_pending' ? `
+                <button onclick="updateStatus('${e.enrollmentId}','verified')" class="text-green-600 hover:underline text-[13px] font-semibold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[16px]">check_circle</span> Verify
+                </button>
+                <button onclick="updateStatus('${e.enrollmentId}','rejected')" class="text-red-600 hover:underline text-[13px] font-semibold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[16px]">cancel</span> Reject
+                </button>` : ''}
+              ${e.paymentStatus === 'verified' ? `
+                <button onclick="updateStatus('${e.enrollmentId}','rejected')" class="text-red-600 hover:underline text-[13px] font-semibold">Reject</button>` : ''}
+              ${e.paymentStatus === 'rejected' ? `
+                <button onclick="updateStatus('${e.enrollmentId}','verified')" class="text-green-600 hover:underline text-[13px] font-semibold">Re-verify</button>` : ''}
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+  }
+
+  function getStatusBadge(status) {
+    const map = {
+      awaiting_payment:     'bg-surface-container text-on-surface-variant',
+      verification_pending: 'bg-amber-100 text-amber-700',
+      verified:             'bg-green-100 text-green-700',
+      rejected:             'bg-red-100 text-red-700',
+    };
+    const label = {
+      awaiting_payment:     'Awaiting Payment',
+      verification_pending: 'Pending Verification',
+      verified:             'Verified',
+      rejected:             'Rejected',
+    };
+    const cls = map[status] || 'bg-surface-container text-on-surface-variant';
+    return `<span class="${cls} font-label-md text-[12px] px-2 py-1 rounded-full">${label[status] || status}</span>`;
+  }
+
+  // ── Actions ───────────────────────────────────────────────────────────────
+  async function updateStatus(enrollmentId, status) {
+    const labels = { verified: 'Verified', rejected: 'Rejected', verification_pending: 'Pending' };
+    if (!confirm(`Mark this enrollment as "${labels[status]}"?`)) return;
+
+    Storage.updatePaymentStatus(enrollmentId, status);
+    const enrollment = Storage.getEnrollment(enrollmentId);
+
+    if (status === 'verified') await Notifications.sendPaymentVerifiedNotification(enrollment);
+    if (status === 'rejected') await Notifications.sendPaymentRejectedNotification(enrollment);
+
+    Utils.showToast(`Status updated to ${labels[status]}.`, status === 'verified' ? 'success' : 'warning');
+    loadData();
+    closeModal();
+  }
+
+  function viewDetails(enrollmentId) {
+    const e = Storage.getEnrollment(enrollmentId);
+    if (!e) return;
+
+    const course  = getCourseBySlug(e.courseSlug);
+    const amount  = course ? Utils.formatCurrency(course.price) : Utils.formatCurrency(e.coursePrice || 0);
+    const badge   = getStatusBadge(e.paymentStatus);
+
+    let screenshotHtml = '<p class="text-on-surface-variant text-[14px]">No screenshot uploaded.</p>';
+    if (e.payment?.screenshotB64) {
+      screenshotHtml = `
+        <div class="mt-2">
+          <img src="${e.payment.screenshotB64}" alt="Payment Screenshot" class="max-h-64 rounded-lg border border-outline-variant object-contain w-full"/>
+          <p class="text-[12px] text-on-surface-variant mt-1">${Utils.escapeHtml(e.payment.screenshotName || '')}</p>
+        </div>`;
+    }
+
+    document.getElementById('modal-content').innerHTML = `
+      <div class="space-y-6">
+        <div class="grid grid-cols-2 gap-4">
+          <div><p class="font-label-md text-label-md text-on-surface-variant">Status</p><div class="mt-1">${badge}</div></div>
+          <div><p class="font-label-md text-label-md text-on-surface-variant">Enrollment ID</p><p class="font-mono text-[13px] bg-surface-container px-2 py-1 rounded mt-1 inline-block">${e.enrollmentId}</p></div>
+        </div>
+        <div class="border-t border-outline-variant/30 pt-4">
+          <h4 class="font-headline-sm text-headline-sm text-primary mb-3">Student</h4>
+          <div class="grid grid-cols-2 gap-y-2 gap-x-4 text-[14px]">
+            <div><span class="text-on-surface-variant">Name</span><p class="font-semibold">${Utils.escapeHtml(e.fullName)}</p></div>
+            <div><span class="text-on-surface-variant">Mobile</span><p class="font-semibold">${Utils.escapeHtml(e.mobile)}</p></div>
+            <div><span class="text-on-surface-variant">Email</span><p>${Utils.escapeHtml(e.email)}</p></div>
+            <div><span class="text-on-surface-variant">City</span><p>${Utils.escapeHtml(e.city)}</p></div>
+            <div><span class="text-on-surface-variant">Mode</span><p class="capitalize">${Utils.escapeHtml(e.mode)}</p></div>
+            <div><span class="text-on-surface-variant">Education</span><p>${Utils.escapeHtml(e.education)}</p></div>
+          </div>
+          ${e.message ? `<div class="mt-2"><span class="text-on-surface-variant text-[14px]">Message</span><p class="text-[14px] mt-1 bg-surface-container-low rounded p-2">${Utils.escapeHtml(e.message)}</p></div>` : ''}
+        </div>
+        <div class="border-t border-outline-variant/30 pt-4">
+          <h4 class="font-headline-sm text-headline-sm text-primary mb-3">Course</h4>
+          <div class="grid grid-cols-2 gap-y-2 gap-x-4 text-[14px]">
+            <div><span class="text-on-surface-variant">Course Name</span><p class="font-semibold">${Utils.escapeHtml(e.courseName)}</p></div>
+            <div><span class="text-on-surface-variant">Amount</span><p class="font-semibold text-primary">${amount}</p></div>
+            <div><span class="text-on-surface-variant">Enrolled</span><p>${Utils.formatDateTime(e.createdAt)}</p></div>
+          </div>
+        </div>
+        ${e.payment ? `
+        <div class="border-t border-outline-variant/30 pt-4">
+          <h4 class="font-headline-sm text-headline-sm text-primary mb-3">Payment Details</h4>
+          <div class="grid grid-cols-2 gap-y-2 gap-x-4 text-[14px]">
+            <div><span class="text-on-surface-variant">UTR / Transaction ID</span><p class="font-mono font-semibold text-green-700">${Utils.escapeHtml(e.payment.utr || '—')}</p></div>
+            <div><span class="text-on-surface-variant">Payment Date</span><p>${Utils.escapeHtml(e.payment.paymentDate || '—')}</p></div>
+            <div><span class="text-on-surface-variant">Submitted At</span><p>${Utils.formatDateTime(e.payment.submittedAt)}</p></div>
+          </div>
+          <div class="mt-4"><span class="text-on-surface-variant text-[14px]">Payment Screenshot</span>${screenshotHtml}</div>
+        </div>` : '<div class="border-t border-outline-variant/30 pt-4 text-on-surface-variant text-[14px]">No payment details submitted yet.</div>'}
+        ${e.paymentStatus === 'verification_pending' ? `
+        <div class="border-t border-outline-variant/30 pt-4 flex gap-3">
+          <button onclick="updateStatus('${e.enrollmentId}','verified')" class="flex-1 bg-green-600 text-white font-button text-[15px] px-4 py-3 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">check_circle</span> Mark Verified
+          </button>
+          <button onclick="updateStatus('${e.enrollmentId}','rejected')" class="flex-1 bg-red-600 text-white font-button text-[15px] px-4 py-3 rounded-lg hover:bg-red-700 transition-colors flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">cancel</span> Mark Rejected
+          </button>
+        </div>` : ''}
+      </div>`;
+
+    document.getElementById('detail-modal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('detail-modal').classList.remove('open');
+  }
+
+  // ── Export CSV ────────────────────────────────────────────────────────────
+  function exportCSV() {
+    const rows = [
+      ['Enrollment ID','Name','Mobile','Email','City','Course','Amount','Mode','Education','Status','Enrolled At','UTR'],
+      ...allEnrollments.map(e => {
+        const course = getCourseBySlug(e.courseSlug);
+        const amount = course ? course.price : (e.coursePrice || '');
+        return [
+          e.enrollmentId, e.fullName, e.mobile, e.email, e.city,
+          e.courseName, amount, e.mode, e.education, e.paymentStatus,
+          Utils.formatDateTime(e.createdAt), e.payment?.utr || '',
+        ];
+      }),
+    ];
+    const csv  = rows.map(r => r.map(c => `"${String(c || '').replace(/"/g, '""')}"`).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = `sikshasetu-enrollments-${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    if (sessionStorage.getItem('sikshasetu_admin_auth') === '1') {
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('admin-panel').classList.remove('hidden');
+      loadData();
+    }
+    // Close modal on Escape
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  });
+</script>
+</body>
+</html>

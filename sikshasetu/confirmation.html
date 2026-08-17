@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Payment Submitted — SikshaSetu</title>
+<meta name="description" content="Your SikshaSetu course enrollment payment has been submitted and is pending verification."/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode:"class", theme:{ extend:{
+      colors:{"secondary":"#5c5f61","on-secondary":"#ffffff","on-error":"#ffffff","surface-container-high":"#dce9ff","on-surface":"#0b1c30","on-tertiary-container":"#98805d","tertiary":"#000000","on-tertiary-fixed-variant":"#574425","surface-container":"#e5eeff","primary-fixed":"#dae2fd","error":"#ba1a1a","error-container":"#ffdad6","inverse-on-surface":"#eaf1ff","on-background":"#0b1c30","inverse-primary":"#bec6e0","on-tertiary":"#ffffff","on-error-container":"#93000a","tertiary-container":"#271901","surface-bright":"#f8f9ff","surface-tint":"#565e74","surface-container-highest":"#d3e4fe","primary":"#000000","surface-container-low":"#eff4ff","background":"#f8f9ff","outline":"#76777d","inverse-surface":"#213145","on-primary-fixed":"#131b2e","surface-container-lowest":"#ffffff","on-primary-fixed-variant":"#3f465c","on-secondary-fixed":"#191c1e","secondary-fixed-dim":"#c4c7c9","outline-variant":"#c6c6cd","on-secondary-fixed-variant":"#444749","primary-fixed-dim":"#bec6e0","on-secondary-container":"#626567","on-surface-variant":"#45464d","primary-container":"#131b2e","surface-variant":"#d3e4fe","surface-dim":"#cbdbf5","surface":"#f8f9ff","on-primary-container":"#7c839b","secondary-container":"#e0e3e5","tertiary-fixed":"#fcdeb5","on-primary":"#ffffff","tertiary-fixed-dim":"#dec29a","secondary-fixed":"#e0e3e5","on-tertiary-fixed":"#271901"},
+      borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},
+      spacing:{"margin-desktop":"48px","stack-sm":"8px","stack-lg":"32px","margin-mobile":"20px","container-max":"1280px","stack-md":"16px","gutter":"24px","section-padding":"96px"},
+      fontFamily:{"button":["Inter"],"headline-md":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-lg":["Inter"],"label-md":["Inter"],"body-md":["Inter"],"headline-xl":["Plus Jakarta Sans"]},
+      fontSize:{"button":["16px",{"lineHeight":"24px","fontWeight":"600"}],"headline-md":["32px",{"lineHeight":"40px","fontWeight":"700"}],"display-lg-mobile":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-sm":["24px",{"lineHeight":"32px","fontWeight":"600"}],"display-lg":["64px",{"lineHeight":"72px","letterSpacing":"-0.02em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-md":["14px",{"lineHeight":"20px","fontWeight":"600"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-xl":["48px",{"lineHeight":"56px","fontWeight":"700"}]}
+    }}
+  }
+</script>
+<style>
+  .success-animation { animation: bounceIn 0.8s cubic-bezier(0.175,0.885,0.32,1.275) forwards; }
+  @keyframes bounceIn { 0%{transform:scale(0);opacity:0;} 50%{transform:scale(1.1);opacity:1;} 100%{transform:scale(1);opacity:1;} }
+  .pending-animation { animation: pulseGlow 2s ease-in-out infinite; }
+  @keyframes pulseGlow { 0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,0.3);} 50%{box-shadow:0 0 0 12px rgba(245,158,11,0);} }
+</style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col justify-center items-center py-12 px-margin-mobile md:px-margin-desktop font-body-md text-body-md">
+
+<!-- Error state -->
+<div id="error-state" class="hidden w-full max-w-[600px] bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 p-stack-lg text-center">
+  <span class="material-symbols-outlined text-6xl text-on-surface-variant mb-4 block">link_off</span>
+  <h1 class="font-headline-xl text-headline-xl text-primary mb-4">Enrollment Not Found</h1>
+  <p class="font-body-lg text-body-lg text-on-surface-variant mb-8">We could not find the enrollment details for this page.</p>
+  <a href="index.html" class="inline-flex items-center gap-2 bg-primary text-on-primary font-button text-button px-8 py-4 rounded-lg hover:bg-on-surface transition-colors">
+    <span class="material-symbols-outlined text-[20px]">home</span> Back to Home
+  </a>
+</div>
+
+<!-- Confirmation Card -->
+<main id="confirmation-card" class="hidden w-full max-w-[600px] bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-outline-variant/30 overflow-hidden">
+  <div class="p-stack-lg flex flex-col items-center text-center">
+
+    <!-- Success icon -->
+    <div class="w-24 h-24 bg-amber-100 rounded-full flex items-center justify-center mb-stack-lg success-animation pending-animation">
+      <span class="material-symbols-outlined text-[56px] text-amber-500" style="font-variation-settings:'FILL' 1;">pending</span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="font-headline-xl text-headline-xl mb-stack-sm text-primary">Payment Submitted!</h1>
+    <p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-lg max-w-[480px]">
+      Thank you! We have received your payment details. Our team will verify and activate your enrollment within 1–2 business days.
+    </p>
+
+    <!-- Details Card -->
+    <div class="w-full bg-surface-container-low rounded-lg p-stack-md text-left mb-stack-lg border border-outline-variant/30">
+      <h2 class="font-headline-sm text-headline-sm text-primary mb-stack-md border-b border-outline-variant/30 pb-stack-sm">Enrollment Details</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-stack-sm gap-x-gutter">
+        <div>
+          <span class="block font-label-md text-label-md text-on-surface-variant">Student Name</span>
+          <span id="conf-name" class="block font-body-md text-body-md font-semibold text-on-surface">—</span>
+        </div>
+        <div>
+          <span class="block font-label-md text-label-md text-on-surface-variant">Course</span>
+          <span id="conf-course" class="block font-body-md text-body-md font-semibold text-on-surface">—</span>
+        </div>
+        <div>
+          <span class="block font-label-md text-label-md text-on-surface-variant">Reference Number</span>
+          <span id="conf-id" class="block font-label-md text-label-md font-mono text-on-surface bg-surface-container px-2 py-1 rounded mt-1 inline-block">—</span>
+        </div>
+        <div>
+          <span class="block font-label-md text-label-md text-on-surface-variant">Amount Paid</span>
+          <span id="conf-amount" class="block font-body-md text-body-md font-semibold text-on-surface">—</span>
+        </div>
+        <div>
+          <span class="block font-label-md text-label-md text-on-surface-variant">Submitted On</span>
+          <span id="conf-date" class="block font-body-md text-body-md text-on-surface">—</span>
+        </div>
+        <div>
+          <span class="block font-label-md text-label-md text-on-surface-variant">Payment Status</span>
+          <span id="conf-status-badge" class="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 font-label-md text-[12px] mt-1 gap-1">
+            <span class="material-symbols-outlined text-[14px]">pending</span> Verification Pending
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- UTR Section (if submitted) -->
+    <div id="utr-section" class="hidden w-full bg-green-50 border border-green-200 rounded-lg p-stack-md text-left mb-stack-lg">
+      <p class="font-label-md text-label-md text-green-700 mb-1">UPI Transaction ID / UTR</p>
+      <p id="conf-utr" class="font-body-md text-body-md font-mono font-semibold text-green-800">—</p>
+    </div>
+
+    <!-- What happens next -->
+    <div class="w-full bg-surface-container-low rounded-lg p-stack-md text-left mb-stack-lg border border-outline-variant/30">
+      <h3 class="font-headline-sm text-headline-sm text-primary mb-3">What happens next?</h3>
+      <div class="space-y-3">
+        <div class="flex items-start gap-3">
+          <div class="w-7 h-7 bg-primary-fixed rounded-full flex items-center justify-center shrink-0 mt-0.5">
+            <span class="font-bold text-on-primary-fixed text-[12px]">1</span>
+          </div>
+          <p class="font-body-md text-body-md text-on-surface-variant">Our team will verify your UPI payment within 1–2 business days.</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-7 h-7 bg-primary-fixed rounded-full flex items-center justify-center shrink-0 mt-0.5">
+            <span class="font-bold text-on-primary-fixed text-[12px]">2</span>
+          </div>
+          <p class="font-body-md text-body-md text-on-surface-variant">You will receive a confirmation call/message on your registered mobile number.</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <div class="w-7 h-7 bg-primary-fixed rounded-full flex items-center justify-center shrink-0 mt-0.5">
+            <span class="font-bold text-on-primary-fixed text-[12px]">3</span>
+          </div>
+          <p class="font-body-md text-body-md text-on-surface-variant">Your course access and batch schedule will be shared with you once verified.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Support -->
+    <div class="w-full bg-surface p-stack-md rounded-lg flex items-center mb-stack-lg border border-outline-variant/20">
+      <span class="material-symbols-outlined text-primary mr-stack-md" style="font-variation-settings:'FILL' 1;">support_agent</span>
+      <div class="text-left">
+        <span class="block font-label-md text-label-md text-on-surface-variant">Need Help?</span>
+        <a id="support-email-link" href="#" class="font-body-md text-body-md text-primary font-semibold hover:underline">support@edupremium.in</a>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="w-full flex flex-col sm:flex-row gap-stack-md justify-center">
+      <a id="view-course-btn" href="index.html#courses"
+        class="bg-tertiary-fixed text-on-tertiary-fixed font-button text-button px-6 py-3 rounded-lg hover:bg-tertiary-fixed-dim transition-colors active:scale-95 text-center flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-[18px]">school</span>
+        View Course
+      </a>
+      <a href="index.html"
+        class="bg-transparent border-2 border-primary text-primary font-button text-button px-6 py-3 rounded-lg hover:bg-surface-container transition-colors active:scale-95 text-center flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-[18px]">home</span>
+        Back to Home
+      </a>
+      <button id="share-btn" onclick="shareWhatsApp()"
+        class="bg-[#25D366] text-white font-button text-button px-6 py-3 rounded-lg hover:bg-green-600 transition-colors active:scale-95 flex items-center justify-center gap-2">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.556 4.116 1.529 5.845L.057 23.928a.5.5 0 00.609.61l6.163-1.52A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.943 0-3.761-.524-5.318-1.438L2 22l1.478-4.603A9.946 9.946 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Share
+      </button>
+    </div>
+
+  </div>
+</main>
+
+<script src="js/config.js"></script>
+<script src="js/courses.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/utils.js"></script>
+<script>
+  let enrollment = null;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const enrollmentId = Utils.getQueryParam('enrollmentId');
+    enrollment = enrollmentId ? Storage.getEnrollment(enrollmentId) : null;
+
+    if (!enrollment) {
+      document.getElementById('error-state').classList.remove('hidden');
+      return;
+    }
+
+    const course = getCourseBySlug(enrollment.courseSlug);
+
+    document.getElementById('confirmation-card').classList.remove('hidden');
+    document.title = `Enrollment Confirmed — ${enrollment.courseName} — SikshaSetu`;
+
+    // Populate details
+    document.getElementById('conf-name').textContent   = enrollment.fullName;
+    document.getElementById('conf-course').textContent = enrollment.courseName;
+    document.getElementById('conf-id').textContent     = enrollment.enrollmentId;
+    document.getElementById('conf-amount').textContent = Utils.formatCurrency(course ? course.price : enrollment.coursePrice);
+    document.getElementById('conf-date').textContent   = Utils.formatDateTime(enrollment.paymentSubmittedAt || enrollment.createdAt);
+
+    // Status badge
+    const statusBadge = document.getElementById('conf-status-badge');
+    const status = enrollment.paymentStatus;
+    if (status === 'verified') {
+      statusBadge.className = 'inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-700 font-label-md text-[12px] mt-1 gap-1';
+      statusBadge.innerHTML = `<span class="material-symbols-outlined text-[14px]">check_circle</span> Payment Verified`;
+    } else if (status === 'rejected') {
+      statusBadge.className = 'inline-flex items-center px-3 py-1 rounded-full bg-red-100 text-red-700 font-label-md text-[12px] mt-1 gap-1';
+      statusBadge.innerHTML = `<span class="material-symbols-outlined text-[14px]">cancel</span> Payment Rejected — Please Contact Support`;
+    } else {
+      statusBadge.className = 'inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 font-label-md text-[12px] mt-1 gap-1';
+      statusBadge.innerHTML = `<span class="material-symbols-outlined text-[14px]">pending</span> Payment Submitted — Verification Pending`;
+    }
+
+    // UTR
+    if (enrollment.payment?.utr) {
+      document.getElementById('utr-section').classList.remove('hidden');
+      document.getElementById('conf-utr').textContent = enrollment.payment.utr;
+    }
+
+    // Support
+    document.getElementById('support-email-link').href        = `mailto:${CONFIG.supportEmail}`;
+    document.getElementById('support-email-link').textContent = CONFIG.supportEmail;
+
+    // View course link
+    if (enrollment.courseSlug) {
+      document.getElementById('view-course-btn').href = `course.html?id=${enrollment.courseSlug}`;
+    }
+  });
+
+  function shareWhatsApp() {
+    if (!enrollment) return;
+    const url = CONFIG.buildWhatsAppUrl(enrollment.enrollmentId, enrollment.courseName);
+    window.open(url, '_blank');
+  }
+</script>
+</body>
+</html>

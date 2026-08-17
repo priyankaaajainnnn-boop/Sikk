@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Complete Payment — SikshaSetu</title>
+<meta name="description" content="Complete your SikshaSetu course enrollment by making a UPI payment and submitting your transaction details."/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode:"class", theme:{ extend:{
+      colors:{"secondary":"#5c5f61","on-secondary":"#ffffff","on-error":"#ffffff","surface-container-high":"#dce9ff","on-surface":"#0b1c30","on-tertiary-container":"#98805d","tertiary":"#000000","on-tertiary-fixed-variant":"#574425","surface-container":"#e5eeff","primary-fixed":"#dae2fd","error":"#ba1a1a","error-container":"#ffdad6","inverse-on-surface":"#eaf1ff","on-background":"#0b1c30","inverse-primary":"#bec6e0","on-tertiary":"#ffffff","on-error-container":"#93000a","tertiary-container":"#271901","surface-bright":"#f8f9ff","surface-tint":"#565e74","surface-container-highest":"#d3e4fe","primary":"#000000","surface-container-low":"#eff4ff","background":"#f8f9ff","outline":"#76777d","inverse-surface":"#213145","on-primary-fixed":"#131b2e","surface-container-lowest":"#ffffff","on-primary-fixed-variant":"#3f465c","on-secondary-fixed":"#191c1e","secondary-fixed-dim":"#c4c7c9","outline-variant":"#c6c6cd","on-secondary-fixed-variant":"#444749","primary-fixed-dim":"#bec6e0","on-secondary-container":"#626567","on-surface-variant":"#45464d","primary-container":"#131b2e","surface-variant":"#d3e4fe","surface-dim":"#cbdbf5","surface":"#f8f9ff","on-primary-container":"#7c839b","secondary-container":"#e0e3e5","tertiary-fixed":"#fcdeb5","on-primary":"#ffffff","tertiary-fixed-dim":"#dec29a","secondary-fixed":"#e0e3e5","on-tertiary-fixed":"#271901"},
+      borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},
+      spacing:{"margin-desktop":"48px","stack-sm":"8px","stack-lg":"32px","margin-mobile":"20px","container-max":"1280px","stack-md":"16px","gutter":"24px","section-padding":"96px"},
+      fontFamily:{"button":["Inter"],"headline-md":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-lg":["Inter"],"label-md":["Inter"],"body-md":["Inter"],"headline-xl":["Plus Jakarta Sans"]},
+      fontSize:{"button":["16px",{"lineHeight":"24px","fontWeight":"600"}],"headline-md":["32px",{"lineHeight":"40px","fontWeight":"700"}],"display-lg-mobile":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-sm":["24px",{"lineHeight":"32px","fontWeight":"600"}],"display-lg":["64px",{"lineHeight":"72px","letterSpacing":"-0.02em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-md":["14px",{"lineHeight":"20px","fontWeight":"600"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-xl":["48px",{"lineHeight":"56px","fontWeight":"700"}]}
+    }}
+  }
+</script>
+<style>
+  .qr-box { background: repeating-linear-gradient(45deg, #f0f4ff 0, #f0f4ff 10px, #fff 10px, #fff 20px); }
+  #screenshot-preview { display:none; }
+</style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-body-md antialiased bg-background text-on-background">
+
+<!-- ══ HEADER ══ -->
+<header class="bg-surface sticky top-0 w-full shadow-sm z-50">
+  <div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+    <a href="index.html" class="font-headline-sm text-headline-sm font-bold text-primary flex items-center gap-2">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">school</span>SikshaSetu
+    </a>
+    <a href="index.html#courses" class="text-on-surface-variant hover:text-primary text-button font-button transition-colors hidden md:inline">← All Courses</a>
+  </div>
+</header>
+
+<main class="flex-grow flex flex-col items-center justify-start pt-12 pb-section-padding px-margin-mobile md:px-margin-desktop">
+  <div class="w-full max-w-[820px] flex flex-col space-y-stack-lg">
+
+    <!-- Progress Steps -->
+    <div class="w-full">
+      <div class="flex items-center justify-between mb-4 relative">
+        <div class="absolute top-1/2 left-0 w-full h-1 bg-surface-container -z-10 -translate-y-1/2 rounded-full"></div>
+        <div class="absolute top-1/2 left-0 w-2/3 h-1 bg-primary -z-10 -translate-y-1/2 rounded-full transition-all duration-500"></div>
+        <div class="flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center text-sm mb-2 shadow-sm"><span class="material-symbols-outlined text-[16px]">check</span></div>
+          <span class="font-label-md text-label-md text-on-surface text-[11px] md:text-label-md text-center">Course</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center text-sm mb-2 shadow-sm"><span class="material-symbols-outlined text-[16px]">check</span></div>
+          <span class="font-label-md text-label-md text-on-surface text-[11px] md:text-label-md text-center">Details</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-sm mb-2 shadow-sm ring-4 ring-primary-fixed">3</div>
+          <span class="font-label-md text-label-md text-on-surface font-bold text-[11px] md:text-label-md text-center">Payment</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center font-bold text-sm mb-2">4</div>
+          <span class="font-label-md text-label-md text-on-surface-variant text-[11px] md:text-label-md text-center">Confirmed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="hidden bg-error-container border border-red-200 rounded-xl p-8 text-center">
+      <span class="material-symbols-outlined text-5xl text-red-600 mb-3 block">receipt_long</span>
+      <h2 class="font-headline-sm text-headline-sm text-red-700 mb-2">Enrollment Not Found</h2>
+      <p class="font-body-md text-body-md text-red-600 mb-6">We could not find your enrollment details. This can happen if you cleared your browser data or navigated here directly.</p>
+      <a href="index.html#courses" class="inline-flex items-center gap-2 bg-primary text-on-primary font-button text-button px-8 py-3 rounded-lg hover:bg-on-surface transition-colors">
+        <span class="material-symbols-outlined text-[18px]">arrow_back</span> Start Over
+      </a>
+    </div>
+
+    <!-- Payment Content -->
+    <div id="payment-content" class="hidden flex flex-col gap-8">
+
+      <!-- Page Heading -->
+      <div class="text-center">
+        <h1 class="font-headline-xl text-headline-xl text-on-surface mb-2">Complete Your Payment</h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant">Pay via UPI and submit your transaction details below.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+
+        <!-- LEFT: Order Summary + UPI -->
+        <div class="flex flex-col gap-6">
+          <!-- Order Summary -->
+          <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6">
+            <h2 class="font-headline-sm text-headline-sm text-primary mb-4 pb-3 border-b border-outline-variant/30">Order Summary</h2>
+            <div class="space-y-3">
+              <div class="flex justify-between items-start gap-4">
+                <span class="font-body-md text-body-md text-on-surface-variant">Student Name</span>
+                <span id="summary-name" class="font-body-md text-body-md text-on-surface font-semibold text-right">—</span>
+              </div>
+              <div class="flex justify-between items-start gap-4">
+                <span class="font-body-md text-body-md text-on-surface-variant">Course</span>
+                <span id="summary-course" class="font-body-md text-body-md text-on-surface font-semibold text-right">—</span>
+              </div>
+              <div class="flex justify-between items-start gap-4">
+                <span class="font-body-md text-body-md text-on-surface-variant">Duration</span>
+                <span id="summary-duration" class="font-body-md text-body-md text-on-surface text-right">—</span>
+              </div>
+              <div class="flex justify-between items-start gap-4">
+                <span class="font-body-md text-body-md text-on-surface-variant">Learning Mode</span>
+                <span id="summary-mode" class="font-body-md text-body-md text-on-surface text-right capitalize">—</span>
+              </div>
+              <div class="flex justify-between items-start gap-4">
+                <span class="font-body-md text-body-md text-on-surface-variant">Enrollment ID</span>
+                <span id="summary-id" class="font-label-md text-label-md text-on-surface bg-surface-container px-2 py-1 rounded font-mono">—</span>
+              </div>
+              <div class="pt-3 border-t border-outline-variant/30 flex justify-between items-center">
+                <span class="font-headline-sm text-headline-sm text-primary">Total Amount</span>
+                <span id="summary-amount" class="font-headline-sm text-headline-sm text-primary">—</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- UPI Payment Box -->
+          <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6">
+            <h2 class="font-headline-sm text-headline-sm text-primary mb-4 pb-3 border-b border-outline-variant/30 flex items-center gap-2">
+              <span class="material-symbols-outlined text-amber-500" style="font-variation-settings:'FILL' 1;">qr_code_2</span>
+              Pay via UPI
+            </h2>
+
+            <!-- QR Code Placeholder -->
+            <div class="qr-box rounded-xl border-2 border-dashed border-outline-variant p-6 flex flex-col items-center justify-center text-center mb-5 min-h-[200px]">
+              <!-- SVG QR placeholder -->
+              <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="mb-3 opacity-50">
+                <rect x="5" y="5" width="40" height="40" rx="4" fill="#131b2e"/>
+                <rect x="13" y="13" width="24" height="24" rx="2" fill="white"/>
+                <rect x="18" y="18" width="14" height="14" rx="1" fill="#131b2e"/>
+                <rect x="75" y="5" width="40" height="40" rx="4" fill="#131b2e"/>
+                <rect x="83" y="13" width="24" height="24" rx="2" fill="white"/>
+                <rect x="88" y="18" width="14" height="14" rx="1" fill="#131b2e"/>
+                <rect x="5" y="75" width="40" height="40" rx="4" fill="#131b2e"/>
+                <rect x="13" y="83" width="24" height="24" rx="2" fill="white"/>
+                <rect x="18" y="88" width="14" height="14" rx="1" fill="#131b2e"/>
+                <rect x="55" y="5" width="10" height="10" rx="1" fill="#131b2e"/>
+                <rect x="55" y="25" width="10" height="10" rx="1" fill="#131b2e"/>
+                <rect x="5" y="55" width="10" height="10" rx="1" fill="#131b2e"/>
+                <rect x="25" y="55" width="10" height="10" rx="1" fill="#131b2e"/>
+                <rect x="55" y="55" width="60" height="10" rx="1" fill="#131b2e"/>
+                <rect x="55" y="75" width="10" height="40" rx="1" fill="#131b2e"/>
+                <rect x="75" y="75" width="10" height="10" rx="1" fill="#131b2e"/>
+                <rect x="95" y="75" width="20" height="10" rx="1" fill="#131b2e"/>
+                <rect x="75" y="95" width="40" height="10" rx="1" fill="#131b2e"/>
+                <rect x="95" y="105" width="20" height="10" rx="1" fill="#131b2e"/>
+              </svg>
+              <p class="font-label-md text-label-md text-on-surface-variant mb-1">Scan with any UPI app</p>
+              <p class="font-body-md text-body-md text-on-surface-variant text-[13px]">PhonePe · GPay · Paytm · BHIM</p>
+              <div class="mt-3 px-4 py-2 bg-amber-50 border border-amber-200 rounded-lg">
+                <p class="font-label-md text-label-md text-amber-700">⚠️ Replace QR code before going live</p>
+              </div>
+            </div>
+
+            <!-- UPI ID -->
+            <div class="bg-surface-container-low rounded-lg px-4 py-3 flex items-center justify-between gap-4 mb-5">
+              <div>
+                <p class="font-label-md text-label-md text-on-surface-variant mb-1">UPI ID</p>
+                <p id="upi-id-display" class="font-headline-sm text-headline-sm text-primary font-mono tracking-tight">—</p>
+              </div>
+              <button id="copy-upi-btn" onclick="copyUpiId()" class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md border border-outline-variant rounded-lg px-3 py-2 hover:bg-surface-container">
+                <span class="material-symbols-outlined text-[18px]">content_copy</span> Copy
+              </button>
+            </div>
+
+            <!-- Pay via UPI App Button -->
+            <a id="upi-pay-btn" href="#" class="w-full flex items-center justify-center gap-3 bg-primary text-on-primary font-button text-button px-6 py-4 rounded-lg hover:bg-on-surface transition-colors duration-200 mb-3">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">account_balance_wallet</span>
+              Open UPI App to Pay
+            </a>
+            <p class="text-center font-label-md text-label-md text-on-surface-variant text-[12px]">
+              Opens your UPI app with the amount pre-filled. Works on mobile.
+            </p>
+          </div>
+        </div>
+
+        <!-- RIGHT: Payment Submission Form -->
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6">
+          <h2 class="font-headline-sm text-headline-sm text-primary mb-2 pb-3 border-b border-outline-variant/30 flex items-center gap-2">
+            <span class="material-symbols-outlined text-green-600" style="font-variation-settings:'FILL' 1;">task_alt</span>
+            Submit Payment Details
+          </h2>
+          <p class="font-body-md text-body-md text-on-surface-variant mb-6 text-[14px]">
+            After making the UPI payment, please fill in the details below so we can verify your payment.
+          </p>
+
+          <form id="payment-form" class="space-y-5" novalidate>
+
+            <!-- UTR / Transaction ID -->
+            <div class="flex flex-col space-y-2">
+              <label class="font-label-md text-label-md text-on-surface" for="utr">UPI Transaction ID / UTR Number <span class="text-red-500">*</span></label>
+              <input class="w-full bg-white border border-[#CBD5E1] rounded-DEFAULT px-4 py-3 text-on-surface focus:outline-none focus:ring-2 focus:ring-[#FACC15] focus:border-[#FACC15] transition-all font-body-md font-mono tracking-wide"
+                id="utr" name="utr" placeholder="e.g. 416712345678" type="text" autocomplete="off" spellcheck="false"/>
+              <p class="text-[12px] text-on-surface-variant">Find the UTR/Transaction ID in your UPI app's payment history.</p>
+            </div>
+
+            <!-- Payment Date -->
+            <div class="flex flex-col space-y-2">
+              <label class="font-label-md text-label-md text-on-surface" for="paymentDate">Date of Payment <span class="text-red-500">*</span></label>
+              <input class="w-full bg-white border border-[#CBD5E1] rounded-DEFAULT px-4 py-3 text-on-surface focus:outline-none focus:ring-2 focus:ring-[#FACC15] focus:border-[#FACC15] transition-all font-body-md"
+                id="paymentDate" name="paymentDate" type="date"/>
+            </div>
+
+            <!-- Screenshot Upload -->
+            <div class="flex flex-col space-y-2">
+              <label class="font-label-md text-label-md text-on-surface" for="screenshot">Payment Screenshot <span class="text-red-500">*</span></label>
+              <div id="upload-zone" class="border-2 border-dashed border-outline-variant rounded-lg p-6 text-center cursor-pointer hover:border-primary hover:bg-surface-container-low transition-all duration-200" onclick="document.getElementById('screenshot').click()">
+                <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-2 block">upload_file</span>
+                <p class="font-body-md text-body-md text-on-surface-variant">Click to upload screenshot</p>
+                <p class="text-[12px] text-on-surface-variant mt-1">JPG, PNG, WebP · Max 5 MB</p>
+              </div>
+              <input class="hidden" id="screenshot" name="screenshot" type="file" accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"/>
+              <!-- Preview -->
+              <div id="screenshot-preview" class="mt-3 relative">
+                <img id="preview-img" src="" alt="Payment screenshot preview" class="max-h-48 rounded-lg border border-outline-variant object-contain w-full"/>
+                <button type="button" onclick="clearScreenshot()" class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors">
+                  <span class="material-symbols-outlined text-[16px]">close</span>
+                </button>
+                <p id="preview-filename" class="text-[12px] text-on-surface-variant mt-1 text-center"></p>
+              </div>
+            </div>
+
+            <!-- Important Note -->
+            <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 flex gap-3">
+              <span class="material-symbols-outlined text-amber-600 shrink-0 mt-0.5" style="font-variation-settings:'FILL' 1;">info</span>
+              <p class="font-body-md text-body-md text-amber-800 text-[14px]">
+                Your enrollment will be activated after our team verifies the payment (typically within 1–2 business days).
+              </p>
+            </div>
+
+            <!-- Submit -->
+            <button id="payment-submit-btn" type="submit" class="w-full bg-[#FACC15] text-black font-button text-button px-6 py-4 rounded-DEFAULT font-bold hover:scale-[0.98] hover:bg-amber-400 transition-all duration-200 flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-[20px]">send</span>
+              Submit Payment Details
+            </button>
+
+          </form>
+        </div>
+      </div>
+    </div><!-- /payment-content -->
+
+  </div>
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer class="bg-primary-container w-full py-8 mt-12">
+  <div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center">
+    <p class="font-body-md text-body-md text-on-primary-container/60">© 2024 SikshaSetu Academy · <a href="#" class="hover:text-tertiary-fixed">Terms</a> · <a href="index.html#footer" class="hover:text-tertiary-fixed">Contact</a></p>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/courses.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/notifications.js"></script>
+<script>
+  let enrollment    = null;
+  let isSubmitting  = false;
+  let screenshotFile = null;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const enrollmentId = Utils.getQueryParam('enrollmentId');
+    enrollment = enrollmentId ? Storage.getEnrollment(enrollmentId) : null;
+
+    if (!enrollment) {
+      document.getElementById('error-state').classList.remove('hidden');
+      return;
+    }
+
+    // Verify course price server-side style: always look up from COURSES data
+    const course = getCourseBySlug(enrollment.courseSlug);
+    if (!course) {
+      document.getElementById('error-state').classList.remove('hidden');
+      return;
+    }
+    // Use course price from data — never trust stored price alone
+    const amount = course.price;
+
+    document.getElementById('payment-content').classList.remove('hidden');
+
+    // Populate summary
+    document.getElementById('summary-name').textContent     = Utils.escapeHtml(enrollment.fullName);
+    document.getElementById('summary-course').textContent   = course.name;
+    document.getElementById('summary-duration').textContent = course.duration;
+    document.getElementById('summary-mode').textContent     = enrollment.mode || '—';
+    document.getElementById('summary-id').textContent       = enrollment.enrollmentId;
+    document.getElementById('summary-amount').textContent   = Utils.formatCurrency(amount);
+
+    // UPI
+    document.getElementById('upi-id-display').textContent   = CONFIG.upiId;
+    document.getElementById('upi-pay-btn').href             = CONFIG.buildUpiLink(amount, enrollment.enrollmentId);
+
+    // Set today's date as default
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('paymentDate').value = today;
+    document.getElementById('paymentDate').max   = today;
+
+    // Screenshot upload
+    document.getElementById('screenshot').addEventListener('change', handleScreenshotChange);
+
+    // Form submission
+    document.getElementById('payment-form').addEventListener('submit', handlePaymentSubmit);
+
+    // Live validation
+    ['utr', 'paymentDate'].forEach(id => {
+      document.getElementById(id)?.addEventListener('blur',  () => validatePaymentField(id));
+      document.getElementById(id)?.addEventListener('input', () => Utils.clearFieldError(id));
+    });
+  });
+
+  function handleScreenshotChange(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const check = Utils.validateImageFile(file);
+    if (!check.valid) {
+      Utils.showFieldError('screenshot', check.error);
+      e.target.value = '';
+      return;
+    }
+    Utils.clearFieldError('screenshot');
+    screenshotFile = file;
+
+    // Show preview
+    const reader = new FileReader();
+    reader.onload = ev => {
+      document.getElementById('preview-img').src = ev.target.result;
+      document.getElementById('preview-filename').textContent = file.name;
+      document.getElementById('screenshot-preview').style.display = 'block';
+      document.getElementById('upload-zone').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function clearScreenshot() {
+    screenshotFile = null;
+    document.getElementById('screenshot').value = '';
+    document.getElementById('screenshot-preview').style.display = 'none';
+    document.getElementById('upload-zone').style.display = 'block';
+  }
+
+  function validatePaymentField(id) {
+    const val = document.getElementById(id)?.value?.trim() || '';
+    Utils.clearFieldError(id);
+    if (id === 'utr' && val.length < 6) {
+      Utils.showFieldError(id, 'Please enter a valid UTR / Transaction ID (at least 6 characters).');
+      return false;
+    }
+    if (id === 'paymentDate' && !val) {
+      Utils.showFieldError(id, 'Please select the payment date.');
+      return false;
+    }
+    return true;
+  }
+
+  function copyUpiId() {
+    navigator.clipboard.writeText(CONFIG.upiId).then(() => {
+      Utils.showToast('UPI ID copied to clipboard!', 'success', 2000);
+    }).catch(() => {
+      Utils.showToast('Please copy the UPI ID manually.', 'info');
+    });
+  }
+
+  async function handlePaymentSubmit(e) {
+    e.preventDefault();
+    if (isSubmitting) return;
+
+    // Validate
+    let valid = true;
+    if (!validatePaymentField('utr')) valid = false;
+    if (!validatePaymentField('paymentDate')) valid = false;
+    if (!screenshotFile) {
+      Utils.showFieldError('screenshot', 'Please upload a screenshot of your UPI payment receipt.');
+      valid = false;
+    }
+    if (!valid) {
+      Utils.showToast('Please complete all required fields.', 'error');
+      return;
+    }
+
+    isSubmitting = true;
+    const btn = document.getElementById('payment-submit-btn');
+    Utils.setButtonLoading(btn, true, 'Submitting…');
+
+    try {
+      // Convert screenshot to base64 for localStorage (dev mode)
+      let screenshotB64   = null;
+      let screenshotName  = null;
+      if (screenshotFile) {
+        screenshotB64  = await Utils.fileToBase64(screenshotFile);
+        screenshotName = screenshotFile.name;
+      }
+
+      const paymentData = {
+        utr:           document.getElementById('utr').value.trim().toUpperCase(),
+        paymentDate:   document.getElementById('paymentDate').value,
+        screenshotB64,
+        screenshotName,
+      };
+
+      const success = Storage.updatePayment(enrollment.enrollmentId, paymentData);
+      if (!success) throw new Error('Could not save payment data.');
+
+      // Get updated enrollment
+      const updated = Storage.getEnrollment(enrollment.enrollmentId);
+      await Notifications.sendPaymentSubmittedNotification(updated);
+
+      Utils.showToast('Payment details submitted! Redirecting…', 'success');
+      setTimeout(() => {
+        window.location.href = `confirmation.html?enrollmentId=${enrollment.enrollmentId}`;
+      }, 800);
+    } catch (err) {
+      console.error(err);
+      Utils.setButtonLoading(btn, false);
+      Utils.showToast('Something went wrong. Please try again.', 'error');
+      isSubmitting = false;
+    }
+  }
+</script>
+</body>
+</html>

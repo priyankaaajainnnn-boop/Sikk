@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SikshaSetu — Learn Practical Computer Skills in India</title>
+<meta name="description" content="SikshaSetu Academy offers practical, affordable computer courses in India. Master Excel, Web Design, Tally, Digital Marketing and more. Enrol today!"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "secondary": "#5c5f61","on-secondary": "#ffffff","on-error": "#ffffff","surface-container-high": "#dce9ff","on-surface": "#0b1c30","on-tertiary-container": "#98805d","tertiary": "#000000","on-tertiary-fixed-variant": "#574425","surface-container": "#e5eeff","primary-fixed": "#dae2fd","error": "#ba1a1a","error-container": "#ffdad6","inverse-on-surface": "#eaf1ff","on-background": "#0b1c30","inverse-primary": "#bec6e0","on-tertiary": "#ffffff","on-error-container": "#93000a","tertiary-container": "#271901","surface-bright": "#f8f9ff","surface-tint": "#565e74","surface-container-highest": "#d3e4fe","primary": "#000000","surface-container-low": "#eff4ff","background": "#f8f9ff","outline": "#76777d","inverse-surface": "#213145","on-primary-fixed": "#131b2e","surface-container-lowest": "#ffffff","on-primary-fixed-variant": "#3f465c","on-secondary-fixed": "#191c1e","secondary-fixed-dim": "#c4c7c9","outline-variant": "#c6c6cd","on-secondary-fixed-variant": "#444749","primary-fixed-dim": "#bec6e0","on-secondary-container": "#626567","on-surface-variant": "#45464d","primary-container": "#131b2e","surface-variant": "#d3e4fe","surface-dim": "#cbdbf5","surface": "#f8f9ff","on-primary-container": "#7c839b","secondary-container": "#e0e3e5","tertiary-fixed": "#fcdeb5","on-primary": "#ffffff","tertiary-fixed-dim": "#dec29a","secondary-fixed": "#e0e3e5","on-tertiary-fixed": "#271901"
+        },
+        borderRadius: { "DEFAULT": "0.25rem","lg": "0.5rem","xl": "0.75rem","full": "9999px" },
+        spacing: { "margin-desktop": "48px","stack-sm": "8px","stack-lg": "32px","margin-mobile": "20px","container-max": "1280px","stack-md": "16px","gutter": "24px","section-padding": "96px" },
+        fontFamily: { "button": ["Inter"],"headline-md": ["Plus Jakarta Sans"],"display-lg-mobile": ["Plus Jakarta Sans"],"headline-sm": ["Plus Jakarta Sans"],"display-lg": ["Plus Jakarta Sans"],"body-lg": ["Inter"],"label-md": ["Inter"],"body-md": ["Inter"],"headline-xl": ["Plus Jakarta Sans"] },
+        fontSize: {
+          "button": ["16px",{"lineHeight":"24px","fontWeight":"600"}],"headline-md": ["32px",{"lineHeight":"40px","fontWeight":"700"}],"display-lg-mobile": ["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-sm": ["24px",{"lineHeight":"32px","fontWeight":"600"}],"display-lg": ["64px",{"lineHeight":"72px","letterSpacing":"-0.02em","fontWeight":"800"}],"body-lg": ["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-md": ["14px",{"lineHeight":"20px","fontWeight":"600"}],"body-md": ["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-xl": ["48px",{"lineHeight":"56px","fontWeight":"700"}]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .filter-btn.active { background-color: #000; color: #fff; }
+  .mobile-menu-enter { transition: opacity 0.2s, transform 0.2s; }
+  @keyframes fadeInUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+  .course-card-anim { animation: fadeInUp 0.35s ease both; }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col">
+
+<!-- ══ TOP NAV ══════════════════════════════════════════════════════════════ -->
+<header class="bg-surface sticky top-0 w-full shadow-sm z-50 transition-all duration-300">
+  <div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+    <!-- Brand -->
+    <a class="font-headline-sm text-headline-sm font-bold text-primary flex items-center gap-2" href="index.html">
+      <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1;">school</span>
+      EduPremium
+    </a>
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex gap-8 items-center">
+      <a class="text-primary border-b-2 border-primary font-bold pb-1 text-button font-button hover:text-on-surface-variant transition-colors duration-200" href="index.html">Home</a>
+      <a class="text-on-surface-variant text-button font-button hover:text-primary transition-colors duration-200" href="#courses">Courses</a>
+      <a class="text-on-surface-variant text-button font-button hover:text-primary transition-colors duration-200" href="#why-us">About</a>
+      <a class="text-on-surface-variant text-button font-button hover:text-primary transition-colors duration-200" href="#footer">Contact</a>
+    </nav>
+    <!-- CTA + Mobile menu button -->
+    <div class="flex items-center gap-4">
+      <a href="#courses" class="hidden md:inline-flex bg-primary text-on-primary font-button text-button px-6 py-3 rounded-lg hover:bg-on-surface transition-colors duration-200 transform hover:scale-[0.98]">
+        Enroll Now
+      </a>
+      <button id="mobile-menu-btn" class="md:hidden text-primary p-2" aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-surface border-t border-outline-variant/30 shadow-lg transition-all duration-200 opacity-0 -translate-y-2">
+    <nav class="flex flex-col px-margin-mobile py-4 gap-1">
+      <a class="py-3 px-4 rounded-lg text-primary font-bold text-button font-button hover:bg-surface-container" href="index.html">Home</a>
+      <a class="py-3 px-4 rounded-lg text-on-surface-variant text-button font-button hover:bg-surface-container" href="#courses" id="mobile-courses-link">Courses</a>
+      <a class="py-3 px-4 rounded-lg text-on-surface-variant text-button font-button hover:bg-surface-container" href="#why-us">About</a>
+      <a class="py-3 px-4 rounded-lg text-on-surface-variant text-button font-button hover:bg-surface-container" href="#footer">Contact</a>
+      <a href="#courses" class="mt-2 bg-primary text-on-primary font-button text-button px-6 py-3 rounded-lg text-center hover:bg-on-surface transition-colors">Enroll Now</a>
+    </nav>
+  </div>
+</header>
+
+<main class="flex-grow">
+  <!-- ══ HERO ══════════════════════════════════════════════════════════════ -->
+  <section class="relative bg-surface pt-16 pb-section-padding overflow-hidden">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid md:grid-cols-2 gap-12 items-center">
+      <div class="space-y-stack-lg z-10">
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-fixed rounded-full">
+          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          <span class="font-label-md text-label-md text-on-primary-fixed">New Batches Starting Soon</span>
+        </div>
+        <h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-primary">
+          Learn Practical <br/>Computer Skills. <br/><span class="text-secondary">Build Your Future.</span>
+        </h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+          Master the most in-demand software tools with our affordable, beginner-friendly courses. From basic computer literacy to advanced Web Design and Tally, we provide the practical training you need to succeed.
+        </p>
+        <div class="flex flex-wrap gap-4 pt-4">
+          <a class="inline-flex justify-center items-center bg-tertiary-fixed text-on-tertiary-fixed font-button text-button px-8 py-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:-translate-y-1" href="#courses">
+            Explore Courses
+          </a>
+          <a class="inline-flex justify-center items-center bg-transparent border-2 border-outline text-primary font-button text-button px-8 py-4 rounded-lg hover:bg-surface-variant transition-colors duration-200" href="#courses">
+            View All Courses
+          </a>
+        </div>
+      </div>
+      <div class="relative z-10 w-full h-[500px] rounded-2xl overflow-hidden shadow-lg border border-outline-variant/30 group">
+        <div class="absolute inset-0 bg-gradient-to-tr from-surface-variant to-transparent opacity-50"></div>
+        <img class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuB96KuacLMh1kU9pvH_5oHgxoQz8xSVJM8WrkMlPdrzlrPsU5bTcJFy6eZXm3PpVPn0h_HVLDvKdMZYY9NK5BhogmXSlc7_y-vsMYabWGhLlHM_5yw7SPbY0LEzEhte7ZU4teWdMWfXcXrrunrpDLG9nUJrUlfmXM0Gm73sIIEIoNtAq9eEreCBg_Vk1oDeJlPaaSn3PXZKdpDsu_cX0r2QNIELPPuC1tWNcPaTgCcEUgCOF4ivc44E8A"
+          alt="Students learning computer skills at EduPremium Academy"/>
+      </div>
+    </div>
+    <div class="absolute top-0 right-0 -mr-32 -mt-32 w-96 h-96 rounded-full bg-surface-variant blur-3xl opacity-60 z-0"></div>
+    <div class="absolute bottom-0 left-0 -ml-32 -mb-32 w-96 h-96 rounded-full bg-primary-fixed blur-3xl opacity-40 z-0"></div>
+  </section>
+
+  <!-- ══ STATS BANNER ═══════════════════════════════════════════════════════ -->
+  <section class="bg-primary-container py-12 border-y border-outline-variant/20">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-outline-variant/20">
+      <div class="space-y-2"><p class="font-headline-xl text-headline-xl text-tertiary-fixed">20+</p><p class="font-label-md text-label-md text-on-primary-container">Professional Courses</p></div>
+      <div class="space-y-2"><p class="font-headline-xl text-headline-xl text-tertiary-fixed">5k+</p><p class="font-label-md text-label-md text-on-primary-container">Students Trained</p></div>
+      <div class="space-y-2"><p class="font-headline-xl text-headline-xl text-tertiary-fixed">98%</p><p class="font-label-md text-label-md text-on-primary-container">Success Rate</p></div>
+      <div class="space-y-2"><p class="font-headline-xl text-headline-xl text-tertiary-fixed">24/7</p><p class="font-label-md text-label-md text-on-primary-container">Learning Support</p></div>
+    </div>
+  </section>
+
+  <!-- ══ COURSES ════════════════════════════════════════════════════════════ -->
+  <section class="py-section-padding bg-surface-bright" id="courses">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+        <h2 class="font-headline-xl text-headline-xl text-primary">Our Courses</h2>
+        <p class="font-body-lg text-body-lg text-on-surface-variant">Practical, industry-aligned curriculums designed to take you from beginner to job-ready professional.</p>
+      </div>
+
+      <!-- Filters -->
+      <div class="flex flex-wrap justify-center gap-3 mb-12" id="filter-bar">
+        <button class="filter-btn active px-5 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md transition-colors" data-filter="all">All Courses</button>
+        <button class="filter-btn px-5 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-label-md" data-filter="Basic Computing">Basic Computing</button>
+        <button class="filter-btn px-5 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-label-md" data-filter="MS Office">MS Office</button>
+        <button class="filter-btn px-5 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-label-md" data-filter="Design & Web">Design &amp; Web</button>
+        <button class="filter-btn px-5 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-label-md" data-filter="Accounting">Accounting</button>
+        <button class="filter-btn px-5 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-label-md" data-filter="Digital Skills">Digital Skills</button>
+      </div>
+
+      <!-- Course Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="courses-grid">
+        <!-- Dynamically rendered -->
+      </div>
+
+      <!-- View All / Show Less -->
+      <div class="mt-12 text-center">
+        <button id="view-all-btn" class="inline-flex items-center justify-center gap-2 px-8 py-3 border-2 border-primary text-primary font-button text-button rounded-lg hover:bg-primary hover:text-on-primary transition-colors duration-300">
+          <span id="view-all-label">View All 20 Courses</span>
+          <span class="material-symbols-outlined text-[20px]" id="view-all-icon">expand_more</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ WHY CHOOSE US ══════════════════════════════════════════════════════ -->
+  <section class="py-section-padding bg-surface" id="why-us">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <h2 class="font-headline-xl text-headline-xl text-primary mb-4">Why Choose SikshaSetu?</h2>
+        <p class="font-body-lg text-body-lg text-on-surface-variant">We combine academic rigor with practical, hands-on experience to ensure our students are job-ready from day one.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-tertiary-fixed transition-colors duration-300">
+          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4"><span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1;">psychology</span></div>
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Beginner Friendly</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant">No prior experience required. Our curriculums start from the absolute basics and build up gradually.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-tertiary-fixed transition-colors duration-300">
+          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4"><span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1;">build</span></div>
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Practical Learning</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant">80% hands-on lab sessions and real-world projects. Less theory, more actual doing.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-tertiary-fixed transition-colors duration-300">
+          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4"><span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1;">payments</span></div>
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Affordable Fees</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant">High-quality education should be accessible. We offer competitive pricing and flexible payment options.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-tertiary-fixed transition-colors duration-300">
+          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4"><span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1;">verified</span></div>
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Valid Certification</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant">Receive an industry-recognized certificate upon completion to boost your resume and career prospects.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-tertiary-fixed transition-colors duration-300">
+          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4"><span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1;">schedule</span></div>
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Flexible Timings</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant">Morning, evening, and weekend batches available to suit students and working professionals.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-tertiary-fixed transition-colors duration-300">
+          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4"><span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1;">person_play</span></div>
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Expert Guidance</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant">Learn directly from industry professionals with years of experience teaching complex concepts simply.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA ════════════════════════════════════════════════════════════════ -->
+  <section class="py-section-padding bg-primary-container text-on-primary-container relative overflow-hidden">
+    <div class="absolute inset-0 z-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
+    <div class="max-w-3xl mx-auto px-margin-mobile text-center relative z-10">
+      <h2 class="font-display-lg-mobile md:font-display-lg text-on-primary mb-6">Ready to Start Learning?</h2>
+      <p class="font-body-lg text-body-lg text-on-primary-container mb-8 max-w-xl mx-auto">Join thousands of students who have upgraded their skills and transformed their careers with SikshaSetu.</p>
+      <a class="inline-flex justify-center items-center bg-tertiary-fixed text-on-tertiary-fixed font-button text-button px-10 py-4 rounded-lg shadow-lg hover:bg-white hover:text-primary transition-all duration-300 transform hover:scale-105" href="#courses">
+        Explore Courses Now
+      </a>
+    </div>
+  </section>
+</main>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════════════════════ -->
+<footer class="bg-primary-container w-full py-section-padding" id="footer">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+    <div class="col-span-1 md:col-span-1 space-y-4">
+      <a class="font-headline-md text-headline-md font-bold text-on-primary-container block mb-2 flex items-center gap-2" href="index.html">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">school</span>SikshaSetu
+      </a>
+      <p class="text-on-primary-container/80 font-body-md text-body-md max-w-xs">Empowering the next generation with practical, industry-ready computer skills.</p>
+    </div>
+    <div class="space-y-4">
+      <h4 class="font-headline-sm text-[18px] text-on-primary-container">Quick Links</h4>
+      <ul class="space-y-2 flex flex-col">
+        <a class="text-on-primary-container/80 font-body-md text-body-md hover:text-tertiary-fixed transition-colors" href="index.html">Home</a>
+        <a class="text-on-primary-container/80 font-body-md text-body-md hover:text-tertiary-fixed transition-colors" href="#courses">Courses</a>
+        <a class="text-on-primary-container/80 font-body-md text-body-md hover:text-tertiary-fixed transition-colors" href="#why-us">About Us</a>
+        <a class="text-on-primary-container/80 font-body-md text-body-md hover:text-tertiary-fixed transition-colors" href="admin.html">Admin</a>
+      </ul>
+    </div>
+    <div class="space-y-4">
+      <h4 class="font-headline-sm text-[18px] text-on-primary-container">Contact</h4>
+      <ul class="space-y-2 text-on-primary-container/80 font-body-md text-body-md" id="footer-contact">
+        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">location_on</span>123 Tech Park, Bangalore, India</li>
+        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">call</span>+91 98765 43210</li>
+        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">mail</span>hello@edupremium.in</li>
+      </ul>
+    </div>
+    <div class="space-y-4">
+      <h4 class="font-headline-sm text-[18px] text-on-primary-container">Legal</h4>
+      <ul class="space-y-2 flex flex-col">
+        <a class="text-on-primary-container/80 font-body-md text-body-md hover:text-tertiary-fixed transition-colors" href="#">Terms of Service</a>
+        <a class="text-on-primary-container/80 font-body-md text-body-md hover:text-tertiary-fixed transition-colors" href="#">Privacy Policy</a>
+        <a class="text-on-primary-container/80 font-body-md text-body-md hover:text-tertiary-fixed transition-colors" href="#">Refund Policy</a>
+      </ul>
+    </div>
+  </div>
+  <div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto mt-12 pt-8 border-t border-on-primary-container/20">
+    <p class="text-on-primary-container/60 font-body-md text-body-md text-center">© 2024 SikshaSetu Academy. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/config.js"></script>
+<script src="js/courses.js"></script>
+<script src="js/utils.js"></script>
+<script>
+  // ── Course card renderer ──────────────────────────────────────────────────
+  function buildThumbnail(course) {
+    if (course.thumbnail) {
+      return `
+        <img class="w-full h-full object-cover z-10 transition-transform duration-500 group-hover:scale-105"
+          src="${course.thumbnail}" alt="${course.name}"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="absolute inset-0 items-center justify-center" style="display:none; background:${course.thumbnailBg}">
+          <span class="material-symbols-outlined text-7xl opacity-50" style="font-variation-settings:'FILL' 1; color:${course.iconColor};">${course.icon}</span>
+        </div>`;
+    }
+    return `<div class="w-full h-full flex items-center justify-center" style="background:${course.thumbnailBg};">
+      <span class="material-symbols-outlined text-7xl opacity-50" style="font-variation-settings:'FILL' 1; color:${course.iconColor};">${course.icon}</span>
+    </div>`;
+  }
+
+  function buildBadge(course) {
+    if (!course.badge) return '';
+    return `<div class="absolute top-4 right-4 z-20">
+      <span class="${course.badgeClass} font-label-md text-[12px] px-3 py-1 rounded-full uppercase tracking-wider font-bold">${course.badge}</span>
+    </div>`;
+  }
+
+  function createCourseCard(course, delay = 0) {
+    return `
+      <div class="bg-surface rounded-xl border border-outline-variant/40 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group flex flex-col course-card-anim" style="animation-delay:${delay}ms;">
+        <div class="h-48 relative overflow-hidden bg-surface-container flex items-center justify-center">
+          ${buildThumbnail(course)}
+          ${buildBadge(course)}
+        </div>
+        <div class="p-6 flex flex-col flex-grow">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-headline-sm text-headline-sm text-primary group-hover:text-on-surface-variant transition-colors pr-2">${course.name}</h3>
+            <span class="bg-surface-variant text-on-surface-variant font-label-md text-[12px] px-2 py-1 rounded shrink-0">${course.level}</span>
+          </div>
+          <p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-2">${course.shortDescription}</p>
+          <div class="mt-auto space-y-4 pt-4 border-t border-outline-variant/20">
+            <div class="flex items-center gap-4 text-sm text-on-surface-variant">
+              <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">schedule</span> ${course.duration}</div>
+              <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">event_seat</span> ${course.seats} Seats</div>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="font-headline-sm text-headline-sm text-primary">${Utils.formatCurrency(course.price)}</span>
+              <a href="course.html?id=${course.slug}" class="text-primary font-button text-button hover:underline flex items-center gap-1 group/btn font-semibold">
+                View Details <span class="material-symbols-outlined text-[18px] transform group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // ── State & Rendering ─────────────────────────────────────────────────────
+  let activeFilter = 'all';
+  let showAll = false;
+  const INITIAL_COUNT = 6;
+
+  function getFiltered() {
+    return activeFilter === 'all' ? COURSES : COURSES.filter(c => c.category === activeFilter);
+  }
+
+  function renderCourses() {
+    const filtered = getFiltered();
+    const visible  = showAll ? filtered : filtered.slice(0, INITIAL_COUNT);
+    const grid     = document.getElementById('courses-grid');
+    grid.innerHTML  = visible.map((c, i) => createCourseCard(c, i * 40)).join('');
+
+    const btn       = document.getElementById('view-all-btn');
+    const label     = document.getElementById('view-all-label');
+    const icon      = document.getElementById('view-all-icon');
+    if (filtered.length > INITIAL_COUNT) {
+      btn.style.display = 'inline-flex';
+      if (showAll) {
+        label.textContent = 'Show Less';
+        icon.textContent  = 'expand_less';
+      } else {
+        label.textContent = `View All ${filtered.length} Courses`;
+        icon.textContent  = 'expand_more';
+      }
+    } else {
+      btn.style.display = 'none';
+    }
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    // Update footer contact from config
+    document.getElementById('footer-contact').innerHTML = `
+      <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">location_on</span>${CONFIG.address}</li>
+      <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">call</span>${CONFIG.phone}</li>
+      <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">mail</span>${CONFIG.email}</li>`;
+
+    // Render courses
+    renderCourses();
+
+    // Filter buttons
+    document.getElementById('filter-bar').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active', 'bg-primary', 'text-on-primary');
+        b.classList.add('border', 'border-outline-variant', 'text-on-surface');
+      });
+      btn.classList.add('active', 'bg-primary', 'text-on-primary');
+      btn.classList.remove('border', 'border-outline-variant', 'text-on-surface');
+      activeFilter = btn.dataset.filter;
+      showAll = false;
+      renderCourses();
+    });
+
+    // View All toggle
+    document.getElementById('view-all-btn').addEventListener('click', () => {
+      showAll = !showAll;
+      renderCourses();
+      if (!showAll) document.getElementById('courses').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Mobile nav
+    Utils.initMobileNav();
+
+    // Close mobile menu links
+    document.querySelectorAll('#mobile-menu a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.add('hidden');
+      });
+    });
+  });
+</script>
+</body>
+</html>

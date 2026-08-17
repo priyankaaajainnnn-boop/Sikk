@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title id="page-title">Course Details — SikshaSetu</title>
+<meta name="description" id="page-desc" content="Explore course details, curriculum, and pricing at SikshaSetu Academy."/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode:"class", theme:{ extend:{
+      colors:{"secondary":"#5c5f61","on-secondary":"#ffffff","on-error":"#ffffff","surface-container-high":"#dce9ff","on-surface":"#0b1c30","on-tertiary-container":"#98805d","tertiary":"#000000","on-tertiary-fixed-variant":"#574425","surface-container":"#e5eeff","primary-fixed":"#dae2fd","error":"#ba1a1a","error-container":"#ffdad6","inverse-on-surface":"#eaf1ff","on-background":"#0b1c30","inverse-primary":"#bec6e0","on-tertiary":"#ffffff","on-error-container":"#93000a","tertiary-container":"#271901","surface-bright":"#f8f9ff","surface-tint":"#565e74","surface-container-highest":"#d3e4fe","primary":"#000000","surface-container-low":"#eff4ff","background":"#f8f9ff","outline":"#76777d","inverse-surface":"#213145","on-primary-fixed":"#131b2e","surface-container-lowest":"#ffffff","on-primary-fixed-variant":"#3f465c","on-secondary-fixed":"#191c1e","secondary-fixed-dim":"#c4c7c9","outline-variant":"#c6c6cd","on-secondary-fixed-variant":"#444749","primary-fixed-dim":"#bec6e0","on-secondary-container":"#626567","on-surface-variant":"#45464d","primary-container":"#131b2e","surface-variant":"#d3e4fe","surface-dim":"#cbdbf5","surface":"#f8f9ff","on-primary-container":"#7c839b","secondary-container":"#e0e3e5","tertiary-fixed":"#fcdeb5","on-primary":"#ffffff","tertiary-fixed-dim":"#dec29a","secondary-fixed":"#e0e3e5","on-tertiary-fixed":"#271901"},
+      borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},
+      spacing:{"margin-desktop":"48px","stack-sm":"8px","stack-lg":"32px","margin-mobile":"20px","container-max":"1280px","stack-md":"16px","gutter":"24px","section-padding":"96px"},
+      fontFamily:{"button":["Inter"],"headline-md":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-lg":["Inter"],"label-md":["Inter"],"body-md":["Inter"],"headline-xl":["Plus Jakarta Sans"]},
+      fontSize:{"button":["16px",{"lineHeight":"24px","fontWeight":"600"}],"headline-md":["32px",{"lineHeight":"40px","fontWeight":"700"}],"display-lg-mobile":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"800"}],"headline-sm":["24px",{"lineHeight":"32px","fontWeight":"600"}],"display-lg":["64px",{"lineHeight":"72px","letterSpacing":"-0.02em","fontWeight":"800"}],"body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}],"label-md":["14px",{"lineHeight":"20px","fontWeight":"600"}],"body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-xl":["48px",{"lineHeight":"56px","fontWeight":"700"}]}
+    }}
+  }
+</script>
+<style>
+  .accordion-content{transition:max-height 0.3s ease-out,padding 0.3s ease;max-height:0;overflow:hidden;}
+  .accordion-content.open{max-height:600px;}
+  .nav-link::after{content:'';position:absolute;width:0;height:2px;bottom:-4px;left:0;background:#000;transition:width 0.3s;}
+  .nav-link:hover::after{width:100%;}
+</style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased flex flex-col min-h-screen">
+
+<!-- ══ TOP NAV ══ -->
+<nav class="bg-surface sticky top-0 w-full shadow-sm z-50">
+  <div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+    <a href="index.html" class="font-headline-sm text-headline-sm font-bold text-primary flex items-center gap-2">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">school</span>SikshaSetu
+    </a>
+    <div class="hidden md:flex gap-8">
+      <a class="text-on-surface-variant hover:text-primary transition-colors duration-200 relative nav-link font-body-md text-body-md" href="index.html">Home</a>
+      <a class="text-primary border-b-2 border-primary font-bold pb-1 font-body-md text-body-md" href="index.html#courses">Courses</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors duration-200 relative nav-link font-body-md text-body-md" href="index.html#why-us">About</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors duration-200 relative nav-link font-body-md text-body-md" href="index.html#footer">Contact</a>
+    </div>
+    <a id="nav-enroll-btn" href="#" class="bg-[#FACC15] text-black font-button text-button px-6 py-2 rounded-lg hover:bg-amber-400 hover:scale-95 transition-all duration-200 hidden md:block">Enroll Now</a>
+    <button id="mobile-menu-btn" class="md:hidden text-primary p-2"><span class="material-symbols-outlined">menu</span></button>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden bg-surface border-t border-outline-variant/30 shadow-lg opacity-0 -translate-y-2">
+    <nav class="flex flex-col px-margin-mobile py-4 gap-1">
+      <a class="py-3 px-4 rounded-lg text-on-surface-variant font-body-md hover:bg-surface-container" href="index.html">Home</a>
+      <a class="py-3 px-4 rounded-lg text-on-surface-variant font-body-md hover:bg-surface-container" href="index.html#courses">Courses</a>
+      <a id="mobile-enroll-btn" href="#" class="mt-2 bg-[#FACC15] text-black font-button text-button px-6 py-3 rounded-lg text-center">Enroll Now</a>
+    </nav>
+  </div>
+</nav>
+
+<main class="flex-grow">
+  <!-- Error state (hidden by default) -->
+  <div id="error-state" class="hidden py-section-padding px-margin-mobile text-center">
+    <span class="material-symbols-outlined text-6xl text-on-surface-variant mb-4 block">search_off</span>
+    <h1 class="font-headline-xl text-headline-xl text-primary mb-4">Course Not Found</h1>
+    <p class="font-body-lg text-body-lg text-on-surface-variant mb-8">The course you are looking for does not exist or has been removed.</p>
+    <a href="index.html" class="inline-flex items-center gap-2 bg-primary text-on-primary font-button text-button px-8 py-4 rounded-lg hover:bg-on-surface transition-colors">
+      <span class="material-symbols-outlined text-[20px]">arrow_back</span> Back to All Courses
+    </a>
+  </div>
+
+  <!-- Course Content (hidden until loaded) -->
+  <div id="course-content" class="hidden">
+
+    <!-- ── HERO ── -->
+    <section class="bg-primary-container text-on-primary py-section-padding px-margin-mobile md:px-margin-desktop">
+      <div class="max-w-container-max mx-auto grid md:grid-cols-2 gap-gutter items-center">
+        <div class="flex flex-col gap-stack-md">
+          <!-- Breadcrumb -->
+          <a href="index.html#courses" class="inline-flex items-center gap-1 text-on-primary-container hover:text-tertiary-fixed transition-colors font-label-md text-label-md">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span> All Courses
+          </a>
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="hero-category" class="bg-amber-100 text-amber-800 font-label-md text-label-md px-3 py-1 rounded-full uppercase tracking-wider"></span>
+            <span id="hero-level" class="bg-surface/20 text-on-primary font-label-md text-label-md px-3 py-1 rounded-full uppercase tracking-wider"></span>
+          </div>
+          <h1 id="hero-title" class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-on-primary"></h1>
+          <p id="hero-desc" class="font-body-lg text-body-lg text-on-primary-container"></p>
+          <div class="flex flex-wrap gap-4 mt-stack-md">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-amber-400">schedule</span>
+              <span id="hero-duration" class="font-body-md text-body-md"></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-amber-400">workspace_premium</span>
+              <span class="font-body-md text-body-md">Certificate of Completion</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-amber-400">currency_rupee</span>
+              <span id="hero-price" class="font-headline-sm text-headline-sm"></span>
+            </div>
+          </div>
+          <button id="hero-enroll-btn" class="mt-stack-lg bg-amber-400 text-black font-button text-button px-8 py-4 rounded-lg hover:bg-amber-500 hover:scale-[0.98] transition-all duration-200 w-full md:w-auto self-start shadow-lg shadow-amber-400/20">
+            Enroll in This Course
+          </button>
+        </div>
+        <!-- Course thumbnail -->
+        <div id="hero-image-container" class="rounded-xl overflow-hidden shadow-2xl relative min-h-[280px] bg-primary-container flex items-center justify-center">
+          <!-- Dynamic image or icon placeholder injected by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WHAT YOU'LL LEARN ── -->
+    <section class="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface">
+      <div class="max-w-container-max mx-auto">
+        <h2 class="font-headline-md text-headline-md mb-stack-lg">What You Will Learn</h2>
+        <div class="grid md:grid-cols-2 gap-stack-md" id="learn-list"></div>
+      </div>
+    </section>
+
+    <!-- ── CURRICULUM ── -->
+    <section class="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface-container-low">
+      <div class="max-w-container-max mx-auto max-w-3xl">
+        <h2 class="font-headline-md text-headline-md mb-stack-lg text-center">Course Curriculum</h2>
+        <div class="flex flex-col gap-stack-sm" id="curriculum-list"></div>
+      </div>
+    </section>
+
+    <!-- ── BENEFITS ── -->
+    <section class="py-section-padding px-margin-mobile md:px-margin-desktop bg-surface">
+      <div class="max-w-container-max mx-auto">
+        <div class="grid md:grid-cols-3 gap-gutter" id="benefits-list"></div>
+      </div>
+    </section>
+
+    <!-- ── PRICING ── -->
+    <section class="py-section-padding px-margin-mobile md:px-margin-desktop bg-primary-container text-on-primary text-center">
+      <div class="max-w-xl mx-auto flex flex-col items-center gap-stack-md">
+        <h2 class="font-headline-xl text-headline-xl">Start Learning Today</h2>
+        <div class="flex items-baseline justify-center gap-2 my-stack-sm">
+          <span class="font-headline-md text-headline-md text-amber-400">₹</span>
+          <span id="pricing-amount" class="font-display-lg text-display-lg font-bold"></span>
+        </div>
+        <button id="pricing-enroll-btn" class="bg-amber-400 text-black font-button text-button px-10 py-4 rounded-lg hover:bg-amber-500 hover:scale-[0.98] transition-all duration-200 w-full shadow-lg shadow-amber-400/20">
+          Enroll Now
+        </button>
+        <p class="font-label-md text-label-md text-on-primary-container mt-2 flex items-center justify-center gap-1">
+          <span class="material-symbols-outlined text-sm">lock</span> Secure payment via UPI.
+        </p>
+      </div>
+    </section>
+
+  </div><!-- /course-content -->
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer class="bg-primary-container w-full py-16">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+    <div class="flex flex-col gap-4">
+      <a href="index.html" class="font-headline-md text-headline-md font-bold text-on-primary-container flex items-center gap-2">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">school</span>SikshaSetu
+      </a>
+      <p class="font-body-md text-body-md text-on-primary-container/80">© 2024 SikshaSetu Academy. All rights reserved.</p>
+    </div>
+    <div class="flex flex-col gap-2">
+      <h4 class="font-label-md text-label-md font-bold text-on-primary-container">Courses</h4>
+      <a class="font-body-md text-body-md text-on-primary-container/80 hover:text-tertiary-fixed transition-colors" href="index.html#courses">All Courses</a>
+      <a class="font-body-md text-body-md text-on-primary-container/80 hover:text-tertiary-fixed transition-colors" href="course.html?id=advanced-excel">Advanced Excel</a>
+      <a class="font-body-md text-body-md text-on-primary-container/80 hover:text-tertiary-fixed transition-colors" href="course.html?id=web-designing-basics">Web Designing</a>
+    </div>
+    <div class="flex flex-col gap-2">
+      <h4 class="font-label-md text-label-md font-bold text-on-primary-container">Legal</h4>
+      <a class="font-body-md text-body-md text-on-primary-container/80 hover:text-tertiary-fixed transition-colors" href="#">Terms of Service</a>
+      <a class="font-body-md text-body-md text-on-primary-container/80 hover:text-tertiary-fixed transition-colors" href="#">Privacy Policy</a>
+    </div>
+    <div class="flex flex-col gap-2">
+      <h4 class="font-label-md text-label-md font-bold text-on-primary-container">Support</h4>
+      <a class="font-body-md text-body-md text-on-primary-container/80 hover:text-tertiary-fixed transition-colors" href="#">FAQ</a>
+      <a class="font-body-md text-body-md text-on-primary-container/80 hover:text-tertiary-fixed transition-colors" href="index.html#footer">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/courses.js"></script>
+<script src="js/utils.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    Utils.initMobileNav();
+
+    const slug   = Utils.getQueryParam('id');
+    const course = slug ? getCourseBySlug(slug) : null;
+
+    if (!course) {
+      document.getElementById('error-state').classList.remove('hidden');
+      document.title = 'Course Not Found — EduPremium';
+      return;
+    }
+
+    // Show content
+    document.getElementById('course-content').classList.remove('hidden');
+
+    // Meta
+    document.title = `${course.name} — SikshaSetu`;
+    document.getElementById('page-desc').content = course.shortDescription;
+
+    // Enroll URLs
+    const enrollUrl = `enroll.html?id=${course.slug}`;
+    document.getElementById('nav-enroll-btn').href         = enrollUrl;
+    document.getElementById('mobile-enroll-btn').href      = enrollUrl;
+    document.getElementById('hero-enroll-btn').onclick     = () => window.location.href = enrollUrl;
+    document.getElementById('pricing-enroll-btn').onclick  = () => window.location.href = enrollUrl;
+
+    // Hero
+    document.getElementById('hero-category').textContent = course.category;
+    document.getElementById('hero-level').textContent    = course.level;
+    document.getElementById('hero-title').textContent    = course.name;
+    document.getElementById('hero-desc').textContent     = course.fullDescription;
+    document.getElementById('hero-duration').textContent = `${course.duration} · ${course.level}`;
+    document.getElementById('hero-price').textContent    = course.price.toLocaleString('en-IN');
+    document.getElementById('pricing-amount').textContent = course.price.toLocaleString('en-IN');
+
+    // Hero image
+    const imgContainer = document.getElementById('hero-image-container');
+    if (course.thumbnail) {
+      imgContainer.innerHTML = `
+        <img class="w-full h-full object-cover rounded-xl" src="${course.thumbnail}" alt="${course.name}"
+          onerror="this.outerHTML='<div style=\\'background:${course.thumbnailBg};width:100%;height:320px;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;\\'><span class=\\'material-symbols-outlined\\' style=\\'font-size:80px;font-variation-settings:FILL 1;color:${course.iconColor};opacity:0.5;\\'>${course.icon}</span></div>'">
+        <div class="absolute inset-0 bg-gradient-to-t from-primary-container/80 to-transparent rounded-xl"></div>`;
+    } else {
+      imgContainer.style.background = course.thumbnailBg;
+      imgContainer.style.minHeight  = '320px';
+      imgContainer.style.borderRadius = '0.75rem';
+      imgContainer.innerHTML = `<span class="material-symbols-outlined" style="font-size:96px;font-variation-settings:'FILL' 1;color:${course.iconColor};opacity:0.45;">${course.icon}</span>`;
+    }
+
+    // What You'll Learn
+    document.getElementById('learn-list').innerHTML = course.whatYoullLearn.map(item => `
+      <div class="flex items-start gap-3">
+        <span class="material-symbols-outlined text-green-600 mt-1" style="font-variation-settings:'FILL' 1;">check_circle</span>
+        <p class="font-body-md text-body-md">${item}</p>
+      </div>`).join('');
+
+    // Curriculum accordion
+    document.getElementById('curriculum-list').innerHTML = course.curriculum.map((mod, mi) => `
+      <div class="bg-surface rounded-lg border border-outline-variant overflow-hidden">
+        <button class="w-full px-6 py-4 flex justify-between items-center focus:outline-none hover:bg-surface-variant transition-colors" onclick="toggleAccordion(this)">
+          <span class="font-headline-sm text-headline-sm text-left">${mod.title}</span>
+          <span class="material-symbols-outlined icon transition-transform duration-300 shrink-0 ml-2">expand_more</span>
+        </button>
+        <div class="accordion-content bg-surface">
+          <div class="p-6 border-t border-outline-variant flex flex-col gap-3">
+            ${mod.lessons.map(l => `
+              <div class="flex justify-between items-center">
+                <span class="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
+                  <span class="material-symbols-outlined text-sm">play_circle</span>${l.title}
+                </span>
+                <span class="font-label-md text-label-md text-secondary ml-4 shrink-0">${l.duration}</span>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>`).join('');
+
+    // Benefits
+    document.getElementById('benefits-list').innerHTML = course.benefits.map(b => `
+      <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center gap-stack-md">
+        <div class="w-16 h-16 bg-primary-container rounded-full flex items-center justify-center text-on-primary">
+          <span class="material-symbols-outlined" style="font-size:32px;">${b.icon}</span>
+        </div>
+        <h3 class="font-headline-sm text-headline-sm">${b.title}</h3>
+        <p class="font-body-md text-body-md text-on-surface-variant">${b.description}</p>
+      </div>`).join('');
+  });
+
+  function toggleAccordion(btn) {
+    const content = btn.nextElementSibling;
+    const icon    = btn.querySelector('.icon');
+    content.classList.toggle('open');
+    icon.classList.toggle('rotate-180');
+  }
+</script>
+</body>
+</html>

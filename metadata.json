@@ -1,0 +1,8 @@
+{
+  "name": "SikshaSetu",
+  "description": "Practical and affordable computer skills and training academy in India.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
