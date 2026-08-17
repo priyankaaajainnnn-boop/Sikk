@@ -41,13 +41,14 @@
     <!-- Brand -->
     <a class="font-headline-sm text-headline-sm font-bold text-primary flex items-center gap-2" href="index.html">
       <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1;">school</span>
-      EduPremium
+      SikshaSetu
     </a>
     <!-- Desktop Nav -->
     <nav class="hidden md:flex gap-8 items-center">
       <a class="text-primary border-b-2 border-primary font-bold pb-1 text-button font-button hover:text-on-surface-variant transition-colors duration-200" href="index.html">Home</a>
       <a class="text-on-surface-variant text-button font-button hover:text-primary transition-colors duration-200" href="#courses">Courses</a>
       <a class="text-on-surface-variant text-button font-button hover:text-primary transition-colors duration-200" href="#why-us">About</a>
+      <a class="text-on-surface-variant text-button font-button hover:text-primary transition-colors duration-200" href="#reviews">Reviews</a>
       <a class="text-on-surface-variant text-button font-button hover:text-primary transition-colors duration-200" href="#footer">Contact</a>
     </nav>
     <!-- CTA + Mobile menu button -->
@@ -66,6 +67,7 @@
       <a class="py-3 px-4 rounded-lg text-primary font-bold text-button font-button hover:bg-surface-container" href="index.html">Home</a>
       <a class="py-3 px-4 rounded-lg text-on-surface-variant text-button font-button hover:bg-surface-container" href="#courses" id="mobile-courses-link">Courses</a>
       <a class="py-3 px-4 rounded-lg text-on-surface-variant text-button font-button hover:bg-surface-container" href="#why-us">About</a>
+      <a class="py-3 px-4 rounded-lg text-on-surface-variant text-button font-button hover:bg-surface-container" href="#reviews">Reviews</a>
       <a class="py-3 px-4 rounded-lg text-on-surface-variant text-button font-button hover:bg-surface-container" href="#footer">Contact</a>
       <a href="#courses" class="mt-2 bg-primary text-on-primary font-button text-button px-6 py-3 rounded-lg text-center hover:bg-on-surface transition-colors">Enroll Now</a>
     </nav>
@@ -96,11 +98,20 @@
           </a>
         </div>
       </div>
-      <div class="relative z-10 w-full h-[500px] rounded-2xl overflow-hidden shadow-lg border border-outline-variant/30 group">
-        <div class="absolute inset-0 bg-gradient-to-tr from-surface-variant to-transparent opacity-50"></div>
-        <img class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuB96KuacLMh1kU9pvH_5oHgxoQz8xSVJM8WrkMlPdrzlrPsU5bTcJFy6eZXm3PpVPn0h_HVLDvKdMZYY9NK5BhogmXSlc7_y-vsMYabWGhLlHM_5yw7SPbY0LEzEhte7ZU4teWdMWfXcXrrunrpDLG9nUJrUlfmXM0Gm73sIIEIoNtAq9eEreCBg_Vk1oDeJlPaaSn3PXZKdpDsu_cX0r2QNIELPPuC1tWNcPaTgCcEUgCOF4ivc44E8A"
-          alt="Students learning computer skills at EduPremium Academy"/>
+      <div class="relative z-10 w-full h-[500px] rounded-2xl overflow-hidden shadow-xl border border-outline-variant/30 group bg-surface-container">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent z-10"></div>
+        <img class="w-full h-full object-cover object-top transform transition-transform duration-700 group-hover:scale-105"
+          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1600&q=85"
+          alt="Indian student mastering computer skills at SikshaSetu Academy"
+          referrerpolicy="no-referrer"
+          loading="eager"/>
+        <div class="absolute bottom-4 left-4 right-4 z-20 bg-surface/90 backdrop-blur-md px-4 py-3 rounded-xl border border-white/20 shadow-md flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="w-3 h-3 rounded-full bg-green-500 animate-ping"></span>
+            <p class="font-label-md text-sm font-semibold text-on-surface">Practical Lab &amp; Live Training</p>
+          </div>
+          <span class="font-label-md text-xs px-2.5 py-1 bg-primary text-on-primary rounded-full">100% Practical</span>
+        </div>
       </div>
     </div>
     <div class="absolute top-0 right-0 -mr-32 -mt-32 w-96 h-96 rounded-full bg-surface-variant blur-3xl opacity-60 z-0"></div>
@@ -110,7 +121,7 @@
   <!-- ══ STATS BANNER ═══════════════════════════════════════════════════════ -->
   <section class="bg-primary-container py-12 border-y border-outline-variant/20">
     <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-outline-variant/20">
-      <div class="space-y-2"><p class="font-headline-xl text-headline-xl text-tertiary-fixed">20+</p><p class="font-label-md text-label-md text-on-primary-container">Professional Courses</p></div>
+      <div class="space-y-2"><p class="font-headline-xl text-headline-xl text-tertiary-fixed">24+</p><p class="font-label-md text-label-md text-on-primary-container">Professional Courses</p></div>
       <div class="space-y-2"><p class="font-headline-xl text-headline-xl text-tertiary-fixed">5k+</p><p class="font-label-md text-label-md text-on-primary-container">Students Trained</p></div>
       <div class="space-y-2"><p class="font-headline-xl text-headline-xl text-tertiary-fixed">98%</p><p class="font-label-md text-label-md text-on-primary-container">Success Rate</p></div>
       <div class="space-y-2"><p class="font-headline-xl text-headline-xl text-tertiary-fixed">24/7</p><p class="font-label-md text-label-md text-on-primary-container">Learning Support</p></div>
@@ -125,19 +136,64 @@
         <p class="font-body-lg text-body-lg text-on-surface-variant">Practical, industry-aligned curriculums designed to take you from beginner to job-ready professional.</p>
       </div>
 
-      <!-- Filters -->
-      <div class="flex flex-wrap justify-center gap-3 mb-12" id="filter-bar">
-        <button class="filter-btn active px-5 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md transition-colors" data-filter="all">All Courses</button>
-        <button class="filter-btn px-5 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-label-md" data-filter="Basic Computing">Basic Computing</button>
-        <button class="filter-btn px-5 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-label-md" data-filter="MS Office">MS Office</button>
-        <button class="filter-btn px-5 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-label-md" data-filter="Design & Web">Design &amp; Web</button>
-        <button class="filter-btn px-5 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-label-md" data-filter="Accounting">Accounting</button>
-        <button class="filter-btn px-5 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-label-md" data-filter="Digital Skills">Digital Skills</button>
+      <!-- Filters & Dynamic Search Bar -->
+      <div class="max-w-4xl mx-auto mb-10 space-y-4">
+        <!-- Live Search Input -->
+        <div class="relative">
+          <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-2xl pointer-events-none">search</span>
+          <input type="text" id="course-search-input" placeholder="Search courses (e.g. Full-Stack, Tally, Python, Excel, Web, GST...)" 
+            class="w-full pl-12 pr-12 py-3.5 bg-surface rounded-xl border-2 border-outline-variant/60 focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface font-body-md shadow-sm transition-all outline-none" />
+          <button id="clear-search-btn" class="hidden absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors p-1" title="Clear search">
+            <span class="material-symbols-outlined text-xl">close</span>
+          </button>
+        </div>
+
+        <!-- Category & Price Filter Pills -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+          <!-- Categories -->
+          <div class="flex flex-wrap gap-2" id="filter-bar">
+            <button class="filter-btn active px-4 py-2 rounded-full bg-primary text-on-primary font-label-md text-[13px] transition-colors" data-filter="all">All Courses</button>
+            <button class="filter-btn px-4 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-[13px]" data-filter="Basic Computing">Basic Computing</button>
+            <button class="filter-btn px-4 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-[13px]" data-filter="MS Office">MS Office</button>
+            <button class="filter-btn px-4 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-[13px]" data-filter="Design & Web">Design &amp; Web</button>
+            <button class="filter-btn px-4 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-[13px]" data-filter="Accounting">Accounting</button>
+            <button class="filter-btn px-4 py-2 rounded-full border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-label-md text-[13px]" data-filter="Digital Skills">Digital Skills</button>
+          </div>
+
+          <!-- Price Sorter Dropdown -->
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">Sort:</span>
+            <select id="course-sort-select" class="bg-surface border border-outline-variant text-on-surface text-sm rounded-lg px-3 py-1.5 font-label-md focus:outline-none focus:border-primary">
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="duration">Duration</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Live Results Counter & Active Tag -->
+        <div class="flex items-center justify-between text-xs text-on-surface-variant px-1">
+          <span id="results-count-text">Showing 24 courses</span>
+          <span id="batch-alert-badge" class="inline-flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Admissions open for new batch
+          </span>
+        </div>
       </div>
 
       <!-- Course Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="courses-grid">
         <!-- Dynamically rendered -->
+      </div>
+
+      <!-- Empty State for Search -->
+      <div id="no-courses-found" class="hidden text-center py-16 px-4 bg-surface rounded-2xl border border-dashed border-outline-variant/60 max-w-lg mx-auto my-6">
+        <span class="material-symbols-outlined text-5xl text-outline-variant mb-2">search_off</span>
+        <h3 class="font-headline-sm text-lg font-bold text-primary mb-1">No courses matched your search</h3>
+        <p class="font-body-md text-sm text-on-surface-variant mb-4">Try searching with a different term or clear filters.</p>
+        <button id="reset-search-btn" class="px-5 py-2 bg-primary text-on-primary font-label-md text-sm rounded-lg hover:bg-on-surface transition-colors">
+          Reset Filters
+        </button>
       </div>
 
       <!-- View All / Show Less -->
@@ -187,6 +243,92 @@
           <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4"><span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1;">person_play</span></div>
           <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Expert Guidance</h3>
           <p class="font-body-md text-body-md text-on-surface-variant">Learn directly from industry professionals with years of experience teaching complex concepts simply.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ REVIEWS & SUCCESS STORIES ═══════════════════════════════════════ -->
+  <section class="py-section-padding bg-surface-container-low" id="reviews">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100 text-amber-900 rounded-full font-label-md text-xs font-bold mb-3">
+          <span class="material-symbols-outlined text-[16px] text-amber-600" style="font-variation-settings:'FILL' 1;">star</span>
+          4.9/5 Rating from 3,200+ Students
+        </div>
+        <h2 class="font-headline-xl text-headline-xl text-primary mb-3">Student Reviews &amp; Success Stories</h2>
+        <p class="font-body-lg text-body-lg text-on-surface-variant">See how SikshaSetu courses have helped students crack IT jobs, boost office promotions, and start freelancing.</p>
+      </div>
+
+      <!-- Testimonials Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="testimonials-grid">
+        <!-- Review 1 -->
+        <div class="bg-surface rounded-2xl p-6 border border-outline-variant/40 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+          <div>
+            <div class="flex items-center gap-1 text-amber-500 mb-3">
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+            </div>
+            <p class="font-body-md text-on-surface text-sm leading-relaxed mb-4">
+              "Maine Full-Stack Web Development Diploma join kiya tha. Sir ne React aur Node.js bohot hi simple tareeqe se sikhaya. 4 capstone projects complete karne ke baad mujhe ek IT firm me ₹4.5 LPA ka offer mila!"
+            </p>
+          </div>
+          <div class="flex items-center gap-3 pt-4 border-t border-outline-variant/20">
+            <img class="w-11 h-11 rounded-full object-cover border border-primary/20" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Ananya Sharma" />
+            <div>
+              <h4 class="font-headline-sm text-sm font-bold text-primary">Ananya Sharma</h4>
+              <p class="text-xs text-on-surface-variant">Full-Stack Diploma Graduate · Junior Web Dev</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="bg-surface rounded-2xl p-6 border border-outline-variant/40 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+          <div>
+            <div class="flex items-center gap-1 text-amber-500 mb-3">
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+            </div>
+            <p class="font-body-md text-on-surface text-sm leading-relaxed mb-4">
+              "Tally Prime aur GST Return Filing course practical portal training ke sath tha. Sir ne real invoices par entries karwayin. Course certificate milte hi ek CA firm me Senior Accountant ki post mil gayi."
+            </p>
+          </div>
+          <div class="flex items-center gap-3 pt-4 border-t border-outline-variant/20">
+            <img class="w-11 h-11 rounded-full object-cover border border-primary/20" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Rahul Verma" />
+            <div>
+              <h4 class="font-headline-sm text-sm font-bold text-primary">Rahul Verma</h4>
+              <p class="text-xs text-on-surface-variant">Advanced GST &amp; Tally · Tax Accountant</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="bg-surface rounded-2xl p-6 border border-outline-variant/40 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+          <div>
+            <div class="flex items-center gap-1 text-amber-500 mb-3">
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
+            </div>
+            <p class="font-body-md text-on-surface text-sm leading-relaxed mb-4">
+              "Digital Marketing &amp; Meta Ads course se maine freelancing start ki. Ab mai 3 local businesses ke ads manage karti hu aur ghar baithe monthly 30k+ earn kar rahi hu. Best academy for genuine practical skills!"
+            </p>
+          </div>
+          <div class="flex items-center gap-3 pt-4 border-t border-outline-variant/20">
+            <img class="w-11 h-11 rounded-full object-cover border border-primary/20" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Pooja Patel" />
+            <div>
+              <h4 class="font-headline-sm text-sm font-bold text-primary">Pooja Patel</h4>
+              <p class="text-xs text-on-surface-variant">Digital Marketing Master · Freelancer</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -304,18 +446,62 @@
 
   // ── State & Rendering ─────────────────────────────────────────────────────
   let activeFilter = 'all';
+  let searchQuery = '';
+  let activeSort = 'featured';
   let showAll = false;
   const INITIAL_COUNT = 6;
 
   function getFiltered() {
-    return activeFilter === 'all' ? COURSES : COURSES.filter(c => c.category === activeFilter);
+    let list = COURSES;
+
+    // Filter by Category
+    if (activeFilter !== 'all') {
+      list = list.filter(c => c.category === activeFilter);
+    }
+
+    // Filter by Search query
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      list = list.filter(c => 
+        c.name.toLowerCase().includes(q) ||
+        c.shortDescription.toLowerCase().includes(q) ||
+        c.category.toLowerCase().includes(q) ||
+        (c.level && c.level.toLowerCase().includes(q)) ||
+        (c.whatYoullLearn && c.whatYoullLearn.some(item => item.toLowerCase().includes(q)))
+      );
+    }
+
+    // Sorting
+    list = [...list];
+    if (activeSort === 'price-low') {
+      list.sort((a, b) => a.price - b.price);
+    } else if (activeSort === 'price-high') {
+      list.sort((a, b) => b.price - a.price);
+    } else if (activeSort === 'duration') {
+      list.sort((a, b) => (b.durationWeeks || 0) - (a.durationWeeks || 0));
+    }
+
+    return list;
   }
 
   function renderCourses() {
     const filtered = getFiltered();
     const visible  = showAll ? filtered : filtered.slice(0, INITIAL_COUNT);
     const grid     = document.getElementById('courses-grid');
-    grid.innerHTML  = visible.map((c, i) => createCourseCard(c, i * 40)).join('');
+    const emptyState = document.getElementById('no-courses-found');
+    const countText = document.getElementById('results-count-text');
+
+    if (countText) {
+      countText.textContent = `Showing ${filtered.length} course${filtered.length === 1 ? '' : 's'}${searchQuery ? ` matching "${searchQuery}"` : ''}`;
+    }
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '';
+      emptyState.classList.remove('hidden');
+    } else {
+      emptyState.classList.add('hidden');
+      grid.innerHTML = visible.map((c, i) => createCourseCard(c, i * 40)).join('');
+    }
 
     const btn       = document.getElementById('view-all-btn');
     const label     = document.getElementById('view-all-label');
@@ -344,6 +530,64 @@
 
     // Render courses
     renderCourses();
+
+    // Live search input
+    const searchInput = document.getElementById('course-search-input');
+    const clearSearchBtn = document.getElementById('clear-search-btn');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        if (searchQuery.trim()) {
+          clearSearchBtn.classList.remove('hidden');
+        } else {
+          clearSearchBtn.classList.add('hidden');
+        }
+        showAll = true; // Auto-expand when searching
+        renderCourses();
+      });
+    }
+
+    if (clearSearchBtn) {
+      clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        searchQuery = '';
+        clearSearchBtn.classList.add('hidden');
+        showAll = false;
+        renderCourses();
+      });
+    }
+
+    const resetSearchBtn = document.getElementById('reset-search-btn');
+    if (resetSearchBtn) {
+      resetSearchBtn.addEventListener('click', () => {
+        if (searchInput) searchInput.value = '';
+        searchQuery = '';
+        activeFilter = 'all';
+        activeSort = 'featured';
+        document.getElementById('course-sort-select').value = 'featured';
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          if (b.dataset.filter === 'all') {
+            b.classList.add('active', 'bg-primary', 'text-on-primary');
+            b.classList.remove('border', 'border-outline-variant', 'text-on-surface');
+          } else {
+            b.classList.remove('active', 'bg-primary', 'text-on-primary');
+            b.classList.add('border', 'border-outline-variant', 'text-on-surface');
+          }
+        });
+        showAll = false;
+        renderCourses();
+      });
+    }
+
+    // Sort select
+    const sortSelect = document.getElementById('course-sort-select');
+    if (sortSelect) {
+      sortSelect.addEventListener('change', (e) => {
+        activeSort = e.target.value;
+        renderCourses();
+      });
+    }
 
     // Filter buttons
     document.getElementById('filter-bar').addEventListener('click', e => {

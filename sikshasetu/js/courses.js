@@ -1288,6 +1288,259 @@ const COURSES = [
       { icon: 'shield', title: 'Stay Safe Online', description: 'Learn to identify scams and protect your earnings.' },
     ],
   },
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // 21. Full-Stack Web Development & AI Career Diploma (₹19,999)
+  // ═══════════════════════════════════════════════════════════════════════
+  {
+    id: 21,
+    slug: 'full-stack-web-development-diploma',
+    name: 'Full-Stack Web Development & AI Diploma',
+    shortDescription: 'Job-ready career diploma in HTML/CSS, JavaScript, React, Node.js, Databases & AI Tool Integration with 100% Placement Support.',
+    fullDescription: 'Become an industry-ready software professional. This comprehensive 6-month master diploma takes you from absolute coding fundamentals to building scalable production web apps with React, Express, MongoDB/SQL, REST APIs, Git, and integrating modern AI API capabilities. Includes resume building, portfolio projects, mock interviews, and guaranteed job assistance.',
+    price: 19999,
+    duration: '24 Weeks (6 Months)',
+    durationWeeks: 24,
+    level: 'Advanced',
+    category: 'Design & Web',
+    icon: 'terminal',
+    iconColor: '#7c3aed',
+    thumbnailBg: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)',
+    thumbnail: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80',
+    badge: 'Career Master',
+    badgeClass: 'bg-amber-400 text-black font-extrabold',
+    seats: 12,
+    certificate: true,
+    whatYoullLearn: [
+      'Master Frontend with HTML5, Modern CSS3, Tailwind CSS & JavaScript (ES6+)',
+      'Build modern single page reactive applications using React.js & State Management',
+      'Develop robust Backend REST APIs with Node.js & Express',
+      'Design and manage SQL & NoSQL Databases (PostgreSQL / MongoDB)',
+      'Integrate AI APIs & automate development workflows',
+      'Complete 4 live capstone projects, portfolio website & 100% placement support',
+    ],
+    curriculum: [
+      {
+        title: 'Module 1: Frontend Core & Responsive UI',
+        lessons: [
+          { title: 'Semantic HTML5, CSS Grid, Flexbox & Tailwind CSS', duration: '90:00' },
+          { title: 'Core JavaScript, DOM, Events & Asynchronous Programming', duration: '120:00' },
+          { title: 'Version Control with Git, GitHub & Deployment', duration: '60:00' },
+        ],
+      },
+      {
+        title: 'Module 2: React & Modern Frontend Architecture',
+        lessons: [
+          { title: 'React Hooks, Custom Components & Router', duration: '120:00' },
+          { title: 'State Management, API Consumption & Auth Tokens', duration: '90:00' },
+          { title: 'Capstone Project 1: Full-Featured E-Commerce UI', duration: '180:00' },
+        ],
+      },
+      {
+        title: 'Module 3: Backend API, Databases & Cloud Deployment',
+        lessons: [
+          { title: 'Node.js, Express Server & Authentication (JWT, bcrypt)', duration: '120:00' },
+          { title: 'Database Modeling with MongoDB & PostgreSQL', duration: '120:00' },
+          { title: 'RESTful API Design & AI API Integration', duration: '90:00' },
+          { title: 'DevOps: Docker basics, CI/CD, Cloud Deployment & Interview Prep', duration: '150:00' },
+        ],
+      },
+    ],
+    benefits: [
+      { icon: 'work', title: '100% Placement Assistance', description: 'Dedicated hiring partner network, resume reviews, and direct interview scheduling.' },
+      { icon: 'code', title: '4 Live Capstone Projects', description: 'Build and deploy production-grade applications that impress recruiters.' },
+      { icon: 'school', title: 'Government Recognized Diploma', description: 'Certified diploma certificate valid for national and global IT job applications.' },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // 22. Certified Digital Marketing & Performance Growth Master (₹9,999)
+  // ═══════════════════════════════════════════════════════════════════════
+  {
+    id: 22,
+    slug: 'certified-digital-marketing-master',
+    name: 'Digital Marketing & Growth Mastery',
+    shortDescription: 'Master Google Ads, Meta Ads (FB & Insta), SEO, Content Strategy, WhatsApp Marketing, and AI-powered Copywriting with live ad budgets.',
+    fullDescription: 'An intensive 12-week performance marketing bootcamp designed for business owners, freelancers, and aspiring marketers. You will run real ad campaigns with live budgets, perform in-depth SEO audits, build high-converting landing pages, master Google Analytics (GA4), and leverage AI tools for viral content generation.',
+    price: 9999,
+    duration: '12 Weeks (3 Months)',
+    durationWeeks: 12,
+    level: 'Intermediate',
+    category: 'Digital Skills',
+    icon: 'trending_up',
+    iconColor: '#059669',
+    thumbnailBg: 'linear-gradient(135deg, #064e3b 0%, #047857 100%)',
+    thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
+    badge: 'High ROI',
+    badgeClass: 'bg-emerald-400 text-emerald-950 font-extrabold',
+    seats: 15,
+    certificate: true,
+    whatYoullLearn: [
+      'Set up & optimize Google Search, Display, and Video (YouTube) Ad campaigns',
+      'Master Meta Ads Manager (Facebook & Instagram) with custom audience targeting',
+      'On-Page, Off-Page & Technical SEO with keyword research tools',
+      'Google Analytics 4 (GA4), Tag Manager & conversion tracking setup',
+      'WhatsApp Automation, Email Marketing & Sales Funnels',
+      'AI marketing workflows with ChatGPT, Canva Pro & automated copy generators',
+    ],
+    curriculum: [
+      {
+        title: 'Module 1: Search Engine Optimization & Content',
+        lessons: [
+          { title: 'Keyword Research & Competitor Gap Analysis', duration: '60:00' },
+          { title: 'Technical SEO, Core Web Vitals & Local Google Business Profile', duration: '90:00' },
+          { title: 'AI-assisted Content Writing & Backlink Outreach', duration: '60:00' },
+        ],
+      },
+      {
+        title: 'Module 2: Paid Ads & Performance Marketing',
+        lessons: [
+          { title: 'Meta Ads Blueprint: Pixel Setup, Audiences & Retargeting', duration: '120:00' },
+          { title: 'Google Ads: Search Intent, Bidding Strategies & Quality Score', duration: '120:00' },
+          { title: 'Live Ad Campaign Execution with Real Budgets', duration: '90:00' },
+        ],
+      },
+      {
+        title: 'Module 3: Analytics, Automation & Freelance Growth',
+        lessons: [
+          { title: 'GA4 Setup, Event Tracking & Custom Dashboards', duration: '60:00' },
+          { title: 'Email & WhatsApp Automated Lead Generation', duration: '60:00' },
+          { title: 'Pitching Clients, Agency Business Model & Freelancing', duration: '90:00' },
+        ],
+      },
+    ],
+    benefits: [
+      { icon: 'ads_click', title: 'Live Campaign Budgets', description: 'Get hands-on experience by executing real campaigns during the course.' },
+      { icon: 'workspace_premium', title: 'Industry Certifications', description: 'Assistance for Google, HubSpot, and SikshaSetu Master Certifications.' },
+      { icon: 'trending_up', title: 'Client Acquisition Strategy', description: 'Learn how to pitch high-paying clients and earn monthly retainers.' },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // 23. Python Programming for Data Analytics & Automation (₹4,999)
+  // ═══════════════════════════════════════════════════════════════════════
+  {
+    id: 23,
+    slug: 'python-data-analytics-automation',
+    name: 'Python for Data Analytics & Automation',
+    shortDescription: 'Learn Python from scratch — manipulate big data with Pandas, build interactive charts with Matplotlib/Seaborn, and automate repetitive office tasks.',
+    fullDescription: 'Python is the #1 programming language in the world for automation and analytics. This 8-week course covers Python fundamentals, data extraction, CSV/Excel automation, statistical analysis with NumPy and Pandas, and data visualization dashboards. Perfect for analysts, managers, and students looking for high-paying corporate roles.',
+    price: 4999,
+    duration: '8 Weeks (2 Months)',
+    durationWeeks: 8,
+    level: 'Intermediate',
+    category: 'Basic Computing',
+    icon: 'data_object',
+    iconColor: '#3b82f6',
+    thumbnailBg: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)',
+    thumbnail: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80',
+    badge: 'In Demand',
+    badgeClass: 'bg-blue-200 text-blue-900 font-bold',
+    seats: 18,
+    certificate: true,
+    whatYoullLearn: [
+      'Core Python syntax: variables, loops, functions, and data structures',
+      'Automate Excel sheets, PDFs, and email workflows using Python scripts',
+      'Data manipulation & cleaning using Pandas and NumPy',
+      'Exploratory Data Analysis (EDA) and business dashboards with Seaborn',
+      'Web scraping data from websites with BeautifulSoup',
+      'Build 3 real-world portfolio analytics projects',
+    ],
+    curriculum: [
+      {
+        title: 'Module 1: Python Fundamentals',
+        lessons: [
+          { title: 'Python Setup, Variables, Conditionals & Loops', duration: '60:00' },
+          { title: 'Lists, Dictionaries, Tuples & String Methods', duration: '60:00' },
+          { title: 'Functions, Modules & File Handling', duration: '60:00' },
+        ],
+      },
+      {
+        title: 'Module 2: Automation & Data Cleaning',
+        lessons: [
+          { title: 'Automating Excel Files, CSVs & Email Reports', duration: '90:00' },
+          { title: 'Introduction to NumPy for Fast Numerical Operations', duration: '60:00' },
+          { title: 'Pandas DataFrames: Filtering, Grouping & Aggregations', duration: '120:00' },
+        ],
+      },
+      {
+        title: 'Module 3: Visualization & Portfolio Projects',
+        lessons: [
+          { title: 'Visualizing Data with Matplotlib & Seaborn', duration: '90:00' },
+          { title: 'Web Scraping Live Data with BeautifulSoup', duration: '90:00' },
+          { title: 'Final Business Intelligence Project & Showcase', duration: '120:00' },
+        ],
+      },
+    ],
+    benefits: [
+      { icon: 'insights', title: 'Business Analytics Skills', description: 'Analyze corporate datasets and automate repetitive tasks in seconds.' },
+      { icon: 'code', title: 'Practical Code Repository', description: 'Walk away with reusable automation scripts and a GitHub portfolio.' },
+      { icon: 'workspace_premium', title: 'Python Certified Specialist', description: 'Boost resume credibility for data analyst and operations roles.' },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // 24. Advanced GST, Tally Prime & Corporate Taxation Specialist (₹4,999)
+  // ═══════════════════════════════════════════════════════════════════════
+  {
+    id: 24,
+    slug: 'advanced-gst-tally-taxation',
+    name: 'Advanced GST, Tally Prime & Corporate Tax',
+    shortDescription: 'Become a certified tax accountant. Master Tally Prime 4.0, GST Return Filing (GSTR 1, 3B, 9), TDS/TCS, E-Way Bills & Balance Sheet finalization.',
+    fullDescription: 'Designed for commerce students, accountants, and business managers who want to handle end-to-end company accounts. Learn live GST portal filing, payroll computation with PF/ESI, annual audits, bank reconciliation, and balance sheet preparation in Tally Prime.',
+    price: 4999,
+    duration: '8 Weeks (2 Months)',
+    durationWeeks: 8,
+    level: 'Advanced',
+    category: 'Accounting',
+    icon: 'account_balance',
+    iconColor: '#e11d48',
+    thumbnailBg: 'linear-gradient(135deg, #881337 0%, #e11d48 100%)',
+    thumbnail: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80',
+    badge: 'Popular',
+    badgeClass: 'bg-rose-200 text-rose-900 font-bold',
+    seats: 16,
+    certificate: true,
+    whatYoullLearn: [
+      'Comprehensive accounting in Tally Prime 4.0 with inventory & billing',
+      'Live GST portal filing: GSTR-1, GSTR-3B, GSTR-9 and Input Tax Credit (ITC) reconciliation',
+      'TDS and TCS computation, payment challans, and quarterly returns',
+      'Payroll management: Salary structure, PF, ESI & Professional Tax',
+      'Financial statement preparation, P&L, and Balance Sheet finalization',
+      'E-Way Bill & E-Invoicing portal live operations',
+    ],
+    curriculum: [
+      {
+        title: 'Module 1: Advanced Tally Prime & Inventory',
+        lessons: [
+          { title: 'Company Setup, Chart of Accounts & Advanced Voucher Entries', duration: '90:00' },
+          { title: 'Multi-Location Inventory, Batch Management & Price Lists', duration: '90:00' },
+          { title: 'Bank Reconciliation Statement (BRS) & Payment Gateway entries', duration: '60:00' },
+        ],
+      },
+      {
+        title: 'Module 2: Complete GST & Direct Tax Mastery',
+        lessons: [
+          { title: 'GST Rules, Reverse Charge (RCM), and ITC Claim Rules', duration: '90:00' },
+          { title: 'Hands-on GSTR-1 & GSTR-3B preparation and portal uploading', duration: '120:00' },
+          { title: 'TDS/TCS deduction rates, Challan 281 & Return 26Q/24Q', duration: '90:00' },
+        ],
+      },
+      {
+        title: 'Module 3: Payroll, Final Accounts & Practical Audit',
+        lessons: [
+          { title: 'Payroll Processing: Salary Slips, PF & ESI calculation', duration: '90:00' },
+          { title: 'Finalization of Balance Sheet & Profit & Loss Statement', duration: '120:00' },
+          { title: 'Audit Preparation & Corporate Practical Assessment', duration: '90:00' },
+        ],
+      },
+    ],
+    benefits: [
+      { icon: 'receipt_long', title: 'Real Government Portal Practice', description: 'Practical experience on GST and Income Tax testing portals.' },
+      { icon: 'work', title: 'High Demand Accounting Jobs', description: 'Direct qualification for Senior Accountant and Tax Executive roles.' },
+      { icon: 'workspace_premium', title: 'Authorized Tax Diploma', description: 'Industry-standard certification recognized across business firms.' },
+    ],
+  },
 ];
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────

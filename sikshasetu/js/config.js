@@ -23,8 +23,7 @@ const CONFIG = {
   address:      '123 Tech Park, Bangalore, India',
 
   // ── Payment Configuration ──────────────────────────────────────────────
-  // ⚠️  REPLACE with your actual UPI Merchant ID before going live
-  upiId:   'YOUR_UPI_ID@upi',
+  upiId:   '8390217169-1@nyes',
   upiName: 'SikshaSetu Academy',
 
   // ── Admin (Development Mode — replace with real auth in production) ────
