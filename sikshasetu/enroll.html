@@ -330,6 +330,7 @@
       Storage.saveEnrollment(enrollment);
       await Notifications.sendEnrollmentConfirmation(enrollment);
 
+      Utils.triggerConfetti(btn);
       Utils.showToast('Details saved! Redirecting to payment…', 'success');
       setTimeout(() => {
         window.location.href = `payment.html?enrollmentId=${enrollmentId}`;

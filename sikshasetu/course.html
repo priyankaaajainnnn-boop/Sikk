@@ -202,8 +202,25 @@
     const enrollUrl = `enroll.html?id=${course.slug}`;
     document.getElementById('nav-enroll-btn').href         = enrollUrl;
     document.getElementById('mobile-enroll-btn').href      = enrollUrl;
-    document.getElementById('hero-enroll-btn').onclick     = () => window.location.href = enrollUrl;
-    document.getElementById('pricing-enroll-btn').onclick  = () => window.location.href = enrollUrl;
+    
+    document.getElementById('hero-enroll-btn').onclick     = (e) => {
+      Utils.rewardEnrollClick(e.currentTarget, () => {
+        window.location.href = enrollUrl;
+      });
+    };
+    document.getElementById('pricing-enroll-btn').onclick  = (e) => {
+      Utils.rewardEnrollClick(e.currentTarget, () => {
+        window.location.href = enrollUrl;
+      });
+    };
+
+    [document.getElementById('nav-enroll-btn'), document.getElementById('mobile-enroll-btn')].forEach(btn => {
+      if (btn) {
+        btn.addEventListener('click', (e) => {
+          Utils.triggerConfetti(btn);
+        });
+      }
+    });
 
     // Hero
     document.getElementById('hero-category').textContent = course.category;

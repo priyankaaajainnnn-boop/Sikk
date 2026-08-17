@@ -20,7 +20,7 @@ const CONFIG = {
   phone:        '+91 98765 43210',
   email:        'hello@sikshasetu.in',
   supportEmail: 'support@sikshasetu.in',
-  address:      '123 Tech Park, Bangalore, India',
+  address:      'City Center Building, Phase 1, Rajiv Gandhi Infotech Park, Hinjawadi, Pune, Maharashtra 411057',
 
   // ── Payment Configuration ──────────────────────────────────────────────
   upiId:   '8390217169-1@nyes',

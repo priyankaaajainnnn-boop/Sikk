@@ -264,4 +264,121 @@ const Utils = {
       }
     });
   },
+
+  // ── Reward Confetti & Success Animation ─────────────────────────────────────
+
+  /**
+   * Spawns a subtle, elegant burst of colorful confetti particles from a coordinate or element.
+   * Uses pure CSS animations without heavy external dependencies.
+   * @param {number|Element} originXOrElement - X coordinate or target element
+   * @param {number} [originY] - Y coordinate if first param is a number
+   */
+  triggerConfetti(originXOrElement, originY) {
+    let x = window.innerWidth / 2;
+    let y = window.innerHeight / 2;
+
+    if (originXOrElement instanceof Element) {
+      const rect = originXOrElement.getBoundingClientRect();
+      x = rect.left + rect.width / 2;
+      y = rect.top + rect.height / 2;
+    } else if (typeof originXOrElement === 'number' && typeof originY === 'number') {
+      x = originXOrElement;
+      y = originY;
+    }
+
+    // Ensure CSS styles for confetti exist
+    if (!document.getElementById('confetti-styles')) {
+      const style = document.createElement('style');
+      style.id = 'confetti-styles';
+      style.textContent = `
+        @keyframes confettiBurst {
+          0% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+          }
+          100% {
+            opacity: 0;
+            transform: translate3d(var(--tx), var(--ty), 0) scale(var(--scale, 0.4)) rotate(var(--rot));
+          }
+        }
+        @keyframes successPulse {
+          0% { transform: scale(1); }
+          50% { transform: scale(0.95); }
+          100% { transform: scale(1); }
+        }
+        .btn-success-pulse {
+          animation: successPulse 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    // Create container
+    const container = document.createElement('div');
+    container.style.cssText = `
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 99999;
+      overflow: hidden;
+    `;
+    document.body.appendChild(container);
+
+    const colors = ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#8b5cf6', '#06b6d4', '#eab308'];
+    const particleCount = 38;
+
+    for (let i = 0; i < particleCount; i++) {
+      const p = document.createElement('div');
+      const angle = (Math.PI * 2 * i) / particleCount + (Math.random() - 0.5) * 0.5;
+      const distance = 60 + Math.random() * 110;
+      const tx = Math.cos(angle) * distance;
+      const ty = Math.sin(angle) * distance - (30 + Math.random() * 40); // slight upward bias
+      const rot = (Math.random() * 720 - 360) + 'deg';
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const size = Math.random() > 0.4 ? (6 + Math.random() * 6) : (4 + Math.random() * 4);
+      const isCircle = Math.random() > 0.5;
+      const duration = 0.65 + Math.random() * 0.4;
+      const delay = Math.random() * 0.08;
+
+      p.style.cssText = `
+        position: absolute;
+        left: ${x}px;
+        top: ${y}px;
+        width: ${size}px;
+        height: ${isCircle ? size : size * 1.5}px;
+        background-color: ${color};
+        border-radius: ${isCircle ? '50%' : '2px'};
+        --tx: ${tx}px;
+        --ty: ${ty}px;
+        --rot: ${rot};
+        --scale: ${0.2 + Math.random() * 0.5};
+        animation: confettiBurst ${duration}s cubic-bezier(0.25, 1, 0.5, 1) ${delay}s forwards;
+      `;
+      container.appendChild(p);
+    }
+
+    // Clean up container after animations complete
+    setTimeout(() => {
+      container.remove();
+    }, 1300);
+  },
+
+  /**
+   * Helper to attach rewarding click effect to buttons
+   * @param {Element} buttonElement
+   * @param {Function} [onComplete]
+   */
+  rewardEnrollClick(buttonElement, onComplete) {
+    if (!buttonElement) return;
+    buttonElement.classList.add('btn-success-pulse');
+    setTimeout(() => buttonElement.classList.remove('btn-success-pulse'), 350);
+    this.triggerConfetti(buttonElement);
+    if (typeof onComplete === 'function') {
+      setTimeout(onComplete, 220);
+    }
+  }
 };
+

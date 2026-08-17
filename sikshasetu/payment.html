@@ -390,6 +390,7 @@
       const updated = Storage.getEnrollment(enrollment.enrollmentId);
       await Notifications.sendPaymentSubmittedNotification(updated);
 
+      Utils.triggerConfetti(btn);
       Utils.showToast('Payment details submitted! Redirecting…', 'success');
       setTimeout(() => {
         window.location.href = `confirmation.html?enrollmentId=${enrollment.enrollmentId}`;

@@ -175,6 +175,11 @@
     document.getElementById('conf-amount').textContent = Utils.formatCurrency(course ? course.price : enrollment.coursePrice);
     document.getElementById('conf-date').textContent   = Utils.formatDateTime(enrollment.paymentSubmittedAt || enrollment.createdAt);
 
+    // Trigger rewarding celebratory confetti on landing
+    setTimeout(() => {
+      Utils.triggerConfetti(window.innerWidth / 2, 220);
+    }, 250);
+
     // Status badge
     const statusBadge = document.getElementById('conf-status-badge');
     const status = enrollment.paymentStatus;

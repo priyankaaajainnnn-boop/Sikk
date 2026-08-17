@@ -31,6 +31,56 @@
   .mobile-menu-enter { transition: opacity 0.2s, transform 0.2s; }
   @keyframes fadeInUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
   .course-card-anim { animation: fadeInUp 0.35s ease both; }
+
+  /* Interactive Hover & Floating Animations */
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(0.5deg); }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(19, 27, 46, 0.2); }
+    50% { box-shadow: 0 0 20px 4px rgba(19, 27, 46, 0.12); }
+  }
+  .animate-float-slow {
+    animation: floatSlow 5s ease-in-out infinite;
+  }
+  .hover-lift {
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 16px 32px -8px rgba(11, 28, 48, 0.12);
+  }
+  .feature-card-interactive {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card-interactive::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s ease;
+    pointer-events: none;
+  }
+  .feature-card-interactive:hover::after {
+    left: 100%;
+  }
+  .feature-card-interactive:hover {
+    transform: translateY(-5px);
+    border-color: #0b1c30;
+    box-shadow: 0 12px 24px -6px rgba(11, 28, 48, 0.1);
+  }
+  .stat-card-hover {
+    transition: transform 0.25s ease, color 0.25s ease;
+  }
+  .stat-card-hover:hover {
+    transform: translateY(-4px) scale(1.03);
+  }
 </style>
 </head>
 <body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col">
@@ -98,19 +148,19 @@
           </a>
         </div>
       </div>
-      <div class="relative z-10 w-full h-[500px] rounded-2xl overflow-hidden shadow-xl border border-outline-variant/30 group bg-surface-container">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent z-10"></div>
-        <img class="w-full h-full object-cover object-top transform transition-transform duration-700 group-hover:scale-105"
+      <div class="relative z-10 w-full h-[500px] rounded-2xl overflow-hidden shadow-xl border border-outline-variant/30 group bg-surface-container animate-float-slow hover:shadow-2xl transition-all duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10"></div>
+        <img class="w-full h-full object-cover object-top transform transition-transform duration-700 group-hover:scale-110"
           src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1600&q=85"
           alt="Indian student mastering computer skills at SikshaSetu Academy"
           referrerpolicy="no-referrer"
           loading="eager"/>
-        <div class="absolute bottom-4 left-4 right-4 z-20 bg-surface/90 backdrop-blur-md px-4 py-3 rounded-xl border border-white/20 shadow-md flex items-center justify-between">
+        <div class="absolute bottom-4 left-4 right-4 z-20 bg-surface/95 backdrop-blur-md px-4 py-3 rounded-xl border border-white/30 shadow-lg flex items-center justify-between transition-transform duration-300 group-hover:translate-y-[-2px]">
           <div class="flex items-center gap-3">
-            <span class="w-3 h-3 rounded-full bg-green-500 animate-ping"></span>
+            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
             <p class="font-label-md text-sm font-semibold text-on-surface">Practical Lab &amp; Live Training</p>
           </div>
-          <span class="font-label-md text-xs px-2.5 py-1 bg-primary text-on-primary rounded-full">100% Practical</span>
+          <span class="font-label-md text-xs px-2.5 py-1 bg-primary text-on-primary rounded-full font-bold shadow-sm">100% Practical</span>
         </div>
       </div>
     </div>
@@ -119,12 +169,12 @@
   </section>
 
   <!-- ══ STATS BANNER ═══════════════════════════════════════════════════════ -->
-  <section class="bg-primary-container py-12 border-y border-outline-variant/20">
+  <section class="bg-primary-container py-12 border-y border-outline-variant/20 relative overflow-hidden">
     <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-outline-variant/20">
-      <div class="space-y-2"><p class="font-headline-xl text-headline-xl text-tertiary-fixed">24+</p><p class="font-label-md text-label-md text-on-primary-container">Professional Courses</p></div>
-      <div class="space-y-2"><p class="font-headline-xl text-headline-xl text-tertiary-fixed">5k+</p><p class="font-label-md text-label-md text-on-primary-container">Students Trained</p></div>
-      <div class="space-y-2"><p class="font-headline-xl text-headline-xl text-tertiary-fixed">98%</p><p class="font-label-md text-label-md text-on-primary-container">Success Rate</p></div>
-      <div class="space-y-2"><p class="font-headline-xl text-headline-xl text-tertiary-fixed">24/7</p><p class="font-label-md text-label-md text-on-primary-container">Learning Support</p></div>
+      <div class="space-y-2 stat-card-hover cursor-default p-2 rounded-xl transition-all"><p class="font-headline-xl text-headline-xl text-tertiary-fixed font-black">24+</p><p class="font-label-md text-label-md text-on-primary-container font-medium">Professional Courses</p></div>
+      <div class="space-y-2 stat-card-hover cursor-default p-2 rounded-xl transition-all"><p class="font-headline-xl text-headline-xl text-tertiary-fixed font-black">5k+</p><p class="font-label-md text-label-md text-on-primary-container font-medium">Students Trained</p></div>
+      <div class="space-y-2 stat-card-hover cursor-default p-2 rounded-xl transition-all"><p class="font-headline-xl text-headline-xl text-tertiary-fixed font-black">98%</p><p class="font-label-md text-label-md text-on-primary-container font-medium">Success Rate</p></div>
+      <div class="space-y-2 stat-card-hover cursor-default p-2 rounded-xl transition-all"><p class="font-headline-xl text-headline-xl text-tertiary-fixed font-black">24/7</p><p class="font-label-md text-label-md text-on-primary-container font-medium">Learning Support</p></div>
     </div>
   </section>
 
@@ -198,7 +248,7 @@
 
       <!-- View All / Show Less -->
       <div class="mt-12 text-center">
-        <button id="view-all-btn" class="inline-flex items-center justify-center gap-2 px-8 py-3 border-2 border-primary text-primary font-button text-button rounded-lg hover:bg-primary hover:text-on-primary transition-colors duration-300">
+        <button id="view-all-btn" class="inline-flex items-center justify-center gap-2 px-8 py-3 border-2 border-primary text-primary font-button text-button rounded-lg hover:bg-primary hover:text-on-primary transition-colors duration-300 hover:shadow-md">
           <span id="view-all-label">View All 20 Courses</span>
           <span class="material-symbols-outlined text-[20px]" id="view-all-icon">expand_more</span>
         </button>
@@ -214,34 +264,34 @@
         <p class="font-body-lg text-body-lg text-on-surface-variant">We combine academic rigor with practical, hands-on experience to ensure our students are job-ready from day one.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-tertiary-fixed transition-colors duration-300">
-          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4"><span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1;">psychology</span></div>
-          <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Beginner Friendly</h3>
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 feature-card-interactive group cursor-default">
+          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-white"><span class="material-symbols-outlined text-primary group-hover:text-on-primary text-2xl transition-colors" style="font-variation-settings:'FILL' 1;">psychology</span></div>
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-2 group-hover:translate-x-1 transition-transform">Beginner Friendly</h3>
           <p class="font-body-md text-body-md text-on-surface-variant">No prior experience required. Our curriculums start from the absolute basics and build up gradually.</p>
         </div>
-        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-tertiary-fixed transition-colors duration-300">
-          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4"><span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1;">build</span></div>
-          <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Practical Learning</h3>
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 feature-card-interactive group cursor-default">
+          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-white"><span class="material-symbols-outlined text-primary group-hover:text-on-primary text-2xl transition-colors" style="font-variation-settings:'FILL' 1;">build</span></div>
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-2 group-hover:translate-x-1 transition-transform">Practical Learning</h3>
           <p class="font-body-md text-body-md text-on-surface-variant">80% hands-on lab sessions and real-world projects. Less theory, more actual doing.</p>
         </div>
-        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-tertiary-fixed transition-colors duration-300">
-          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4"><span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1;">payments</span></div>
-          <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Affordable Fees</h3>
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 feature-card-interactive group cursor-default">
+          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-white"><span class="material-symbols-outlined text-primary group-hover:text-on-primary text-2xl transition-colors" style="font-variation-settings:'FILL' 1;">payments</span></div>
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-2 group-hover:translate-x-1 transition-transform">Affordable Fees</h3>
           <p class="font-body-md text-body-md text-on-surface-variant">High-quality education should be accessible. We offer competitive pricing and flexible payment options.</p>
         </div>
-        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-tertiary-fixed transition-colors duration-300">
-          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4"><span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1;">verified</span></div>
-          <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Valid Certification</h3>
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 feature-card-interactive group cursor-default">
+          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-white"><span class="material-symbols-outlined text-primary group-hover:text-on-primary text-2xl transition-colors" style="font-variation-settings:'FILL' 1;">verified</span></div>
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-2 group-hover:translate-x-1 transition-transform">Valid Certification</h3>
           <p class="font-body-md text-body-md text-on-surface-variant">Receive an industry-recognized certificate upon completion to boost your resume and career prospects.</p>
         </div>
-        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-tertiary-fixed transition-colors duration-300">
-          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4"><span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1;">schedule</span></div>
-          <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Flexible Timings</h3>
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 feature-card-interactive group cursor-default">
+          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-white"><span class="material-symbols-outlined text-primary group-hover:text-on-primary text-2xl transition-colors" style="font-variation-settings:'FILL' 1;">schedule</span></div>
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-2 group-hover:translate-x-1 transition-transform">Flexible Timings</h3>
           <p class="font-body-md text-body-md text-on-surface-variant">Morning, evening, and weekend batches available to suit students and working professionals.</p>
         </div>
-        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 hover:border-tertiary-fixed transition-colors duration-300">
-          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4"><span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings:'FILL' 1;">person_play</span></div>
-          <h3 class="font-headline-sm text-headline-sm text-primary mb-2">Expert Guidance</h3>
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 feature-card-interactive group cursor-default">
+          <div class="w-12 h-12 bg-surface-container rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-white"><span class="material-symbols-outlined text-primary group-hover:text-on-primary text-2xl transition-colors" style="font-variation-settings:'FILL' 1;">person_play</span></div>
+          <h3 class="font-headline-sm text-headline-sm text-primary mb-2 group-hover:translate-x-1 transition-transform">Expert Guidance</h3>
           <p class="font-body-md text-body-md text-on-surface-variant">Learn directly from industry professionals with years of experience teaching complex concepts simply.</p>
         </div>
       </div>
@@ -252,7 +302,7 @@
   <section class="py-section-padding bg-surface-container-low" id="reviews">
     <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
       <div class="text-center max-w-2xl mx-auto mb-14">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100 text-amber-900 rounded-full font-label-md text-xs font-bold mb-3">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100 text-amber-900 rounded-full font-label-md text-xs font-bold mb-3 hover:scale-105 transition-transform cursor-default">
           <span class="material-symbols-outlined text-[16px] text-amber-600" style="font-variation-settings:'FILL' 1;">star</span>
           4.9/5 Rating from 3,200+ Students
         </div>
@@ -263,7 +313,7 @@
       <!-- Testimonials Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="testimonials-grid">
         <!-- Review 1 -->
-        <div class="bg-surface rounded-2xl p-6 border border-outline-variant/40 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+        <div class="bg-surface rounded-2xl p-6 border border-outline-variant/40 shadow-sm flex flex-col justify-between hover-lift cursor-default group">
           <div>
             <div class="flex items-center gap-1 text-amber-500 mb-3">
               <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
@@ -277,7 +327,7 @@
             </p>
           </div>
           <div class="flex items-center gap-3 pt-4 border-t border-outline-variant/20">
-            <img class="w-11 h-11 rounded-full object-cover border border-primary/20" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Ananya Sharma" />
+            <img class="w-11 h-11 rounded-full object-cover border border-primary/20 group-hover:ring-2 group-hover:ring-primary transition-all" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Ananya Sharma" />
             <div>
               <h4 class="font-headline-sm text-sm font-bold text-primary">Ananya Sharma</h4>
               <p class="text-xs text-on-surface-variant">Full-Stack Diploma Graduate · Junior Web Dev</p>
@@ -286,7 +336,7 @@
         </div>
 
         <!-- Review 2 -->
-        <div class="bg-surface rounded-2xl p-6 border border-outline-variant/40 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+        <div class="bg-surface rounded-2xl p-6 border border-outline-variant/40 shadow-sm flex flex-col justify-between hover-lift cursor-default group">
           <div>
             <div class="flex items-center gap-1 text-amber-500 mb-3">
               <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
@@ -300,7 +350,7 @@
             </p>
           </div>
           <div class="flex items-center gap-3 pt-4 border-t border-outline-variant/20">
-            <img class="w-11 h-11 rounded-full object-cover border border-primary/20" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Rahul Verma" />
+            <img class="w-11 h-11 rounded-full object-cover border border-primary/20 group-hover:ring-2 group-hover:ring-primary transition-all" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Rahul Verma" />
             <div>
               <h4 class="font-headline-sm text-sm font-bold text-primary">Rahul Verma</h4>
               <p class="text-xs text-on-surface-variant">Advanced GST &amp; Tally · Tax Accountant</p>
@@ -309,7 +359,7 @@
         </div>
 
         <!-- Review 3 -->
-        <div class="bg-surface rounded-2xl p-6 border border-outline-variant/40 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+        <div class="bg-surface rounded-2xl p-6 border border-outline-variant/40 shadow-sm flex flex-col justify-between hover-lift cursor-default group">
           <div>
             <div class="flex items-center gap-1 text-amber-500 mb-3">
               <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">star</span>
@@ -323,7 +373,7 @@
             </p>
           </div>
           <div class="flex items-center gap-3 pt-4 border-t border-outline-variant/20">
-            <img class="w-11 h-11 rounded-full object-cover border border-primary/20" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Pooja Patel" />
+            <img class="w-11 h-11 rounded-full object-cover border border-primary/20 group-hover:ring-2 group-hover:ring-primary transition-all" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Pooja Patel" />
             <div>
               <h4 class="font-headline-sm text-sm font-bold text-primary">Pooja Patel</h4>
               <p class="text-xs text-on-surface-variant">Digital Marketing Master · Freelancer</p>
@@ -368,9 +418,18 @@
     <div class="space-y-4">
       <h4 class="font-headline-sm text-[18px] text-on-primary-container">Contact</h4>
       <ul class="space-y-2 text-on-primary-container/80 font-body-md text-body-md" id="footer-contact">
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">location_on</span>123 Tech Park, Bangalore, India</li>
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">call</span>+91 98765 43210</li>
-        <li class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">mail</span>hello@edupremium.in</li>
+        <li class="flex items-start gap-2">
+          <span class="material-symbols-outlined text-[18px] text-tertiary-fixed shrink-0 mt-0.5">location_on</span>
+          <span>City Center Building, Phase 1, Rajiv Gandhi Infotech Park, Hinjawadi, Pune, Maharashtra 411057</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px] text-tertiary-fixed shrink-0">call</span>
+          <span>+91 98765 43210</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px] text-tertiary-fixed shrink-0">mail</span>
+          <span>hello@sikshasetu.in</span>
+        </li>
       </ul>
     </div>
     <div class="space-y-4">
@@ -417,14 +476,14 @@
 
   function createCourseCard(course, delay = 0) {
     return `
-      <div class="bg-surface rounded-xl border border-outline-variant/40 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group flex flex-col course-card-anim" style="animation-delay:${delay}ms;">
+      <div class="bg-surface rounded-xl border border-outline-variant/40 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 hover:border-primary/40 group flex flex-col course-card-anim cursor-pointer" style="animation-delay:${delay}ms;" onclick="if(!event.target.closest('a')){window.location.href='course.html?id=${course.slug}'}">
         <div class="h-48 relative overflow-hidden bg-surface-container flex items-center justify-center">
           ${buildThumbnail(course)}
           ${buildBadge(course)}
         </div>
         <div class="p-6 flex flex-col flex-grow">
           <div class="flex justify-between items-start mb-2">
-            <h3 class="font-headline-sm text-headline-sm text-primary group-hover:text-on-surface-variant transition-colors pr-2">${course.name}</h3>
+            <h3 class="font-headline-sm text-headline-sm text-primary group-hover:text-primary transition-colors pr-2 group-hover:translate-x-0.5 transition-transform">${course.name}</h3>
             <span class="bg-surface-variant text-on-surface-variant font-label-md text-[12px] px-2 py-1 rounded shrink-0">${course.level}</span>
           </div>
           <p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-2">${course.shortDescription}</p>
@@ -434,9 +493,9 @@
               <div class="flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">event_seat</span> ${course.seats} Seats</div>
             </div>
             <div class="flex justify-between items-center">
-              <span class="font-headline-sm text-headline-sm text-primary">${Utils.formatCurrency(course.price)}</span>
+              <span class="font-headline-sm text-headline-sm text-primary font-bold">${Utils.formatCurrency(course.price)}</span>
               <a href="course.html?id=${course.slug}" class="text-primary font-button text-button hover:underline flex items-center gap-1 group/btn font-semibold">
-                View Details <span class="material-symbols-outlined text-[18px] transform group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                View Details <span class="material-symbols-outlined text-[18px] transform group-hover/btn:translate-x-1.5 transition-transform duration-200">arrow_forward</span>
               </a>
             </div>
           </div>
@@ -613,6 +672,13 @@
 
     // Mobile nav
     Utils.initMobileNav();
+
+    // Reward confetti animation on Enroll / Explore buttons
+    document.querySelectorAll('a[href="#courses"], a[href^="enroll.html"], a[href^="course.html"]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        Utils.triggerConfetti(btn);
+      });
+    });
 
     // Close mobile menu links
     document.querySelectorAll('#mobile-menu a').forEach(a => {
