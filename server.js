@@ -11,14 +11,33 @@ const PORT = 3000;
 const HOST = '0.0.0.0';
 
 const staticDir = path.join(__dirname, 'sikshasetu');
-const dataDir = path.join(__dirname, 'data');
+
+// Safely resolve data directory with read-only / serverless fallback (Vercel)
+let dataDir = path.join(__dirname, 'data');
+let isFsWritable = false;
+try {
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+  const testFile = path.join(dataDir, '.write-test');
+  fs.writeFileSync(testFile, '1');
+  fs.unlinkSync(testFile);
+  isFsWritable = true;
+} catch (e) {
+  // If filesystem is read-only (such as Vercel Lambda), fallback to /tmp
+  dataDir = path.join('/tmp', 'sikshasetu-data');
+  try {
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+    isFsWritable = true;
+  } catch (err2) {
+    isFsWritable = false;
+  }
+}
+
 const ordersFilePath = path.join(dataDir, 'orders.json');
 const authFilePath = path.join(dataDir, 'admin-auth.json');
-
-// Ensure data directory exists
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
-}
 
 // Default initial seed orders
 const DEFAULT_ORDERS = [
@@ -186,29 +205,42 @@ const DEFAULT_ORDERS = [
   }
 ];
 
+// In-memory fallback in case filesystem is restricted
+let inMemoryOrders = null;
+let inMemoryPassword = 'admin123';
+
 // Helper functions for orders file storage
 function readOrdersFromFile() {
+  if (inMemoryOrders && !isFsWritable) {
+    return inMemoryOrders;
+  }
   try {
     if (!fs.existsSync(ordersFilePath)) {
-      fs.writeFileSync(ordersFilePath, JSON.stringify(DEFAULT_ORDERS, null, 2), 'utf-8');
-      return DEFAULT_ORDERS;
+      if (isFsWritable) {
+        fs.writeFileSync(ordersFilePath, JSON.stringify(DEFAULT_ORDERS, null, 2), 'utf-8');
+      }
+      inMemoryOrders = [...DEFAULT_ORDERS];
+      return inMemoryOrders;
     }
     const raw = fs.readFileSync(ordersFilePath, 'utf-8');
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : DEFAULT_ORDERS;
+    inMemoryOrders = Array.isArray(parsed) ? parsed : [...DEFAULT_ORDERS];
+    return inMemoryOrders;
   } catch (err) {
-    console.error('Error reading orders file:', err);
-    return DEFAULT_ORDERS;
+    if (!inMemoryOrders) inMemoryOrders = [...DEFAULT_ORDERS];
+    return inMemoryOrders;
   }
 }
 
 function writeOrdersToFile(orders) {
+  inMemoryOrders = orders;
+  if (!isFsWritable) return true;
   try {
     fs.writeFileSync(ordersFilePath, JSON.stringify(orders, null, 2), 'utf-8');
     return true;
   } catch (err) {
     console.error('Error writing orders file:', err);
-    return false;
+    return true; // Still preserved in memory
   }
 }
 
@@ -222,15 +254,17 @@ function getAdminPassword() {
   } catch (e) {
     // fallback
   }
-  return 'admin123';
+  return inMemoryPassword || 'admin123';
 }
 
 function setAdminPassword(newPassword) {
+  inMemoryPassword = newPassword;
+  if (!isFsWritable) return true;
   try {
     fs.writeFileSync(authFilePath, JSON.stringify({ password: newPassword, updatedAt: new Date().toISOString() }, null, 2), 'utf-8');
     return true;
   } catch (err) {
-    return false;
+    return true;
   }
 }
 
@@ -238,39 +272,61 @@ function setAdminPassword(newPassword) {
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 
-// Serve static assets from sikshasetu
+// Helper to reliably find an HTML file across all potential locations
+function findHtmlFile(fileName) {
+  const candidates = [
+    path.join(__dirname, fileName),
+    path.join(process.cwd(), fileName),
+    path.join(staticDir, fileName),
+    path.join(__dirname, 'sikshasetu', fileName),
+    path.join(process.cwd(), 'sikshasetu', fileName)
+  ];
+  for (const p of candidates) {
+    try {
+      if (fs.existsSync(p)) return p;
+    } catch (e) {}
+  }
+  return null;
+}
+
+function serveHtml(res, fileName) {
+  const target = findHtmlFile(fileName);
+  if (target) {
+    return res.sendFile(target);
+  }
+  // If static directory has it
+  const fallback = path.join(staticDir, fileName);
+  return res.sendFile(fallback);
+}
+
+// Serve static assets from both root and sikshasetu directories
+app.use(express.static(__dirname));
 app.use(express.static(staticDir));
 app.use('/sikshasetu', express.static(staticDir));
+app.use('/js', express.static(path.join(__dirname, 'js')));
+app.use('/sikshasetu/js', express.static(path.join(staticDir, 'js')));
 
 // ── Admin Panel Dedicated Routes ──────────────────────────────────────────
-// Ensures /admin, /admin.html, and /sikshasetu/admin directly open admin panel
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(staticDir, 'admin.html'));
-});
-
-app.get('/admin.html', (req, res) => {
-  res.sendFile(path.join(staticDir, 'admin.html'));
-});
-
-app.get('/sikshasetu/admin', (req, res) => {
-  res.sendFile(path.join(staticDir, 'admin.html'));
+// Guarantees /admin, /admin.html, /sikshasetu/admin all open Admin Panel directly
+app.get(['/admin', '/admin.html', '/sikshasetu/admin', '/sikshasetu/admin.html'], (req, res) => {
+  serveHtml(res, 'admin.html');
 });
 
 // Clean URLs for front-facing pages
-app.get('/enroll', (req, res) => {
-  res.sendFile(path.join(staticDir, 'enroll.html'));
+app.get(['/enroll', '/enroll.html', '/sikshasetu/enroll', '/sikshasetu/enroll.html'], (req, res) => {
+  serveHtml(res, 'enroll.html');
 });
 
-app.get('/payment', (req, res) => {
-  res.sendFile(path.join(staticDir, 'payment.html'));
+app.get(['/payment', '/payment.html', '/sikshasetu/payment', '/sikshasetu/payment.html'], (req, res) => {
+  serveHtml(res, 'payment.html');
 });
 
-app.get('/confirmation', (req, res) => {
-  res.sendFile(path.join(staticDir, 'confirmation.html'));
+app.get(['/confirmation', '/confirmation.html', '/sikshasetu/confirmation', '/sikshasetu/confirmation.html'], (req, res) => {
+  serveHtml(res, 'confirmation.html');
 });
 
-app.get('/course', (req, res) => {
-  res.sendFile(path.join(staticDir, 'course.html'));
+app.get(['/course', '/course.html', '/sikshasetu/course', '/sikshasetu/course.html'], (req, res) => {
+  serveHtml(res, 'course.html');
 });
 
 // ── Backend API Endpoints for Orders & Admin ──────────────────────────────
@@ -393,14 +449,28 @@ app.delete('/api/orders/:id', (req, res) => {
 });
 
 // Root path fallback
-app.get('/', (req, res) => {
-  res.sendFile(path.join(staticDir, 'index.html'));
+app.get(['/', '/index.html', '/sikshasetu', '/sikshasetu/index.html'], (req, res) => {
+  serveHtml(res, 'index.html');
+});
+
+// Unknown route fallback
+app.use((req, res) => {
+  if (req.accepts('html')) {
+    serveHtml(res, 'index.html');
+  } else {
+    res.status(404).json({ success: false, message: `Route not found: ${req.url}` });
+  }
 });
 
 // Initialize orders file if not present
 readOrdersFromFile();
 
-app.listen(PORT, HOST, () => {
-  console.log(`SikshaSetu server running on http://${HOST}:${PORT}`);
-  console.log(`Admin panel available at http://${HOST}:${PORT}/admin`);
-});
+// Only listen if not invoked as a serverless function (Vercel/AWS)
+if (!process.env.VERCEL && !process.env.AWS_LAMBDA_FUNCTION_NAME) {
+  app.listen(PORT, HOST, () => {
+    console.log(`SikshaSetu server running on http://${HOST}:${PORT}`);
+    console.log(`Admin panel available at http://${HOST}:${PORT}/admin`);
+  });
+}
+
+export default app;

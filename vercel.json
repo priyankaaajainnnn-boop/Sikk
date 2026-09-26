@@ -3,13 +3,19 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/admin", "destination": "/sikshasetu/admin.html" },
-    { "source": "/admin.html", "destination": "/sikshasetu/admin.html" },
-    { "source": "/sikshasetu/admin", "destination": "/sikshasetu/admin.html" },
-    { "source": "/course", "destination": "/sikshasetu/course.html" },
-    { "source": "/enroll", "destination": "/sikshasetu/enroll.html" },
-    { "source": "/payment", "destination": "/sikshasetu/payment.html" },
-    { "source": "/confirmation", "destination": "/sikshasetu/confirmation.html" },
-    { "source": "/", "destination": "/sikshasetu/index.html" }
+    { "source": "/api/(.*)", "destination": "/api/index.js" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/admin.html", "destination": "/admin.html" },
+    { "source": "/sikshasetu/admin", "destination": "/admin.html" },
+    { "source": "/sikshasetu/admin.html", "destination": "/admin.html" },
+    { "source": "/course", "destination": "/course.html" },
+    { "source": "/course.html", "destination": "/course.html" },
+    { "source": "/enroll", "destination": "/enroll.html" },
+    { "source": "/enroll.html", "destination": "/enroll.html" },
+    { "source": "/payment", "destination": "/payment.html" },
+    { "source": "/payment.html", "destination": "/payment.html" },
+    { "source": "/confirmation", "destination": "/confirmation.html" },
+    { "source": "/confirmation.html", "destination": "/confirmation.html" },
+    { "source": "/sikshasetu/(.*)", "destination": "/$1" }
   ]
 }

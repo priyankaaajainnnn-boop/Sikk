@@ -1,12 +1,1179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=sikshasetu/admin.html">
-  <title>Redirecting to Admin Panel...</title>
-  <script>window.location.replace("sikshasetu/admin.html");</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Dashboard & Orders — SikshaSetu</title>
+<meta name="robots" content="noindex, nofollow"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#0f172a",
+          "primary-light": "#1e293b",
+          "brand-blue": "#2563eb",
+          "brand-emerald": "#059669",
+          "surface-container": "#f1f5f9",
+          "surface-container-high": "#e2e8f0",
+          "surface-container-low": "#f8fafc",
+          "on-surface": "#0f172a",
+          "on-surface-variant": "#64748b",
+          "outline-variant": "#cbd5e1",
+        },
+        fontFamily: {
+          sans: ['Inter', 'sans-serif'],
+          heading: ['Plus Jakarta Sans', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .modal-backdrop { display: none; }
+  .modal-backdrop.open { display: flex; }
+  table { border-collapse: separate; border-spacing: 0; }
+  th { position: sticky; top: 0; z-index: 10; }
+  .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+</style>
 </head>
-<body>
-  <p>Redirecting to <a href="sikshasetu/admin.html">Admin Panel</a>...</p>
+<body class="bg-slate-50 min-h-screen font-sans text-slate-800 antialiased selection:bg-blue-600 selection:text-white">
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- 1. PASSWORD-SECURED LOGIN SCREEN                                       -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div id="login-screen" class="min-h-screen flex items-center justify-center px-4 py-12 relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950">
+  <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 24px 24px;"></div>
+  
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl border border-slate-100 p-8 sm:p-10 relative z-10">
+    <div class="text-center mb-8">
+      <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm border border-blue-100">
+        <span class="material-symbols-outlined text-4xl" style="font-variation-settings:'FILL' 1;">admin_panel_settings</span>
+      </div>
+      <h1 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900">Admin Portal</h1>
+      <p class="text-sm text-slate-500 mt-1 font-medium">SikshaSetu Academy — Orders & Payments</p>
+    </div>
+
+    <!-- Quick test demo helper pill -->
+    <div class="bg-blue-50/80 border border-blue-200/80 rounded-xl p-3.5 mb-6 text-xs text-blue-900 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-blue-600 text-lg shrink-0">key</span>
+        <span>Default password: <strong class="font-mono font-bold text-blue-800">admin123</strong></span>
+      </div>
+      <button type="button" onclick="quickFillPassword()" class="text-blue-700 bg-white hover:bg-blue-100 px-2.5 py-1 rounded-md border border-blue-200 font-semibold transition-colors shrink-0 text-[11px]">
+        Auto-Fill
+      </button>
+    </div>
+
+    <form id="login-form" onsubmit="handleLogin(event)" class="space-y-5">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2" for="admin-password">Admin Password</label>
+        <div class="relative">
+          <input class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 pr-11 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all placeholder:text-slate-400"
+            id="admin-password" type="password" placeholder="Enter admin password..." autocomplete="current-password" required/>
+          <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1">
+            <span id="pwd-icon" class="material-symbols-outlined text-xl">visibility</span>
+          </button>
+        </div>
+        <p id="login-error" class="hidden text-red-600 text-xs mt-2 flex items-center gap-1 font-medium">
+          <span class="material-symbols-outlined text-sm">error</span> Incorrect password. Please try again.
+        </p>
+      </div>
+
+      <button class="w-full bg-slate-900 text-white font-semibold text-sm py-3.5 px-4 rounded-xl hover:bg-slate-800 active:scale-[0.99] transition-all flex items-center justify-center gap-2 shadow-lg shadow-slate-900/10 cursor-pointer" type="submit">
+        <span class="material-symbols-outlined text-lg">lock_open</span> Unlock Admin Panel
+      </button>
+    </form>
+
+    <div class="mt-8 pt-6 border-t border-slate-100 text-center flex items-center justify-between text-xs text-slate-500">
+      <a href="index.html" class="hover:text-blue-600 font-medium transition-colors flex items-center gap-1">
+        <span class="material-symbols-outlined text-base">arrow_back</span> Website
+      </a>
+      <span class="text-slate-400">Password Protected</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- 2. ADMIN DASHBOARD & ORDERS PANEL                                      -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div id="admin-panel" class="hidden min-h-screen flex flex-col bg-slate-100">
+
+  <!-- Top Navigation Header -->
+  <header class="bg-slate-900 text-white sticky top-0 z-40 shadow-lg border-b border-slate-800">
+    <div class="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4 py-3">
+      
+      <!-- Brand & Title -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold shadow-md shadow-blue-500/20">
+          <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1;">school</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-heading font-bold text-lg text-white tracking-tight">SikshaSetu</span>
+            <span class="bg-blue-900/80 text-blue-300 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border border-blue-700/50">Admin Panel</span>
+          </div>
+          <p class="text-xs text-slate-400">Orders, UPI Transactions & Enrollments</p>
+        </div>
+      </div>
+
+      <!-- Top Right Action Controls -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- TOP RIGHT: Download Data CSV -->
+        <button onclick="Storage.exportOrdersToCSV(); exportOrdersCSV();" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-1.5 cursor-pointer active:scale-95" title="Download all orders as CSV file">
+          <span class="material-symbols-outlined text-lg">download</span>
+          <span class="hidden md:inline">Download</span> Orders (CSV)
+        </button>
+
+        <!-- TOP RIGHT: Update Data via CSV Upload -->
+        <button onclick="openCsvModal()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl shadow-sm transition-all flex items-center gap-1.5 cursor-pointer active:scale-95" title="Upload and update orders data using CSV">
+          <span class="material-symbols-outlined text-lg">upload_file</span>
+          <span class="hidden md:inline">Update via</span> CSV File
+        </button>
+
+        <!-- Add Single Order Manually -->
+        <button onclick="openOrderModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-semibold px-3 py-2 sm:py-2.5 rounded-xl border border-slate-700 transition-all flex items-center gap-1 cursor-pointer" title="Add single order">
+          <span class="material-symbols-outlined text-lg">add</span>
+          <span class="hidden lg:inline">Add Order</span>
+        </button>
+
+        <!-- Settings / Change Password -->
+        <button onclick="openPasswordModal()" class="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800 transition-colors" title="Change Admin Password">
+          <span class="material-symbols-outlined text-xl">key</span>
+        </button>
+
+        <!-- View Website Link -->
+        <a href="index.html" class="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800 transition-colors" title="View Public Website">
+          <span class="material-symbols-outlined text-xl">open_in_new</span>
+        </a>
+
+        <!-- Sign Out -->
+        <button onclick="logout()" class="text-rose-400 hover:text-rose-300 hover:bg-rose-950/40 p-2 rounded-xl transition-colors flex items-center gap-1" title="Sign Out">
+          <span class="material-symbols-outlined text-xl">logout</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-grow max-w-[1560px] mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- Overview Statistics Cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 mb-6">
+      
+      <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm flex items-center gap-3">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-2xl">receipt_long</span>
+        </div>
+        <div>
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Orders</p>
+          <p id="stat-total" class="font-heading font-extrabold text-2xl text-slate-900 mt-0.5">0</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm flex items-center gap-3">
+        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-2xl">payments</span>
+        </div>
+        <div>
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Amount</p>
+          <p id="stat-revenue" class="font-heading font-extrabold text-2xl text-emerald-700 mt-0.5">₹0</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm flex items-center gap-3">
+        <div class="w-12 h-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-2xl">verified</span>
+        </div>
+        <div>
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Verified</p>
+          <p id="stat-verified" class="font-heading font-extrabold text-2xl text-green-700 mt-0.5">0</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm flex items-center gap-3">
+        <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-2xl">pending_actions</span>
+        </div>
+        <div>
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pending UTR</p>
+          <p id="stat-pending" class="font-heading font-extrabold text-2xl text-amber-600 mt-0.5">0</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm flex items-center gap-3 col-span-2 lg:col-span-1">
+        <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-2xl">hourglass_empty</span>
+        </div>
+        <div>
+          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Awaiting</p>
+          <p id="stat-awaiting" class="font-heading font-extrabold text-2xl text-slate-700 mt-0.5">0</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Filter and Search Toolbar -->
+    <div class="bg-white rounded-2xl border border-slate-200/80 p-4 mb-4 shadow-sm">
+      <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+        
+        <!-- Search Input -->
+        <div class="relative flex-grow max-w-lg">
+          <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xl pointer-events-none">search</span>
+          <input id="search-input" type="text" oninput="renderTable()"
+            placeholder="Search by Name, Order ID, UPI ID, Course, Email, UTR..."
+            class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all"/>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="flex items-center gap-2 flex-wrap">
+          
+          <!-- Status Dropdown -->
+          <select id="status-filter" onchange="renderTable()" class="bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600">
+            <option value="all">All Payment Statuses</option>
+            <option value="verified">Verified</option>
+            <option value="verification_pending">Pending Verification</option>
+            <option value="awaiting_payment">Awaiting Payment</option>
+            <option value="rejected">Rejected</option>
+          </select>
+
+          <!-- Sort Dropdown -->
+          <select id="sort-filter" onchange="renderTable()" class="bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600">
+            <option value="date-desc">Newest First</option>
+            <option value="date-asc">Oldest First</option>
+            <option value="amount-desc">Amount: High to Low</option>
+            <option value="amount-asc">Amount: Low to High</option>
+          </select>
+
+          <!-- Reload / Sync Button -->
+          <button onclick="loadData(true)" class="p-2.5 bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-300 rounded-xl transition-colors cursor-pointer" title="Refresh data">
+            <span class="material-symbols-outlined text-lg block">refresh</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Results stats row -->
+      <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+        <span id="filtered-count">Showing 0 orders</span>
+        <button onclick="resetFilters()" class="text-blue-600 hover:underline font-medium">Reset filters</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- 3. MAIN ORDERS TABLE WITH EXACT REQUESTED COLUMNS                   -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
+      <div class="overflow-x-auto custom-scrollbar">
+        <table class="w-full text-left text-sm text-slate-700">
+          <thead>
+            <tr class="bg-slate-900 text-white text-[12px] font-semibold uppercase tracking-wider">
+              <th class="px-4 py-3.5 border-b border-slate-800">#</th>
+              <th class="px-4 py-3.5 border-b border-slate-800 whitespace-nowrap">Name</th>
+              <th class="px-4 py-3.5 border-b border-slate-800 whitespace-nowrap">Order ID</th>
+              <th class="px-4 py-3.5 border-b border-slate-800 whitespace-nowrap">UPI ID</th>
+              <th class="px-4 py-3.5 border-b border-slate-800 whitespace-nowrap">Amount</th>
+              <th class="px-4 py-3.5 border-b border-slate-800 whitespace-nowrap">Date and Time</th>
+              <th class="px-4 py-3.5 border-b border-slate-800 whitespace-nowrap">Course Name</th>
+              <th class="px-4 py-3.5 border-b border-slate-800 whitespace-nowrap">Course ID</th>
+              <th class="px-4 py-3.5 border-b border-slate-800 whitespace-nowrap">Email Address</th>
+              <th class="px-4 py-3.5 border-b border-slate-800 whitespace-nowrap">Transaction ID of UPI</th>
+              <th class="px-4 py-3.5 border-b border-slate-800 whitespace-nowrap">Status</th>
+              <th class="px-4 py-3.5 border-b border-slate-800 text-right whitespace-nowrap">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="orders-tbody" class="divide-y divide-slate-100">
+            <!-- Populated via renderTable() -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="hidden py-16 text-center">
+        <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+          <span class="material-symbols-outlined text-3xl">inbox</span>
+        </div>
+        <p class="font-heading font-semibold text-lg text-slate-800">No Orders Found</p>
+        <p class="text-sm text-slate-500 mt-1 max-w-sm mx-auto">No orders match your current search or filter criteria. Try adjusting your query or upload a CSV file.</p>
+        <button onclick="resetFilters()" class="mt-4 inline-flex items-center gap-1.5 bg-slate-900 text-white text-xs font-semibold px-4 py-2 rounded-xl hover:bg-slate-800 transition-colors">
+          Reset All Filters
+        </button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- 4. MODAL: UPLOAD & UPDATE CSV FILE                                     -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div id="csv-modal" class="modal-backdrop fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[92vh] flex flex-col overflow-hidden border border-slate-100">
+    
+    <!-- Modal Header -->
+    <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center">
+          <span class="material-symbols-outlined text-xl">upload_file</span>
+        </div>
+        <div>
+          <h3 class="font-heading font-bold text-base text-slate-900">Update Data via CSV File</h3>
+          <p class="text-xs text-slate-500">Upload a CSV file to update existing orders or add new records.</p>
+        </div>
+      </div>
+      <button onclick="closeCsvModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-200/60 transition-colors">
+        <span class="material-symbols-outlined text-xl">close</span>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="p-6 overflow-y-auto custom-scrollbar space-y-5">
+      
+      <!-- Template Helper -->
+      <div class="flex items-center justify-between bg-blue-50/70 border border-blue-200/80 rounded-xl p-3.5 text-xs text-blue-900">
+        <div>
+          <p class="font-semibold text-blue-900">Need the exact CSV format?</p>
+          <p class="text-blue-700 mt-0.5">Download our pre-formatted sample template with correct column headers.</p>
+        </div>
+        <button type="button" onclick="downloadSampleTemplate()" class="bg-white text-blue-700 hover:bg-blue-100 px-3 py-1.5 rounded-lg border border-blue-200 font-semibold transition-colors shrink-0 flex items-center gap-1 shadow-xs cursor-pointer">
+          <span class="material-symbols-outlined text-base">download</span> Sample CSV
+        </button>
+      </div>
+
+      <!-- Drag & Drop / File Input Zone -->
+      <div id="drop-zone" onclick="document.getElementById('csv-file-input').click()"
+        class="border-2 border-dashed border-slate-300 hover:border-blue-500 bg-slate-50 hover:bg-blue-50/40 rounded-2xl p-8 text-center cursor-pointer transition-all">
+        <input type="file" id="csv-file-input" accept=".csv,text/csv" class="hidden" onchange="handleCsvFileSelected(event)"/>
+        <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mx-auto mb-3">
+          <span class="material-symbols-outlined text-2xl">cloud_upload</span>
+        </div>
+        <p class="font-heading font-semibold text-sm text-slate-800">Click to upload CSV or drag and drop</p>
+        <p class="text-xs text-slate-500 mt-1">Columns: Name, Order id, Upi id, Amount, Date and Time, Course name, Course ID, Email address, transaction id of upi</p>
+      </div>
+
+      <!-- File Loaded Details & Preview -->
+      <div id="csv-preview-container" class="hidden space-y-4">
+        
+        <div class="flex items-center justify-between bg-slate-100 rounded-xl p-3 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-emerald-600 text-lg">check_circle</span>
+            <span id="csv-file-name" class="font-semibold text-slate-800 font-mono">orders.csv</span>
+          </div>
+          <span id="csv-rows-count" class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded-md font-bold">0 rows parsed</span>
+        </div>
+
+        <!-- Mode Selection -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">Import & Update Behavior</label>
+          <div class="grid grid-cols-2 gap-3 text-xs">
+            <label class="flex items-start gap-2.5 p-3 rounded-xl border border-blue-200 bg-blue-50/40 cursor-pointer">
+              <input type="radio" name="csv-import-mode" value="update" checked class="mt-0.5 text-blue-600 focus:ring-blue-500"/>
+              <div>
+                <span class="font-bold text-slate-800 block">Update & Merge</span>
+                <span class="text-slate-500">Update matching Order IDs; add new records.</span>
+              </div>
+            </label>
+            <label class="flex items-start gap-2.5 p-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 cursor-pointer">
+              <input type="radio" name="csv-import-mode" value="replace" class="mt-0.5 text-blue-600 focus:ring-blue-500"/>
+              <div>
+                <span class="font-bold text-slate-800 block">Replace Entire Table</span>
+                <span class="text-slate-500">Overwrites all current orders with this CSV.</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Mini Preview Table -->
+        <div>
+          <p class="text-xs font-semibold text-slate-700 mb-1.5">First 3 Rows Preview:</p>
+          <div class="border border-slate-200 rounded-xl overflow-hidden max-h-40 overflow-y-auto text-xs">
+            <table class="w-full text-left" id="csv-mini-preview-table">
+              <!-- Rendered preview -->
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between">
+      <button type="button" onclick="closeCsvModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800 hover:bg-slate-200/50 rounded-xl transition-colors">
+        Cancel
+      </button>
+      <button id="apply-csv-btn" disabled onclick="applyCsvImport()" class="bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-blue-500 text-white text-xs font-semibold px-5 py-2.5 rounded-xl transition-all flex items-center gap-1.5 shadow-md shadow-blue-500/20 cursor-pointer">
+        <span class="material-symbols-outlined text-base">sync</span> Apply CSV Updates
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- 5. MODAL: ORDER DETAILS & VERIFICATION                                 -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div id="detail-modal" class="modal-backdrop fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full max-h-[92vh] flex flex-col overflow-hidden border border-slate-100">
+    <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-blue-600 text-2xl">assignment</span>
+        <h3 class="font-heading font-bold text-base text-slate-900">Order & Payment Details</h3>
+      </div>
+      <button onclick="closeDetailModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-200/60 transition-colors">
+        <span class="material-symbols-outlined text-xl">close</span>
+      </button>
+    </div>
+    <div id="detail-modal-body" class="p-6 overflow-y-auto custom-scrollbar space-y-5 text-sm">
+      <!-- Injected dynamically -->
+    </div>
+    <div class="px-6 py-3.5 border-t border-slate-100 bg-slate-50 flex items-center justify-end gap-2">
+      <button onclick="closeDetailModal()" class="px-4 py-2 text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- 6. MODAL: EDIT OR ADD ORDER MANUALLY                                   -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div id="order-form-modal" class="modal-backdrop fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[92vh] flex flex-col overflow-hidden border border-slate-100">
+    <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+      <h3 id="order-form-title" class="font-heading font-bold text-base text-slate-900">Add New Order</h3>
+      <button onclick="closeOrderModal()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-200/60">
+        <span class="material-symbols-outlined text-xl">close</span>
+      </button>
+    </div>
+    <form id="order-edit-form" onsubmit="handleSaveOrder(event)" class="p-6 overflow-y-auto custom-scrollbar space-y-4 text-xs">
+      <input type="hidden" id="edit-is-new" value="true"/>
+      
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1" for="edit-name">Student Name *</label>
+          <input id="edit-name" type="text" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 text-xs focus:ring-2 focus:ring-blue-600"/>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1" for="edit-order-id">Order ID *</label>
+          <input id="edit-order-id" type="text" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 font-mono text-xs focus:ring-2 focus:ring-blue-600"/>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1" for="edit-upi-id">UPI ID *</label>
+          <input id="edit-upi-id" type="text" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 font-mono text-xs focus:ring-2 focus:ring-blue-600"/>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1" for="edit-amount">Amount (₹) *</label>
+          <input id="edit-amount" type="number" required min="0" step="1" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 font-bold text-xs focus:ring-2 focus:ring-blue-600"/>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1" for="edit-course-name">Course Name *</label>
+          <input id="edit-course-name" type="text" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 text-xs focus:ring-2 focus:ring-blue-600"/>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1" for="edit-course-id">Course ID *</label>
+          <input id="edit-course-id" type="text" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 font-mono text-xs focus:ring-2 focus:ring-blue-600"/>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1" for="edit-email">Email Address *</label>
+          <input id="edit-email" type="email" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 text-xs focus:ring-2 focus:ring-blue-600"/>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1" for="edit-utr">Transaction ID of UPI (UTR)</label>
+          <input id="edit-utr" type="text" placeholder="e.g. 426910847291" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 font-mono text-xs focus:ring-2 focus:ring-blue-600"/>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1" for="edit-status">Payment Status</label>
+          <select id="edit-status" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 text-xs focus:ring-2 focus:ring-blue-600">
+            <option value="verified">Verified</option>
+            <option value="verification_pending">Pending Verification</option>
+            <option value="awaiting_payment">Awaiting Payment</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1" for="edit-mobile">Mobile Number</label>
+          <input id="edit-mobile" type="text" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800 text-xs focus:ring-2 focus:ring-blue-600"/>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-2">
+        <button type="button" onclick="closeOrderModal()" class="px-4 py-2 font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">Cancel</button>
+        <button type="submit" class="bg-slate-900 text-white font-semibold px-5 py-2.5 rounded-xl hover:bg-slate-800 transition-colors">Save Order</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- 7. MODAL: CHANGE ADMIN PASSWORD                                        -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div id="password-modal" class="modal-backdrop fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 border border-slate-100">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="font-heading font-bold text-base text-slate-900">Change Admin Password</h3>
+      <button onclick="closePasswordModal()" class="text-slate-400 hover:text-slate-600 p-1">
+        <span class="material-symbols-outlined text-lg">close</span>
+      </button>
+    </div>
+    <form onsubmit="handleChangePassword(event)" class="space-y-4 text-xs">
+      <div>
+        <label class="block font-semibold text-slate-700 mb-1" for="pwd-current">Current Password</label>
+        <input id="pwd-current" type="password" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800"/>
+      </div>
+      <div>
+        <label class="block font-semibold text-slate-700 mb-1" for="pwd-new">New Password</label>
+        <input id="pwd-new" type="password" required minlength="4" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-800"/>
+      </div>
+      <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2.5 rounded-xl hover:bg-blue-500 transition-colors">
+        Update Password
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SCRIPTS & APPLICATION LOGIC                                            -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<script src="/js/config.js" onerror="this.onerror=null;this.src='js/config.js'"></script>
+<script src="/js/courses.js" onerror="this.onerror=null;this.src='js/courses.js'"></script>
+<script src="/js/storage.js" onerror="this.onerror=null;this.src='js/storage.js'"></script>
+<script src="/js/utils.js" onerror="this.onerror=null;this.src='js/utils.js'"></script>
+<script src="/js/notifications.js" onerror="this.onerror=null;this.src='js/notifications.js'"></script>
+
+<script>
+  let allOrders = [];
+  let parsedCsvOrders = [];
+
+  // ── Authentication & Security ────────────────────────────────────────────
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    const pwd = document.getElementById('admin-password').value.trim();
+    const errorEl = document.getElementById('login-error');
+
+    const isValid = await Storage.verifyPassword(pwd);
+    if (isValid) {
+      sessionStorage.setItem('sikshasetu_admin_auth', '1');
+      errorEl.classList.add('hidden');
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('admin-panel').classList.remove('hidden');
+      await loadData();
+    } else {
+      errorEl.classList.remove('hidden');
+    }
+  }
+
+  function quickFillPassword() {
+    const input = document.getElementById('admin-password');
+    input.value = 'admin123';
+    input.focus();
+  }
+
+  function togglePasswordVisibility() {
+    const pwdInput = document.getElementById('admin-password');
+    const icon = document.getElementById('pwd-icon');
+    if (pwdInput.type === 'password') {
+      pwdInput.type = 'text';
+      icon.textContent = 'visibility_off';
+    } else {
+      pwdInput.type = 'password';
+      icon.textContent = 'visibility';
+    }
+  }
+
+  function logout() {
+    sessionStorage.removeItem('sikshasetu_admin_auth');
+    document.getElementById('admin-panel').classList.add('hidden');
+    document.getElementById('login-screen').classList.remove('hidden');
+    document.getElementById('admin-password').value = '';
+  }
+
+  // ── Data Loading & State ─────────────────────────────────────────────────
+
+  async function loadData(showToast = false) {
+    try {
+      allOrders = await Storage.syncWithServer();
+    } catch (e) {
+      allOrders = Storage.getAllEnrollments();
+    }
+    updateStats();
+    renderTable();
+    if (showToast) {
+      Utils.showToast('Data refreshed successfully.', 'success');
+    }
+  }
+
+  function updateStats() {
+    const total = allOrders.length;
+    const verified = allOrders.filter(o => o.paymentStatus === 'verified').length;
+    const pending = allOrders.filter(o => o.paymentStatus === 'verification_pending').length;
+    const awaiting = allOrders.filter(o => o.paymentStatus === 'awaiting_payment').length;
+    
+    const revenue = allOrders
+      .filter(o => o.paymentStatus === 'verified')
+      .reduce((sum, o) => sum + (Number(o.coursePrice) || 0), 0);
+
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-verified').textContent = verified;
+    document.getElementById('stat-pending').textContent = pending;
+    document.getElementById('stat-awaiting').textContent = awaiting;
+    document.getElementById('stat-revenue').textContent = Utils.formatCurrency ? Utils.formatCurrency(revenue) : `₹${revenue.toLocaleString('en-IN')}`;
+  }
+
+  // ── Table Rendering with All Requested Columns ───────────────────────────
+
+  function renderTable() {
+    const search = (document.getElementById('search-input').value || '').toLowerCase().trim();
+    const statusFilter = document.getElementById('status-filter').value;
+    const sortFilter = document.getElementById('sort-filter').value;
+    const tbody = document.getElementById('orders-tbody');
+    const empty = document.getElementById('empty-state');
+    const countEl = document.getElementById('filtered-count');
+
+    let rows = allOrders.filter(o => {
+      const utr = (o.payment && o.payment.utr) || o.utr || '';
+      const courseId = o.courseId || Storage.resolveCourseId(o.courseSlug, o.courseName);
+      const matchSearch = !search ||
+        (o.fullName && o.fullName.toLowerCase().includes(search)) ||
+        (o.enrollmentId && o.enrollmentId.toLowerCase().includes(search)) ||
+        (o.upiId && o.upiId.toLowerCase().includes(search)) ||
+        (o.courseName && o.courseName.toLowerCase().includes(search)) ||
+        (courseId && courseId.toLowerCase().includes(search)) ||
+        (o.email && o.email.toLowerCase().includes(search)) ||
+        (utr && utr.toLowerCase().includes(search)) ||
+        (o.mobile && o.mobile.includes(search));
+
+      const matchStatus = statusFilter === 'all' || o.paymentStatus === statusFilter;
+      return matchSearch && matchStatus;
+    });
+
+    // Sorting
+    rows.sort((a, b) => {
+      if (sortFilter === 'date-desc') return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+      if (sortFilter === 'date-asc') return new Date(a.createdAt || 0) - new Date(b.createdAt || 0);
+      if (sortFilter === 'amount-desc') return (Number(b.coursePrice) || 0) - (Number(a.coursePrice) || 0);
+      if (sortFilter === 'amount-asc') return (Number(a.coursePrice) || 0) - (Number(b.coursePrice) || 0);
+      return 0;
+    });
+
+    countEl.textContent = `Showing ${rows.length} of ${allOrders.length} orders`;
+
+    if (rows.length === 0) {
+      tbody.innerHTML = '';
+      empty.classList.remove('hidden');
+      return;
+    }
+    empty.classList.add('hidden');
+
+    tbody.innerHTML = rows.map((o, idx) => {
+      const utr = (o.payment && o.payment.utr) || o.utr || '—';
+      const upiId = o.upiId || (typeof CONFIG !== 'undefined' ? CONFIG.upiId : '8390217169-1@nyes');
+      const courseId = o.courseId || Storage.resolveCourseId(o.courseSlug, o.courseName);
+      const formattedAmount = (Number(o.coursePrice) || 0).toLocaleString('en-IN');
+      const formattedDate = o.createdAt ? new Date(o.createdAt).toLocaleString('en-IN', {
+        day: '2-digit', month: 'short', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', hour12: true
+      }) : '—';
+
+      const statusBadge = getStatusBadge(o.paymentStatus);
+
+      return `
+        <tr class="hover:bg-slate-50/80 transition-colors border-b border-slate-100">
+          <td class="px-4 py-3.5 text-xs text-slate-400 font-mono">${idx + 1}</td>
+          
+          <!-- 1. Name -->
+          <td class="px-4 py-3.5 font-semibold text-slate-900 whitespace-nowrap">
+            ${Utils.escapeHtml(o.fullName || '—')}
+          </td>
+
+          <!-- 2. Order ID -->
+          <td class="px-4 py-3.5 whitespace-nowrap">
+            <span class="font-mono text-xs font-semibold bg-slate-100 text-slate-700 px-2 py-1 rounded-md border border-slate-200">
+              ${Utils.escapeHtml(o.enrollmentId || '—')}
+            </span>
+          </td>
+
+          <!-- 3. UPI ID -->
+          <td class="px-4 py-3.5 text-xs font-mono text-slate-600 whitespace-nowrap">
+            ${Utils.escapeHtml(upiId)}
+          </td>
+
+          <!-- 4. Amount -->
+          <td class="px-4 py-3.5 font-bold text-slate-900 whitespace-nowrap">
+            ₹${formattedAmount}
+          </td>
+
+          <!-- 5. Date and Time -->
+          <td class="px-4 py-3.5 text-xs text-slate-600 whitespace-nowrap">
+            ${formattedDate}
+          </td>
+
+          <!-- 6. Course Name -->
+          <td class="px-4 py-3.5 text-slate-800 font-medium max-w-[200px] truncate" title="${Utils.escapeHtml(o.courseName || '')}">
+            ${Utils.escapeHtml(o.courseName || '—')}
+          </td>
+
+          <!-- 7. Course ID -->
+          <td class="px-4 py-3.5 whitespace-nowrap">
+            <span class="font-mono text-xs text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200 font-semibold">
+              ${Utils.escapeHtml(courseId)}
+            </span>
+          </td>
+
+          <!-- 8. Email Address -->
+          <td class="px-4 py-3.5 text-xs text-slate-600 whitespace-nowrap font-mono">
+            ${Utils.escapeHtml(o.email || '—')}
+          </td>
+
+          <!-- 9. Transaction ID of UPI -->
+          <td class="px-4 py-3.5 whitespace-nowrap">
+            ${utr !== '—' 
+              ? `<span class="font-mono text-xs text-emerald-700 font-bold bg-emerald-50 px-2 py-1 rounded border border-emerald-200">${Utils.escapeHtml(utr)}</span>` 
+              : `<span class="text-xs text-slate-400 italic">Not submitted</span>`}
+          </td>
+
+          <!-- Payment Status -->
+          <td class="px-4 py-3.5 whitespace-nowrap">
+            ${statusBadge}
+          </td>
+
+          <!-- Actions -->
+          <td class="px-4 py-3.5 text-right whitespace-nowrap">
+            <div class="flex items-center justify-end gap-1.5">
+              <button onclick="viewOrderDetails('${o.enrollmentId}')" class="p-1 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="View Full Details">
+                <span class="material-symbols-outlined text-lg">visibility</span>
+              </button>
+              <button onclick="editOrder('${o.enrollmentId}')" class="p-1 text-slate-600 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors" title="Edit Order">
+                <span class="material-symbols-outlined text-lg">edit</span>
+              </button>
+              <button onclick="deleteOrder('${o.enrollmentId}')" class="p-1 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete Order">
+                <span class="material-symbols-outlined text-lg">delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+  }
+
+  function getStatusBadge(status) {
+    const map = {
+      verified: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      verification_pending: 'bg-amber-50 text-amber-700 border-amber-200',
+      awaiting_payment: 'bg-slate-100 text-slate-600 border-slate-200',
+      rejected: 'bg-rose-50 text-rose-700 border-rose-200',
+    };
+    const labels = {
+      verified: 'Verified',
+      verification_pending: 'Pending Verification',
+      awaiting_payment: 'Awaiting Payment',
+      rejected: 'Rejected',
+    };
+    const cls = map[status] || map.awaiting_payment;
+    const label = labels[status] || status;
+    return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${cls}">${label}</span>`;
+  }
+
+  function resetFilters() {
+    document.getElementById('search-input').value = '';
+    document.getElementById('status-filter').value = 'all';
+    document.getElementById('sort-filter').value = 'date-desc';
+    renderTable();
+  }
+
+  // ── CSV Export (Top Right Feature) ───────────────────────────────────────
+
+  function exportOrdersCSV() {
+    const csvData = Storage.exportToCSV(allOrders);
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const dateStr = new Date().toISOString().slice(0, 10);
+    a.download = `sikshasetu-orders-${dateStr}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    Utils.showToast('Orders exported to CSV successfully.', 'success');
+  }
+
+  function downloadSampleTemplate() {
+    const sample = Storage.generateSampleCSV();
+    const blob = new Blob([sample], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sikshasetu-orders-sample-template.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // ── CSV Import & Update Modal Logic ──────────────────────────────────────
+
+  function openCsvModal() {
+    document.getElementById('csv-modal').classList.add('open');
+    resetCsvModalState();
+  }
+
+  function closeCsvModal() {
+    document.getElementById('csv-modal').classList.remove('open');
+    resetCsvModalState();
+  }
+
+  function resetCsvModalState() {
+    parsedCsvOrders = [];
+    document.getElementById('csv-file-input').value = '';
+    document.getElementById('csv-preview-container').classList.add('hidden');
+    document.getElementById('drop-zone').classList.remove('hidden');
+    document.getElementById('apply-csv-btn').disabled = true;
+  }
+
+  function handleCsvFileSelected(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    processCsvFile(file);
+  }
+
+  // Drag and drop support
+  const dropZone = document.getElementById('drop-zone');
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropZone.addEventListener(eventName, e => {
+      e.preventDefault();
+      dropZone.classList.add('border-blue-500', 'bg-blue-50/50');
+    });
+  });
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, e => {
+      e.preventDefault();
+      dropZone.classList.remove('border-blue-500', 'bg-blue-50/50');
+    });
+  });
+  dropZone.addEventListener('drop', e => {
+    const file = e.dataTransfer.files[0];
+    if (file) processCsvFile(file);
+  });
+
+  function processCsvFile(file) {
+    if (!file.name.toLowerCase().endsWith('.csv')) {
+      Utils.showToast('Please upload a valid .csv file.', 'error');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = e => {
+      const text = e.target.result;
+      const parsed = Storage.parseCSV(text);
+      if (!parsed || parsed.length === 0) {
+        Utils.showToast('Could not parse any valid order rows from this CSV.', 'error');
+        return;
+      }
+
+      parsedCsvOrders = parsed;
+      document.getElementById('csv-file-name').textContent = file.name;
+      document.getElementById('csv-rows-count').textContent = `${parsed.length} rows parsed`;
+
+      // Render mini preview
+      const previewTable = document.getElementById('csv-mini-preview-table');
+      const previewRows = parsed.slice(0, 3);
+      previewTable.innerHTML = `
+        <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200">
+          <tr>
+            <th class="p-2">Name</th>
+            <th class="p-2">Order ID</th>
+            <th class="p-2">Course Name</th>
+            <th class="p-2">Amount</th>
+            <th class="p-2">UTR</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          ${previewRows.map(r => `
+            <tr>
+              <td class="p-2 font-medium">${Utils.escapeHtml(r.fullName)}</td>
+              <td class="p-2 font-mono text-[11px]">${Utils.escapeHtml(r.enrollmentId)}</td>
+              <td class="p-2">${Utils.escapeHtml(r.courseName)}</td>
+              <td class="p-2 font-bold">₹${r.coursePrice}</td>
+              <td class="p-2 font-mono text-[11px]">${Utils.escapeHtml(r.payment?.utr || '—')}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      `;
+
+      document.getElementById('drop-zone').classList.add('hidden');
+      document.getElementById('csv-preview-container').classList.remove('hidden');
+      document.getElementById('apply-csv-btn').disabled = false;
+    };
+    reader.readAsText(file);
+  }
+
+  async function applyCsvImport() {
+    if (!parsedCsvOrders || parsedCsvOrders.length === 0) return;
+
+    const mode = document.querySelector('input[name="csv-import-mode"]:checked')?.value || 'update';
+    const applyBtn = document.getElementById('apply-csv-btn');
+    applyBtn.disabled = true;
+    applyBtn.textContent = 'Applying...';
+
+    const result = await Storage.applyBulkOrders(parsedCsvOrders, mode);
+    await loadData();
+    closeCsvModal();
+
+    Utils.showToast(`CSV Updated successfully! ${result.updatedCount} orders updated, ${result.addedCount} new orders added.`, 'success');
+  }
+
+  // ── Order Details & Status Actions ───────────────────────────────────────
+
+  function viewOrderDetails(enrollmentId) {
+    const o = Storage.getEnrollment(enrollmentId);
+    if (!o) return;
+
+    const utr = (o.payment && o.payment.utr) || o.utr || '—';
+    const upiId = o.upiId || (typeof CONFIG !== 'undefined' ? CONFIG.upiId : '8390217169-1@nyes');
+    const courseId = o.courseId || Storage.resolveCourseId(o.courseSlug, o.courseName);
+    const badge = getStatusBadge(o.paymentStatus);
+
+    let screenshotHtml = '';
+    if (o.payment?.screenshotB64) {
+      screenshotHtml = `
+        <div class="mt-2">
+          <p class="text-xs font-semibold text-slate-700 mb-1">Payment Receipt / Screenshot:</p>
+          <img src="${o.payment.screenshotB64}" alt="Screenshot" class="max-h-60 rounded-xl border border-slate-200 object-contain w-full bg-slate-50"/>
+        </div>`;
+    }
+
+    document.getElementById('detail-modal-body').innerHTML = `
+      <div class="space-y-4">
+        
+        <div class="flex items-center justify-between bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+          <div>
+            <span class="text-xs text-slate-500 uppercase tracking-wider block font-semibold">Order ID</span>
+            <span class="font-mono text-base font-bold text-slate-900">${Utils.escapeHtml(o.enrollmentId)}</span>
+          </div>
+          <div>${badge}</div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 bg-white p-3 rounded-xl border border-slate-100 text-xs">
+          <div><span class="text-slate-500">Student Name</span><p class="font-bold text-slate-900 text-sm">${Utils.escapeHtml(o.fullName || '—')}</p></div>
+          <div><span class="text-slate-500">Mobile</span><p class="font-semibold text-slate-900">${Utils.escapeHtml(o.mobile || '—')}</p></div>
+          <div><span class="text-slate-500">Email Address</span><p class="font-mono text-slate-800">${Utils.escapeHtml(o.email || '—')}</p></div>
+          <div><span class="text-slate-500">City / Mode</span><p class="capitalize text-slate-800">${Utils.escapeHtml(o.city || '—')} (${Utils.escapeHtml(o.mode || 'online')})</p></div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 bg-white p-3 rounded-xl border border-slate-100 text-xs">
+          <div><span class="text-slate-500">Course Name</span><p class="font-bold text-slate-900">${Utils.escapeHtml(o.courseName || '—')}</p></div>
+          <div><span class="text-slate-500">Course ID</span><p class="font-mono font-bold text-blue-700">${Utils.escapeHtml(courseId)}</p></div>
+          <div><span class="text-slate-500">Amount</span><p class="font-extrabold text-slate-900 text-sm">₹${(Number(o.coursePrice) || 0).toLocaleString('en-IN')}</p></div>
+          <div><span class="text-slate-500">Date & Time</span><p class="text-slate-700">${o.createdAt ? new Date(o.createdAt).toLocaleString('en-IN') : '—'}</p></div>
+        </div>
+
+        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-xs space-y-2">
+          <p class="font-semibold uppercase tracking-wider text-slate-700 text-[11px]">UPI Transaction Information</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div><span class="text-slate-500">UPI ID:</span> <p class="font-mono font-semibold text-slate-800">${Utils.escapeHtml(upiId)}</p></div>
+            <div><span class="text-slate-500">Transaction ID / UTR:</span> <p class="font-mono font-bold text-emerald-700">${Utils.escapeHtml(utr)}</p></div>
+          </div>
+          ${screenshotHtml}
+        </div>
+
+        <!-- Quick Status Buttons -->
+        <div class="pt-2 flex items-center gap-2">
+          <button onclick="changeStatus('${o.enrollmentId}', 'verified')" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1 shadow-sm">
+            <span class="material-symbols-outlined text-base">check_circle</span> Mark Verified
+          </button>
+          <button onclick="changeStatus('${o.enrollmentId}', 'verification_pending')" class="flex-1 bg-amber-500 hover:bg-amber-400 text-white font-semibold text-xs py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1 shadow-sm">
+            <span class="material-symbols-outlined text-base">pending</span> Mark Pending
+          </button>
+          <button onclick="changeStatus('${o.enrollmentId}', 'rejected')" class="flex-1 bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1 shadow-sm">
+            <span class="material-symbols-outlined text-base">cancel</span> Reject
+          </button>
+        </div>
+
+      </div>
+    `;
+
+    document.getElementById('detail-modal').classList.add('open');
+  }
+
+  function closeDetailModal() {
+    document.getElementById('detail-modal').classList.remove('open');
+  }
+
+  async function changeStatus(enrollmentId, newStatus) {
+    Storage.updatePaymentStatus(enrollmentId, newStatus);
+    await loadData();
+    closeDetailModal();
+    Utils.showToast(`Order status updated to ${newStatus}.`, 'success');
+  }
+
+  // ── Manual Add / Edit Order Modal ────────────────────────────────────────
+
+  function openOrderModal() {
+    document.getElementById('order-form-title').textContent = 'Add New Order';
+    document.getElementById('edit-is-new').value = 'true';
+    document.getElementById('edit-order-id').value = 'SKS-' + new Date().getFullYear() + '-' + Math.floor(10000 + Math.random() * 90000);
+    document.getElementById('edit-name').value = '';
+    document.getElementById('edit-upi-id').value = typeof CONFIG !== 'undefined' ? CONFIG.upiId : '8390217169-1@nyes';
+    document.getElementById('edit-amount').value = '4999';
+    document.getElementById('edit-course-name').value = 'Full Stack MERN Developer Mastery';
+    document.getElementById('edit-course-id').value = 'FSD-101';
+    document.getElementById('edit-email').value = '';
+    document.getElementById('edit-utr').value = '';
+    document.getElementById('edit-status').value = 'verified';
+    document.getElementById('edit-mobile').value = '';
+    document.getElementById('order-form-modal').classList.add('open');
+  }
+
+  function editOrder(enrollmentId) {
+    const o = Storage.getEnrollment(enrollmentId);
+    if (!o) return;
+    document.getElementById('order-form-title').textContent = 'Edit Order';
+    document.getElementById('edit-is-new').value = 'false';
+    document.getElementById('edit-order-id').value = o.enrollmentId;
+    document.getElementById('edit-name').value = o.fullName || '';
+    document.getElementById('edit-upi-id').value = o.upiId || '8390217169-1@nyes';
+    document.getElementById('edit-amount').value = o.coursePrice || '0';
+    document.getElementById('edit-course-name').value = o.courseName || '';
+    document.getElementById('edit-course-id').value = o.courseId || Storage.resolveCourseId(o.courseSlug, o.courseName);
+    document.getElementById('edit-email').value = o.email || '';
+    document.getElementById('edit-utr').value = (o.payment && o.payment.utr) || o.utr || '';
+    document.getElementById('edit-status').value = o.paymentStatus || 'verified';
+    document.getElementById('edit-mobile').value = o.mobile || '';
+    document.getElementById('order-form-modal').classList.add('open');
+  }
+
+  function closeOrderModal() {
+    document.getElementById('order-form-modal').classList.remove('open');
+  }
+
+  async function handleSaveOrder(e) {
+    e.preventDefault();
+    const enrollmentId = document.getElementById('edit-order-id').value.trim();
+    const utr = document.getElementById('edit-utr').value.trim();
+    const existing = Storage.getEnrollment(enrollmentId) || {};
+
+    const orderData = {
+      ...existing,
+      enrollmentId,
+      fullName: document.getElementById('edit-name').value.trim(),
+      upiId: document.getElementById('edit-upi-id').value.trim(),
+      coursePrice: parseFloat(document.getElementById('edit-amount').value) || 0,
+      courseName: document.getElementById('edit-course-name').value.trim(),
+      courseId: document.getElementById('edit-course-id').value.trim(),
+      email: document.getElementById('edit-email').value.trim(),
+      mobile: document.getElementById('edit-mobile').value.trim(),
+      paymentStatus: document.getElementById('edit-status').value,
+      createdAt: existing.createdAt || new Date().toISOString(),
+      payment: utr ? {
+        ...(existing.payment || {}),
+        utr: utr,
+        submittedAt: existing.payment?.submittedAt || new Date().toISOString()
+      } : existing.payment
+    };
+
+    Storage.saveOrder(orderData);
+    await loadData();
+    closeOrderModal();
+    Utils.showToast('Order saved successfully.', 'success');
+  }
+
+  function deleteOrder(enrollmentId) {
+    if (!confirm(`Are you sure you want to delete order ${enrollmentId}?`)) return;
+    Storage.deleteEnrollment(enrollmentId);
+    loadData();
+    Utils.showToast('Order deleted.', 'info');
+  }
+
+  // ── Change Password Modal ────────────────────────────────────────────────
+
+  function openPasswordModal() {
+    document.getElementById('password-modal').classList.add('open');
+  }
+
+  function closePasswordModal() {
+    document.getElementById('password-modal').classList.remove('open');
+    document.getElementById('pwd-current').value = '';
+    document.getElementById('pwd-new').value = '';
+  }
+
+  async function handleChangePassword(e) {
+    e.preventDefault();
+    const current = document.getElementById('pwd-current').value;
+    const newPwd = document.getElementById('pwd-new').value;
+
+    const isValid = await Storage.verifyPassword(current);
+    if (!isValid) {
+      Utils.showToast('Current password incorrect.', 'error');
+      return;
+    }
+
+    Storage.setCustomPassword(newPwd);
+
+    // Also notify server if running
+    try {
+      await fetch('/api/admin/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ oldPassword: current, newPassword: newPwd })
+      });
+    } catch (e) {}
+
+    closePasswordModal();
+    Utils.showToast('Password changed successfully.', 'success');
+  }
+
+  // ── Init & Modal Backdrop Click Handlers ─────────────────────────────────
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Check if already authenticated this session
+    if (sessionStorage.getItem('sikshasetu_admin_auth') === '1') {
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('admin-panel').classList.remove('hidden');
+      loadData();
+    }
+
+    // Close modals on Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        closeCsvModal();
+        closeDetailModal();
+        closeOrderModal();
+        closePasswordModal();
+      }
+    });
+
+    // Close on backdrop click
+    ['csv-modal', 'detail-modal', 'order-form-modal', 'password-modal'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('click', e => {
+          if (e.target === el) {
+            el.classList.remove('open');
+          }
+        });
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
