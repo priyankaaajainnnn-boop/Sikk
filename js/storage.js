@@ -567,9 +567,84 @@ const Storage = {
       ['Name','Order id','Upi id','Amount','Date and Time','Course name','Course ID','Email address','transaction id of upi','Payment Status','Mobile'],
       ['Rahul Sharma','SKS-2024-91823','8390217169-1@nyes','19999','25 Sep 2024, 08:00 PM','Full Stack MERN Developer Mastery','FSD-101','rahul.sharma92@gmail.com','426910847291','verified','+91 98765 12345'],
       ['Priya Verma','SKS-2024-91824','8390217169-1@nyes','9999','25 Sep 2024, 09:45 PM','Data Science & Machine Learning with Python','DS-201','priya.verma@outlook.com','426915729103','verified','+91 98234 56789'],
-      ['Amit Kumar Patel','SKS-2024-91825','8390217169-1@nyes','4999','26 Sep 2024, 03:15 PM','Advance Tally Prime with GST & TDS','ACC-301','amit.patel.pune@gmail.com','426922849102','verification_pending','+91 97123 45678']
+      ['Amit Kumar Patel','SKS-2024-91825','8390217169-1@nyes','4999','26 Sep 2024, 03:15 PM','Advance Tally Prime with GST & TDS','ACC-301','amit.patel.pune@gmail.com','426922849102','verification_pending','+91 97123 45678'],
+      ['Sneha Kulkarni','SKS-2024-91826','8390217169-1@nyes','1999','26 Sep 2024, 11:20 AM','Computer Fundamentals & Windows OS','COMP-101','sneha.kulkarni@yahoo.com','426930194827','verified','+91 96543 21098']
     ];
     return sampleRows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
+  },
+
+  /**
+   * Bulletproof universal file downloader that works in iframes and all browsers.
+   */
+  downloadFile(content, filename, mimeType = 'text/csv;charset=utf-8;') {
+    try {
+      const bomContent = content.startsWith('\uFEFF') ? content : '\uFEFF' + content;
+      const blob = new Blob([bomContent], { type: mimeType });
+
+      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(blob, filename);
+        return true;
+      }
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.setAttribute('download', filename);
+      document.body.appendChild(a);
+      a.click();
+
+      // Delay revoke so browser download manager has time to read the stream
+      setTimeout(() => {
+        try {
+          if (document.body.contains(a)) document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        } catch (e) {}
+      }, 2500);
+      return true;
+    } catch (err) {
+      console.warn('Blob download failed, trying data URI fallback:', err);
+      try {
+        const encoded = 'data:text/csv;charset=utf-8,' + encodeURIComponent('\uFEFF' + content);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = encoded;
+        a.setAttribute('download', filename);
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          if (document.body.contains(a)) document.body.removeChild(a);
+        }, 1500);
+        return true;
+      } catch (err2) {
+        console.error('Data URI download failed, fallback to server link:', err2);
+        const link = document.createElement('a');
+        link.href = '/api/orders/sample-csv';
+        link.download = filename;
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        setTimeout(() => document.body.removeChild(link), 1000);
+        return false;
+      }
+    }
+  },
+
+  /**
+   * Trigger Sample CSV Template Download
+   */
+  downloadSampleCSV() {
+    const csv = this.generateSampleCSV();
+    return this.downloadFile(csv, 'sikshasetu-orders-sample-template.csv');
+  },
+
+  /**
+   * Trigger Orders CSV Download
+   */
+  exportOrdersToCSV(ordersList) {
+    const csv = this.exportToCSV(ordersList);
+    const dateStr = new Date().toISOString().slice(0, 10);
+    return this.downloadFile(csv, `sikshasetu-orders-${dateStr}.csv`);
   },
 
   // ── Password & Auth ──────────────────────────────────────────────────────

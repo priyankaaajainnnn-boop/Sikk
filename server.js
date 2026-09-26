@@ -356,6 +356,49 @@ app.post('/api/admin/change-password', (req, res) => {
   res.json({ success: true, message: 'Password changed successfully' });
 });
 
+// Download sample CSV template endpoint
+app.get(['/api/orders/sample-csv', '/api/sample-csv'], (req, res) => {
+  const sampleCSV = `"Name","Order id","Upi id","Amount","Date and Time","Course name","Course ID","Email address","transaction id of upi","Payment Status","Mobile"
+"Rahul Sharma","SKS-2024-91823","8390217169-1@nyes","19999","25 Sep 2024, 08:00 PM","Full Stack MERN Developer Mastery","FSD-101","rahul.sharma92@gmail.com","426910847291","verified","+91 98765 12345"
+"Priya Verma","SKS-2024-91824","8390217169-1@nyes","9999","25 Sep 2024, 09:45 PM","Data Science & Machine Learning with Python","DS-201","priya.verma@outlook.com","426915729103","verified","+91 98234 56789"
+"Amit Kumar Patel","SKS-2024-91825","8390217169-1@nyes","4999","26 Sep 2024, 03:15 PM","Advance Tally Prime with GST & TDS","ACC-301","amit.patel.pune@gmail.com","426922849102","verification_pending","+91 97123 45678"
+"Sneha Kulkarni","SKS-2024-91826","8390217169-1@nyes","1999","26 Sep 2024, 11:20 AM","Computer Fundamentals & Windows OS","COMP-101","sneha.kulkarni@yahoo.com","426930194827","verified","+91 96543 21098"`;
+
+  res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+  res.setHeader('Content-Disposition', 'attachment; filename="sikshasetu-orders-sample-template.csv"');
+  res.send('\uFEFF' + sampleCSV);
+});
+
+// Download all orders as CSV endpoint
+app.get(['/api/orders/export-csv', '/api/export-csv'], (req, res) => {
+  const orders = readOrdersFromFile();
+  const headers = ['Name', 'Order id', 'Upi id', 'Amount', 'Date and Time', 'Course name', 'Course ID', 'Email address', 'transaction id of upi', 'Payment Status', 'Mobile'];
+  const rows = [headers];
+
+  orders.forEach(o => {
+    const p = o.payment || {};
+    rows.push([
+      o.fullName || '',
+      o.enrollmentId || '',
+      o.upiId || '8390217169-1@nyes',
+      o.coursePrice || '',
+      o.createdAt ? new Date(o.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) : '',
+      o.courseName || '',
+      o.courseId || '',
+      o.email || '',
+      p.utr || '',
+      o.paymentStatus || 'verification_pending',
+      o.mobile || ''
+    ]);
+  });
+
+  const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+  const dateStr = new Date().toISOString().slice(0, 10);
+  res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+  res.setHeader('Content-Disposition', `attachment; filename="sikshasetu-orders-${dateStr}.csv"`);
+  res.send('\uFEFF' + csv);
+});
+
 // Get all orders
 app.get('/api/orders', (req, res) => {
   const orders = readOrdersFromFile();
