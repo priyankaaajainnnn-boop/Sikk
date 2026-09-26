@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/admin", "destination": "/sikshasetu/admin.html" },
+    { "source": "/admin.html", "destination": "/sikshasetu/admin.html" },
+    { "source": "/sikshasetu/admin", "destination": "/sikshasetu/admin.html" },
+    { "source": "/course", "destination": "/sikshasetu/course.html" },
+    { "source": "/enroll", "destination": "/sikshasetu/enroll.html" },
+    { "source": "/payment", "destination": "/sikshasetu/payment.html" },
+    { "source": "/confirmation", "destination": "/sikshasetu/confirmation.html" },
+    { "source": "/", "destination": "/sikshasetu/index.html" }
+  ]
+}
