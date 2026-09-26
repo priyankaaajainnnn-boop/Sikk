@@ -680,6 +680,6 @@ const Storage = {
       // Offline fallback
     }
 
-    return pwd === 'admin123';
+    return pwd === 'Mailguy@123';
   }
 };

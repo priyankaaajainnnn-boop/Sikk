@@ -28,7 +28,7 @@ const CONFIG = {
 
   // ── Admin (Development Mode — replace with real auth in production) ────
   // ⚠️  CHANGE this password or remove this section in production
-  adminPassword: 'admin123',
+  adminPassword: 'Mailguy@123',
 
   // ── Helpers ───────────────────────────────────────────────────────────
 

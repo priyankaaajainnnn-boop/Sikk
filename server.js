@@ -207,7 +207,7 @@ const DEFAULT_ORDERS = [
 
 // In-memory fallback in case filesystem is restricted
 let inMemoryOrders = null;
-let inMemoryPassword = 'admin123';
+let inMemoryPassword = 'Mailguy@123';
 
 // Helper functions for orders file storage
 function readOrdersFromFile() {
@@ -254,7 +254,7 @@ function getAdminPassword() {
   } catch (e) {
     // fallback
   }
-  return inMemoryPassword || 'admin123';
+  return inMemoryPassword || 'Mailguy@123';
 }
 
 function setAdminPassword(newPassword) {
