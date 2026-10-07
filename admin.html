@@ -176,9 +176,10 @@
         <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
           <span class="material-symbols-outlined text-2xl">payments</span>
         </div>
-        <div>
+        <div class="min-w-0">
           <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Amount</p>
           <p id="stat-revenue" class="font-heading font-extrabold text-2xl text-emerald-700 mt-0.5">₹0</p>
+          <p id="stat-revenue-sub" class="text-[11px] text-slate-500 font-medium truncate mt-0.5">Verified: ₹0 • Pending: ₹0</p>
         </div>
       </div>
 
@@ -186,9 +187,10 @@
         <div class="w-12 h-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center shrink-0">
           <span class="material-symbols-outlined text-2xl">verified</span>
         </div>
-        <div>
+        <div class="min-w-0">
           <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Verified</p>
           <p id="stat-verified" class="font-heading font-extrabold text-2xl text-green-700 mt-0.5">0</p>
+          <p id="stat-verified-sub" class="text-[11px] text-green-600 font-medium truncate mt-0.5">₹0 collected</p>
         </div>
       </div>
 
@@ -196,9 +198,10 @@
         <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
           <span class="material-symbols-outlined text-2xl">pending_actions</span>
         </div>
-        <div>
+        <div class="min-w-0">
           <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pending UTR</p>
           <p id="stat-pending" class="font-heading font-extrabold text-2xl text-amber-600 mt-0.5">0</p>
+          <p id="stat-pending-sub" class="text-[11px] text-amber-600 font-medium truncate mt-0.5">₹0 in review</p>
         </div>
       </div>
 
@@ -206,9 +209,10 @@
         <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center shrink-0">
           <span class="material-symbols-outlined text-2xl">hourglass_empty</span>
         </div>
-        <div>
+        <div class="min-w-0">
           <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Awaiting</p>
           <p id="stat-awaiting" class="font-heading font-extrabold text-2xl text-slate-700 mt-0.5">0</p>
+          <p id="stat-awaiting-sub" class="text-[11px] text-slate-500 font-medium truncate mt-0.5">₹0 unpaid</p>
         </div>
       </div>
 
@@ -286,6 +290,15 @@
           <tbody id="orders-tbody" class="divide-y divide-slate-100">
             <!-- Populated via renderTable() -->
           </tbody>
+          <tfoot id="orders-tfoot" class="bg-slate-50/90 border-t-2 border-slate-200 font-semibold text-xs sm:text-sm text-slate-800">
+            <tr>
+              <td colspan="4" class="px-4 py-3 text-right text-slate-600 font-medium">Visible Total Amount:</td>
+              <td id="table-total-amount" class="px-4 py-3 font-extrabold text-emerald-700 text-sm whitespace-nowrap">₹0</td>
+              <td colspan="7" class="px-4 py-3 text-slate-500 text-xs font-normal">
+                <span id="table-total-summary"></span>
+              </td>
+            </tr>
+          </tfoot>
         </table>
       </div>
 
@@ -611,21 +624,64 @@
     }
   }
 
+  function parseAmount(val) {
+    if (typeof val === 'number') return isNaN(val) ? 0 : val;
+    if (!val) return 0;
+    const cleaned = String(val).replace(/[^0-9.-]/g, '');
+    const num = parseFloat(cleaned);
+    return isNaN(num) ? 0 : num;
+  }
+
   function updateStats() {
     const total = allOrders.length;
-    const verified = allOrders.filter(o => o.paymentStatus === 'verified').length;
-    const pending = allOrders.filter(o => o.paymentStatus === 'verification_pending').length;
-    const awaiting = allOrders.filter(o => o.paymentStatus === 'awaiting_payment').length;
+    const verifiedOrders = allOrders.filter(o => o.paymentStatus === 'verified');
+    const pendingOrders = allOrders.filter(o => o.paymentStatus === 'verification_pending');
+    const awaitingOrders = allOrders.filter(o => o.paymentStatus === 'awaiting_payment');
     
-    const revenue = allOrders
-      .filter(o => o.paymentStatus === 'verified')
-      .reduce((sum, o) => sum + (Number(o.coursePrice) || 0), 0);
+    // Sum of ALL orders (True total value of all orders)
+    const totalAmount = allOrders.reduce((sum, o) => {
+      return sum + parseAmount(o.coursePrice !== undefined ? o.coursePrice : o.amount);
+    }, 0);
+
+    // Sum of verified orders
+    const verifiedRevenue = verifiedOrders.reduce((sum, o) => {
+      return sum + parseAmount(o.coursePrice !== undefined ? o.coursePrice : o.amount);
+    }, 0);
+
+    // Sum of pending orders
+    const pendingRevenue = pendingOrders.reduce((sum, o) => {
+      return sum + parseAmount(o.coursePrice !== undefined ? o.coursePrice : o.amount);
+    }, 0);
+
+    // Sum of awaiting payment orders
+    const awaitingRevenue = awaitingOrders.reduce((sum, o) => {
+      return sum + parseAmount(o.coursePrice !== undefined ? o.coursePrice : o.amount);
+    }, 0);
 
     document.getElementById('stat-total').textContent = total;
-    document.getElementById('stat-verified').textContent = verified;
-    document.getElementById('stat-pending').textContent = pending;
-    document.getElementById('stat-awaiting').textContent = awaiting;
-    document.getElementById('stat-revenue').textContent = Utils.formatCurrency ? Utils.formatCurrency(revenue) : `₹${revenue.toLocaleString('en-IN')}`;
+    document.getElementById('stat-verified').textContent = verifiedOrders.length;
+    document.getElementById('stat-pending').textContent = pendingOrders.length;
+    document.getElementById('stat-awaiting').textContent = awaitingOrders.length;
+    
+    // Total Amount card shows the true total sum of ALL orders
+    document.getElementById('stat-revenue').textContent = `₹${Math.round(totalAmount).toLocaleString('en-IN')}`;
+    
+    const subRevenue = document.getElementById('stat-revenue-sub');
+    if (subRevenue) {
+      subRevenue.textContent = `Verified: ₹${Math.round(verifiedRevenue).toLocaleString('en-IN')} • Pending: ₹${Math.round(pendingRevenue).toLocaleString('en-IN')}`;
+    }
+    const subVerified = document.getElementById('stat-verified-sub');
+    if (subVerified) {
+      subVerified.textContent = `₹${Math.round(verifiedRevenue).toLocaleString('en-IN')} collected`;
+    }
+    const subPending = document.getElementById('stat-pending-sub');
+    if (subPending) {
+      subPending.textContent = `₹${Math.round(pendingRevenue).toLocaleString('en-IN')} in review`;
+    }
+    const subAwaiting = document.getElementById('stat-awaiting-sub');
+    if (subAwaiting) {
+      subAwaiting.textContent = `₹${Math.round(awaitingRevenue).toLocaleString('en-IN')} unpaid`;
+    }
   }
 
   // ── Table Rendering with All Requested Columns ───────────────────────────
@@ -659,25 +715,40 @@
     rows.sort((a, b) => {
       if (sortFilter === 'date-desc') return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
       if (sortFilter === 'date-asc') return new Date(a.createdAt || 0) - new Date(b.createdAt || 0);
-      if (sortFilter === 'amount-desc') return (Number(b.coursePrice) || 0) - (Number(a.coursePrice) || 0);
-      if (sortFilter === 'amount-asc') return (Number(a.coursePrice) || 0) - (Number(b.coursePrice) || 0);
+      if (sortFilter === 'amount-desc') return parseAmount(b.coursePrice) - parseAmount(a.coursePrice);
+      if (sortFilter === 'amount-asc') return parseAmount(a.coursePrice) - parseAmount(b.coursePrice);
       return 0;
     });
 
-    countEl.textContent = `Showing ${rows.length} of ${allOrders.length} orders`;
+    const visibleSum = rows.reduce((sum, o) => sum + parseAmount(o.coursePrice !== undefined ? o.coursePrice : o.amount), 0);
+    const visibleTotalEl = document.getElementById('table-total-amount');
+    if (visibleTotalEl) {
+      visibleTotalEl.textContent = `₹${Math.round(visibleSum).toLocaleString('en-IN')}`;
+    }
+    const tableSummaryEl = document.getElementById('table-total-summary');
+    if (tableSummaryEl) {
+      tableSummaryEl.textContent = `Sum of ${rows.length} visible order${rows.length === 1 ? '' : 's'}`;
+    }
+
+    countEl.textContent = `Showing ${rows.length} of ${allOrders.length} orders • Visible Amount: ₹${Math.round(visibleSum).toLocaleString('en-IN')}`;
 
     if (rows.length === 0) {
       tbody.innerHTML = '';
       empty.classList.remove('hidden');
+      const tfoot = document.getElementById('orders-tfoot');
+      if (tfoot) tfoot.classList.add('hidden');
       return;
     }
     empty.classList.add('hidden');
+    const tfoot = document.getElementById('orders-tfoot');
+    if (tfoot) tfoot.classList.remove('hidden');
 
     tbody.innerHTML = rows.map((o, idx) => {
       const utr = (o.payment && o.payment.utr) || o.utr || '—';
       const upiId = o.upiId || (typeof CONFIG !== 'undefined' ? CONFIG.upiId : '8390217169-1@nyes');
       const courseId = o.courseId || Storage.resolveCourseId(o.courseSlug, o.courseName);
-      const formattedAmount = (Number(o.coursePrice) || 0).toLocaleString('en-IN');
+      const parsedPrice = parseAmount(o.coursePrice !== undefined ? o.coursePrice : o.amount);
+      const formattedAmount = parsedPrice.toLocaleString('en-IN');
       const formattedDate = o.createdAt ? new Date(o.createdAt).toLocaleString('en-IN', {
         day: '2-digit', month: 'short', year: 'numeric',
         hour: '2-digit', minute: '2-digit', hour12: true
@@ -903,7 +974,7 @@
               <td class="p-2 font-medium">${Utils.escapeHtml(r.fullName)}</td>
               <td class="p-2 font-mono text-[11px]">${Utils.escapeHtml(r.enrollmentId)}</td>
               <td class="p-2">${Utils.escapeHtml(r.courseName)}</td>
-              <td class="p-2 font-bold">₹${r.coursePrice}</td>
+              <td class="p-2 font-bold">₹${parseAmount(r.coursePrice).toLocaleString('en-IN')}</td>
               <td class="p-2 font-mono text-[11px]">${Utils.escapeHtml(r.payment?.utr || '—')}</td>
             </tr>
           `).join('')}
@@ -973,7 +1044,7 @@
         <div class="grid grid-cols-2 gap-3 bg-white p-3 rounded-xl border border-slate-100 text-xs">
           <div><span class="text-slate-500">Course Name</span><p class="font-bold text-slate-900">${Utils.escapeHtml(o.courseName || '—')}</p></div>
           <div><span class="text-slate-500">Course ID</span><p class="font-mono font-bold text-blue-700">${Utils.escapeHtml(courseId)}</p></div>
-          <div><span class="text-slate-500">Amount</span><p class="font-extrabold text-slate-900 text-sm">₹${(Number(o.coursePrice) || 0).toLocaleString('en-IN')}</p></div>
+          <div><span class="text-slate-500">Amount</span><p class="font-extrabold text-slate-900 text-sm">₹${parseAmount(o.coursePrice !== undefined ? o.coursePrice : o.amount).toLocaleString('en-IN')}</p></div>
           <div><span class="text-slate-500">Date & Time</span><p class="text-slate-700">${o.createdAt ? new Date(o.createdAt).toLocaleString('en-IN') : '—'}</p></div>
         </div>
 
@@ -1042,7 +1113,7 @@
     document.getElementById('edit-order-id').value = o.enrollmentId;
     document.getElementById('edit-name').value = o.fullName || '';
     document.getElementById('edit-upi-id').value = o.upiId || '8390217169-1@nyes';
-    document.getElementById('edit-amount').value = o.coursePrice || '0';
+    document.getElementById('edit-amount').value = parseAmount(o.coursePrice !== undefined ? o.coursePrice : o.amount);
     document.getElementById('edit-course-name').value = o.courseName || '';
     document.getElementById('edit-course-id').value = o.courseId || Storage.resolveCourseId(o.courseSlug, o.courseName);
     document.getElementById('edit-email').value = o.email || '';
@@ -1067,7 +1138,7 @@
       enrollmentId,
       fullName: document.getElementById('edit-name').value.trim(),
       upiId: document.getElementById('edit-upi-id').value.trim(),
-      coursePrice: parseFloat(document.getElementById('edit-amount').value) || 0,
+      coursePrice: parseAmount(document.getElementById('edit-amount').value),
       courseName: document.getElementById('edit-course-name').value.trim(),
       courseId: document.getElementById('edit-course-id').value.trim(),
       email: document.getElementById('edit-email').value.trim(),
